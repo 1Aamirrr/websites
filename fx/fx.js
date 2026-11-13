@@ -331,7 +331,9 @@
       if (!finished.moved) { return; }
       justDragged = true;
       window.setTimeout(() => { justDragged = false; }, 350);
-      const throwOn = clamp(-finished.speed * 220 * degreesPerPixel(), -step * 1.5, step * 1.5);
+      // Only throw the ring on if the finger was still moving when it lifted.
+      const stillMoving = event && event.timeStamp - finished.lastTime < 120;
+      const throwOn = stillMoving ? clamp(-finished.speed * 220 * degreesPerPixel(), -step * 1.5, step * 1.5) : 0;
       go(Math.round((angle + throwOn) / step), true);
     };
     stage.addEventListener("pointerup", endDrag);
