@@ -12,7 +12,7 @@
   <meta property="og:description" content="Tap a sample to see how your business could look online.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&h=630&q=70">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f4c3a'/%3E%3Cpath d='M7 16l9-8 9 8v9h-6v-6h-6v6H7z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f4c3a'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='7' width='22' height='18' rx='4'/%3E%3Cpath d='M5 13h22M11.5 21l3.2-3.2 2.6 2.6 3.7-3.9'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,7 +39,8 @@
     .top { border-bottom: 1px solid var(--line); }
     .top-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 64px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
-    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: var(--brand); color: #fff; font-weight: 800; font-size: 14px; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: var(--brand); color: #fff; }
+    .brand-mark .logo { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 1px solid transparent; border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
     .btn-wa { background: var(--wa); color: #fff; }
     .btn-wa:hover { background: var(--wa-dark); }
@@ -80,7 +81,28 @@
     @media (min-width: 960px) { .hero { padding-top: 72px; } .section { padding: 60px 0; } .samples { grid-template-columns: repeat(3, 1fr); } }
     @media (hover: hover) { .sample:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); } .sample:hover img { transform: scale(1.05); } }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+    /* ---------- 3D additions (the shared kit lives in fx/) ---------- */
+    .hero { position: relative; }
+    @supports (overflow: clip) { .hero { overflow-x: clip; } }
+    .hero > .wrap { position: relative; z-index: 1; }
+    .hero-grid { display: grid; gap: 34px; }
+    .phone-wrap { position: relative; display: grid; place-items: center; padding: 6px 0 18px; }
+    .float-tag { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: #fff; box-shadow: var(--shadow-lg); font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .float-tag .ico { color: var(--wa); }
+    .float-tag-a { top: 12%; left: calc(50% - 168px); }
+    .float-tag-b { bottom: 16%; left: calc(50% + 26px); }
+    .dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #17a35a; }
+    .btn-wa.btn-3d { --btn-edge: #075c30; }
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: 1.1fr .9fr; align-items: center; gap: 40px; }
+      .phone-wrap { --phone-w: 270px; }
+      .float-tag-a { left: calc(50% - 200px); }
+      .float-tag-b { left: calc(50% + 60px); }
+    }
   </style>
+  <link rel="stylesheet" href="fx/fx.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
@@ -95,7 +117,7 @@
 
   <header class="top">
     <div class="wrap top-row">
-      <div class="brand"><span class="brand-mark" aria-hidden="true">AB</span><span data-owner>Aamir Behlim</span></div>
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="7" width="22" height="18" rx="4"/><path d="M5 13h22"/><path d="M11.5 21l3.2-3.2 2.6 2.6 3.7-3.9"/></svg></span><span data-owner>Aamir Behlim</span></div>
       <a class="btn btn-wa btn-sm" data-wa hidden target="_blank" rel="noopener">
         <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp me</span>
       </a>
@@ -103,14 +125,28 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="wrap">
-        <p class="kicker">Websites for small businesses, <span data-city>Mumbai</span></p>
-        <h1>See how your business could look <span class="hl">online</span></h1>
-        <p class="lead">Tap a sample below. Each one works well on phones, loads fast, and lets customers reach you on WhatsApp in one tap.</p>
-        <a class="btn btn-wa" data-wa hidden target="_blank" rel="noopener">
-          <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Ask for yours on WhatsApp</span>
-        </a>
+    <section class="hero" data-stage-area>
+      <div class="fx-blobs" aria-hidden="true">
+        <span class="fx-blob" data-parallax="0.18" style="left:-70px;top:0;width:280px;height:280px;background:#cfe6da"></span>
+        <span class="fx-blob" data-parallax="0.3" style="right:-60px;top:200px;width:240px;height:240px;background:#f6e2b8"></span>
+      </div>
+      <div class="wrap hero-grid">
+        <div>
+          <p class="kicker">Websites for small businesses, <span data-city>Mumbai</span></p>
+          <h1 data-words>See how your business could look <span class="hl">online</span></h1>
+          <p class="lead">Tap a sample below. Each one works well on phones, loads fast, and lets customers reach you on WhatsApp in one tap.</p>
+          <a class="btn btn-wa btn-3d" data-ripple data-wa hidden target="_blank" rel="noopener">
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Ask for yours on WhatsApp</span>
+          </a>
+        </div>
+        <!-- A phone in 3D with the real broker sample running inside it -->
+        <div class="phone-wrap" data-stage data-stage-max="11" aria-hidden="true">
+          <div class="fx-phone" data-phone data-depth="0" inert>
+            <div class="fx-phone-screen"><iframe src="broker/" title="Live sample website" loading="lazy" tabindex="-1"></iframe></div>
+          </div>
+          <span class="float-tag float-tag-a" data-depth="70"><span class="dot"></span>Live sample</span>
+          <span class="float-tag float-tag-b" data-depth="50"><svg class="ico ico-fill"><use href="#i-wa"/></svg>WhatsApp in one tap</span>
+        </div>
       </div>
     </section>
 
@@ -122,7 +158,7 @@
         </div>
         <div class="samples">
 
-          <a class="sample" href="broker/">
+          <a class="sample reveal" href="broker/" data-tilt data-tilt-max="6">
             <div class="sample-photo"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=450&q=70" alt="" width="800" height="450" onerror="this.remove()"></div>
             <div class="sample-body">
               <h3>Property brokers</h3>
@@ -146,10 +182,10 @@
           <h2>Made for how your customers really use the internet</h2>
         </div>
         <div class="points">
-          <div class="point"><span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg></span><div><h3>Built for phones first</h3><p>Big buttons, clear text, and it fits every screen size.</p></div></div>
-          <div class="point"><span class="point-ico"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg></span><div><h3>WhatsApp in one tap</h3><p>Enquiries arrive on your WhatsApp with the details already typed.</p></div></div>
-          <div class="point"><span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-zap"/></svg></span><div><h3>Fast and simple</h3><p>No logins and no apps to install. It opens in a second.</p></div></div>
-          <div class="point"><span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-edit"/></svg></span><div><h3>Your name, your details</h3><p>Your logo, photos, prices and number. Changes are quick.</p></div></div>
+          <div class="point reveal" data-tilt data-tilt-max="5"><span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg></span><div><h3>Built for phones first</h3><p>Big buttons, clear text, and it fits every screen size.</p></div></div>
+          <div class="point reveal" data-tilt data-tilt-max="5"><span class="point-ico"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg></span><div><h3>WhatsApp in one tap</h3><p>Enquiries arrive on your WhatsApp with the details already typed.</p></div></div>
+          <div class="point reveal" data-tilt data-tilt-max="5"><span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-zap"/></svg></span><div><h3>Fast and simple</h3><p>No logins and no apps to install. It opens in a second.</p></div></div>
+          <div class="point reveal" data-tilt data-tilt-max="5"><span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-edit"/></svg></span><div><h3>Your name, your details</h3><p>Your logo, photos, prices and number. Changes are quick.</p></div></div>
         </div>
       </div>
     </section>
@@ -173,7 +209,31 @@
         var link = "https://wa.me/" + number + "?text=" + encodeURIComponent("Hi " + name.split(" ")[0] + ", I saw your sample websites. I want one for my business.");
         document.querySelectorAll("[data-wa]").forEach(function (node) { node.href = link; node.hidden = false; });
       }
+
+      // Things rise into place as you scroll to them (the look comes from fx/fx.css).
+      var reveals = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+      reveals.forEach(function (node) {
+        var group = Array.prototype.filter.call(node.parentElement.children, function (child) { return child.classList.contains("reveal"); });
+        node.style.setProperty("--d", String(group.indexOf(node)));
+      });
+      if ("IntersectionObserver" in window) {
+        var watcher = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { entry.target.classList.add("is-in"); watcher.unobserve(entry.target); }
+          });
+        }, { threshold: 0.12 });
+        reveals.forEach(function (node) { watcher.observe(node); });
+        // Safety net: never leave something on screen invisible.
+        window.setTimeout(function () {
+          reveals.forEach(function (node) {
+            if (node.getBoundingClientRect().top < window.innerHeight) { node.classList.add("is-in"); }
+          });
+        }, 1200);
+      } else {
+        reveals.forEach(function (node) { node.classList.add("is-in"); });
+      }
     })();
   </script>
+  <script src="fx/fx.js"></script>
 </body>
 </html>

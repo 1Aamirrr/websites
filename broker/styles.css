@@ -114,10 +114,11 @@ button, select, input { font: inherit; color: inherit; }
   border-radius: 11px;
   background: var(--brand);
   color: #fff;
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: .02em;
 }
+.brand-mark .logo { width: 26px; height: 26px; fill: currentColor; }
+.brand-mark-sm { width: 30px; height: 30px; border-radius: 9px; background: rgba(255, 255, 255, .14); }
+.brand-mark-sm .logo { width: 20px; height: 20px; }
+.foot-brand { display: flex; align-items: center; gap: 10px; }
 .brand-name {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -780,4 +781,53 @@ h3 { font-size: 1.05rem; line-height: 1.3; font-weight: 700; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
   .js .reveal { opacity: 1; transform: none; }
+}
+
+/* =====================================================================
+   3D and motion additions (the shared kit lives in ../fx/)
+   ===================================================================== */
+:root { --fx-accent: var(--brand); }
+.hero { position: relative; }
+@supports (overflow: clip) { .hero { overflow-x: clip; } }
+.hero > .wrap { position: relative; z-index: 1; }
+.hero-stage { position: relative; min-width: 0; }
+.hero-photo { width: 100%; }
+.hero-mini {
+  position: absolute;
+  right: 12px;
+  top: 42%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px 8px 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .96);
+  box-shadow: var(--shadow);
+}
+.hero-mini-photo { width: 44px; height: 44px; flex: none; border-radius: 11px; background: #d9e6df center / cover no-repeat; }
+.hero-mini strong { display: block; font-size: 14.5px; line-height: 1.2; }
+.hero-mini small { font-size: 12px; font-weight: 600; color: var(--muted); }
+
+.section-ring { padding-bottom: 6px; }
+.section-ring .section-head { margin-bottom: 4px; }
+.fx-ring { --ring-h: 356px; --ring-w: min(70vw, 280px); color: var(--ink); }
+.ring-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 22px; background: #fff; overflow: hidden; box-shadow: var(--shadow-lg); }
+.ring-photo { position: relative; flex: 1; min-height: 0; background: linear-gradient(135deg, #d9e6df, #b9d0c5); }
+.ring-photo img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.ring-body { display: grid; gap: 3px; padding: 14px 16px 18px; }
+.ring-body .price { font-size: 1.3rem; }
+.ring-body h3 { font-size: 1rem; }
+.ring-body .card-where { font-size: 13.5px; }
+.ring-body .btn { margin-top: 10px; }
+
+.btn-wa.btn-3d, .dock-wa.btn-3d { --btn-edge: #075c30; }
+.btn-brand.btn-3d { --btn-edge: #062a1f; }
+.btn-light.btn-3d { --btn-edge: #b3c9bd; }
+
+@media (min-width: 960px) {
+  .hero-card { left: -26px; bottom: 30px; }
+  .hero-mini { right: -28px; }
+  .hero-chip { right: -16px; top: 28px; }
+  .fx-ring { --ring-h: 380px; --ring-w: 300px; }
 }

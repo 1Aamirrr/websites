@@ -5,7 +5,7 @@
   // 1. SETTINGS. Change these for each client. Nothing else needs editing.
   // ---------------------------------------------------------------------
   const CONFIG = {
-    firm: "Sample Estate Consultants",
+    firm: "Greenkey Realty",
     area: "Dadar",
     city: "Mumbai",
     since: 2007,
@@ -170,9 +170,6 @@
   $$("[data-since]").forEach((node) => { node.textContent = String(CONFIG.since); });
   $("#builtBy").textContent = CONFIG.builtBy;
 
-  const initials = firm.split(" ").filter((word) => /[A-Za-z0-9]/.test(word)).slice(0, 2).map((word) => word[0].toUpperCase()).join("");
-  $("#brandMark").textContent = initials || "RE";
-
   $$('[data-wa="general"]').forEach((node) => {
     node.href = waLink("Hello " + firm + ", I am looking for a property in " + area + ".");
   });
@@ -194,7 +191,7 @@
   // ---------- Sample notice at the top ----------
   $("#demoText").textContent = customFirm
     ? "Sample made for " + firm + " by " + CONFIG.builtBy + ". All details and properties are examples."
-    : "Sample website by " + CONFIG.builtBy + ". Your firm name, listings and number go here.";
+    : "Sample website by " + CONFIG.builtBy + ". All details and properties are examples.";
   const builderNumber = CONFIG.builtByWhatsApp.replace(/\D/g, "");
   if (builderNumber) {
     const link = $("#demoLink");
@@ -264,6 +261,8 @@
   const buildCard = (item, index) => {
     const card = el("article", "card");
     card.style.setProperty("--i", String(index));
+    card.dataset.tilt = "";
+    card.dataset.tiltMax = "5";
 
     const photo = el("div", "card-photo");
     const open = el("button", "card-open");
@@ -325,7 +324,8 @@
     body.appendChild(el("p", "card-note", item.note));
 
     const actions = el("div", "card-actions");
-    const wa = el("a", "btn btn-wa");
+    const wa = el("a", "btn btn-wa btn-3d");
+    wa.dataset.ripple = "";
     wa.target = "_blank";
     wa.rel = "noopener";
     wa.href = enquiryLink(item);
@@ -520,7 +520,8 @@
   }
 
   const closeSheet = () => {
-    if (typeof sheet.close === "function" && sheet.open) { sheet.close(); } else { sheet.removeAttribute("open"); onSheetClosed(); }
+    if (typeof sheet.close === "function" && sheet.open) { sheet.close(); } else { sheet.removeAttribute("open"); }
+    onSheetClosed(); // tidy up right away; the browser's own "close" event can arrive late
   };
   const onSheetClosed = () => {
     document.documentElement.classList.remove("is-locked");
@@ -702,6 +703,50 @@
     ].filter(Boolean);
     window.open(waLink(lines.join("\n")), "_blank", "noopener");
   });
+
+  // ---------------------------------------------------------------------
+  // Featured 3D carousel, and the small card floating on the top photo.
+  // The newest properties come first. The turning itself is done by ../fx/fx.js.
+  // ---------------------------------------------------------------------
+  const featured = LISTINGS.filter((item) => item.isNew).concat(LISTINGS.filter((item) => !item.isNew)).slice(0, 6);
+  const ringTrack = $("#ringTrack");
+  if (ringTrack) {
+    featured.forEach((item) => {
+      const card = el("article", "ring-card");
+      const photo = el("div", "ring-photo");
+      const img = document.createElement("img");
+      img.alt = "";
+      img.draggable = false;
+      img.loading = "lazy";
+      img.addEventListener("error", () => img.remove());
+      img.src = photoUrl(item.photos[0], 600, 400);
+      photo.appendChild(img);
+      const tags = el("div", "card-tags");
+      tags.appendChild(el("span", "badge " + item.deal, item.deal === "rent" ? "For rent" : "For sale"));
+      photo.appendChild(tags);
+      card.appendChild(photo);
+
+      const body = el("div", "ring-body");
+      body.appendChild(el("p", "price", priceText(item)));
+      body.appendChild(el("h3", "", item.title));
+      const where = el("p", "card-where");
+      where.appendChild(icon("pin"));
+      where.appendChild(el("span", "", area + ", " + CONFIG.city));
+      body.appendChild(where);
+      const open = el("button", "btn btn-brand btn-sm btn-3d", "See details");
+      open.type = "button";
+      open.dataset.ripple = "";
+      open.addEventListener("click", () => openSheet(item.id));
+      body.appendChild(open);
+      card.appendChild(body);
+      ringTrack.appendChild(card);
+    });
+  }
+  if (featured[0] && $("#heroMiniPrice")) {
+    $("#heroMiniPrice").textContent = priceText(featured[0]);
+    $("#heroMiniTitle").textContent = featured[0].title;
+    $("#heroMiniPhoto").style.backgroundImage = "url('" + photoUrl(featured[0].photos[0], 120, 120) + "')";
+  }
 
   // ---------- First paint ----------
   render();

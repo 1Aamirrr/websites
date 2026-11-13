@@ -1,0 +1,215 @@
+/* Motion and 3D kit shared by every sample.
+   Load it AFTER the sample's own styles.css. All of it switches off for
+   visitors who ask their phone or computer for reduced motion. */
+
+:root {
+  --fx-ease: cubic-bezier(.2, .8, .2, 1);
+  --fx-accent: #0f4c3a;
+}
+
+/* ---------- 1. Reading progress line at the very top ---------- */
+.fx-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  height: 3px;
+  background: var(--fx-accent);
+  transform: scaleX(var(--fx-progress, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+/* ---------- 2. Tilt: a card leans toward the finger or mouse ---------- */
+[data-tilt] { transition: transform .55s var(--fx-ease), box-shadow .3s ease; }
+[data-tilt].is-tilting, .js [data-tilt].is-tilting { transition: transform .09s linear, box-shadow .3s ease; transition-delay: 0s; }
+.fx-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 58%);
+  mix-blend-mode: soft-light;
+}
+[data-tilt].is-tilting > .fx-glare { opacity: 1; }
+
+/* ---------- 3. Stage: layers at real depths that move apart when it turns ---------- */
+.fx-stage { position: relative; transform-style: preserve-3d; will-change: transform; }
+.fx-stage [data-depth] { transform: translateZ(calc(var(--depth, 0) * 1px)); }
+
+/* ---------- 4. Ring: a 3D carousel you can drag ---------- */
+.fx-ring { position: relative; max-width: 860px; margin-left: auto; margin-right: auto; }
+.fx-ring-stage {
+  position: relative;
+  height: calc(var(--ring-h, 340px) + 56px);
+  overflow: hidden;
+  perspective: 1100px;
+  perspective-origin: 50% 42%;
+  touch-action: pan-y;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.fx-ring.is-dragging .fx-ring-stage { cursor: grabbing; }
+.fx-ring-track {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--ring-w, min(70vw, 280px));
+  height: var(--ring-h, 340px);
+  margin-top: calc(var(--ring-h, 340px) / -2);
+  margin-left: calc(var(--ring-w, min(70vw, 280px)) / -2);
+  transform-style: preserve-3d;
+  transition: transform .7s var(--fx-ease);
+}
+.fx-ring.is-dragging .fx-ring-track { transition: none; }
+.fx-ring-item {
+  position: absolute;
+  inset: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  opacity: .45;
+  filter: saturate(.6);
+  transition: opacity .45s ease, filter .45s ease, box-shadow .45s ease;
+}
+.fx-ring-item.is-near { opacity: .8; filter: saturate(.85); }
+.fx-ring-item.is-front { opacity: 1; filter: none; }
+.fx-ring-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-top: -23px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .96);
+  color: inherit;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.fx-ring-btn:active { transform: scale(.9); }
+.fx-ring-prev { left: 6px; }
+.fx-ring-next { right: 6px; }
+.fx-ring-dots { display: flex; justify-content: center; gap: 4px; margin-top: 2px; }
+.fx-ring-dot { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+.fx-ring-dot::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: currentColor; opacity: .25; transition: width .25s ease, opacity .25s ease; }
+.fx-ring-dot.is-on::before { width: 22px; opacity: .9; }
+.fx-ring-hint { margin-top: 6px; text-align: center; font-size: 13px; font-weight: 600; opacity: .6; }
+
+/* ---------- 5. Sections arrive with a 3D lift as you scroll ---------- */
+.js .reveal {
+  opacity: 0;
+  transform: perspective(900px) rotateX(14deg) translateY(28px);
+  transform-origin: 50% 100%;
+  transition: opacity .6s ease, transform .75s var(--fx-ease);
+  transition-delay: calc(var(--d, 0) * 80ms);
+}
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+/* ---------- 6. Buttons that press down like real buttons ---------- */
+.btn-3d {
+  box-shadow: 0 4px 0 var(--btn-edge, rgba(0, 0, 0, .3)), 0 12px 20px rgba(0, 0, 0, .14);
+  transform: translateY(-2px);
+  transition: transform .1s ease, box-shadow .1s ease, background .15s ease;
+}
+.btn-3d:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 var(--btn-edge, rgba(0, 0, 0, .3)), 0 3px 6px rgba(0, 0, 0, .14);
+}
+
+/* ---------- 7. Tap ripple ---------- */
+[data-ripple] { position: relative; overflow: hidden; }
+.fx-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .28;
+  transform: scale(0);
+  pointer-events: none;
+  animation: fx-ripple .6s ease-out forwards;
+}
+
+/* ---------- 8. Spotlight that follows the mouse on dark panels ---------- */
+[data-spotlight] { position: relative; }
+[data-spotlight] > :not(.fx-spot):not(.fx-glare) { position: relative; z-index: 1; }
+.fx-spot {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .4s ease;
+  background: radial-gradient(420px circle at var(--sx, 50%) var(--sy, 50%), rgba(255, 255, 255, .13), rgba(255, 255, 255, 0) 62%);
+}
+[data-spotlight].is-lit > .fx-spot { opacity: 1; }
+
+/* ---------- 9. Soft colour shapes that drift behind the top of the page ---------- */
+.fx-blobs { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.fx-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: .55;
+  will-change: transform;
+  animation: fx-drift 14s ease-in-out infinite alternate;
+}
+.fx-blob:nth-child(2) { animation-duration: 18s; animation-delay: -6s; }
+.fx-blob:nth-child(3) { animation-duration: 22s; animation-delay: -11s; }
+
+/* ---------- 10. Headline words rise one after another ---------- */
+.fx-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(.55em) rotateX(-55deg);
+  transform-origin: 50% 100%;
+  animation: fx-word .75s var(--fx-ease) forwards;
+  animation-delay: calc(var(--w, 0) * 70ms + 60ms);
+}
+.fx-done .fx-word { opacity: 1; transform: none; animation: none; }
+
+/* ---------- 11. A phone frame that can show a live page ---------- */
+.fx-phone {
+  position: relative;
+  width: var(--phone-w, 250px);
+  aspect-ratio: 375 / 780;
+  padding: 9px;
+  border-radius: 38px;
+  background: linear-gradient(145deg, #2b3431, #0d1412);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, .28), inset 0 0 0 1.5px rgba(255, 255, 255, .12);
+}
+.fx-phone::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 16px;
+  z-index: 2;
+  width: 64px;
+  height: 18px;
+  margin-left: -32px;
+  border-radius: 999px;
+  background: #0d1412;
+}
+.fx-phone-screen { position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: #fff; }
+.fx-phone-screen iframe { position: absolute; left: 0; top: 0; width: 375px; height: 780px; border: 0; transform-origin: 0 0; pointer-events: none; }
+
+@keyframes fx-ripple { to { transform: scale(1); opacity: 0; } }
+@keyframes fx-drift { to { translate: 26px -22px; scale: 1.12; } }
+@keyframes fx-word { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-progress, .fx-glare, .fx-spot, .fx-ripple { display: none; }
+  .fx-blob { animation: none; }
+  .fx-word { opacity: 1; transform: none; animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .fx-ring-track, [data-tilt], .btn-3d { transition: none; }
+}
