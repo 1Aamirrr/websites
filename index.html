@@ -90,15 +90,19 @@
     .phone-wrap { position: relative; display: grid; place-items: center; padding: 6px 0 18px; }
     .float-tag { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: #fff; box-shadow: var(--shadow-lg); font-size: 13px; font-weight: 700; white-space: nowrap; }
     .float-tag .ico { color: var(--wa); }
-    .float-tag-a { top: 12%; left: calc(50% - 168px); }
-    .float-tag-b { bottom: 16%; left: calc(50% + 26px); }
+    .phone-wrap, .phone-wrap .fx-phone { --phone-w: 258px; }
+    .phone-wrap .fx-phone { display: block; -webkit-tap-highlight-color: transparent; }
+    .phone-col { display: grid; justify-items: center; gap: 4px; min-width: 0; }
+    .phone-tabs { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 340px; }
+    .phone-tab { min-height: 40px; padding: 0 14px; border: 1px solid #d8cfc0; border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+    .phone-tab.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .float-tag-a { top: 14%; left: max(6px, calc(50% - var(--phone-w) / 2 - 58px)); }
+    .float-tag-b { bottom: 17%; right: max(6px, calc(50% - var(--phone-w) / 2 - 72px)); }
     .dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #17a35a; }
     .btn-wa.btn-3d { --btn-edge: #075c30; }
     @media (min-width: 900px) {
       .hero-grid { grid-template-columns: 1.1fr .9fr; align-items: center; gap: 40px; }
-      .phone-wrap { --phone-w: 270px; }
-      .float-tag-a { left: calc(50% - 200px); }
-      .float-tag-b { left: calc(50% + 60px); }
+      .phone-wrap, .phone-wrap .fx-phone { --phone-w: 280px; }
     }
   </style>
   <link rel="stylesheet" href="fx/fx.css">
@@ -140,12 +144,21 @@
           </a>
         </div>
         <!-- A phone in 3D with the real broker sample running inside it -->
-        <div class="phone-wrap" data-stage data-stage-max="11" aria-hidden="true">
-          <div class="fx-phone" data-phone data-depth="0" inert>
-            <div class="fx-phone-screen"><iframe src="broker/" title="Live sample website" loading="lazy" tabindex="-1"></iframe></div>
-          </div>
-          <span class="float-tag float-tag-a" data-depth="70"><span class="dot"></span>Live sample</span>
-          <span class="float-tag float-tag-b" data-depth="50"><svg class="ico ico-fill"><use href="#i-wa"/></svg>WhatsApp in one tap</span>
+        <div class="phone-col">
+        <div class="phone-wrap" data-stage data-stage-max="11">
+          <a class="fx-phone" data-phone data-depth="0" href="broker/" aria-label="Open the live broker sample">
+            <div class="fx-phone-screen" inert><iframe src="broker/" title="Live sample website" loading="lazy" tabindex="-1"></iframe></div>
+          </a>
+          <span class="float-tag float-tag-a" data-depth="70" aria-hidden="true"><span class="dot"></span>Live sample</span>
+          <span class="float-tag float-tag-b" data-depth="50" aria-hidden="true"><svg class="ico ico-fill"><use href="#i-wa"/></svg>WhatsApp in one tap</span>
+        </div>
+        <div class="phone-tabs" role="group" aria-label="Choose the sample shown in the phone">
+          <button type="button" class="phone-tab is-on" data-sample="broker/" aria-pressed="true">Broker</button>
+          <button type="button" class="phone-tab" data-sample="clinic/" aria-pressed="false">Clinic</button>
+          <button type="button" class="phone-tab" data-sample="gym/" aria-pressed="false">Gym</button>
+          <button type="button" class="phone-tab" data-sample="salon/" aria-pressed="false">Salon</button>
+          <button type="button" class="phone-tab" data-sample="restaurant/" aria-pressed="false">Restaurant</button>
+        </div>
         </div>
       </div>
     </section>
@@ -166,6 +179,58 @@
                 <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Listings with photos and filters</li>
                 <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>WhatsApp enquiry on every property</li>
                 <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Home loan EMI calculator</li>
+              </ul>
+              <span class="sample-go">Open the sample <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </div>
+          </a>
+
+          <a class="sample reveal" href="clinic/" data-tilt data-tilt-max="6">
+            <div class="sample-photo"><img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=800&h=450&q=70" alt="" width="800" height="450" loading="lazy" onerror="this.remove()"></div>
+            <div class="sample-body">
+              <h3>Dental clinics</h3>
+              <ul>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Appointment picker: treatment, day, time</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Treatments with starting prices</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Open-now timings and emergency call</li>
+              </ul>
+              <span class="sample-go">Open the sample <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </div>
+          </a>
+
+          <a class="sample reveal" href="gym/" data-tilt data-tilt-max="6">
+            <div class="sample-photo"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&h=450&q=70" alt="" width="800" height="450" loading="lazy" onerror="this.remove()"></div>
+            <div class="sample-body">
+              <h3>Gyms and fitness studios</h3>
+              <ul>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Membership plans that show the saving</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Weekly class timetable</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>BMI calculator with a moving dial</li>
+              </ul>
+              <span class="sample-go">Open the sample <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </div>
+          </a>
+
+          <a class="sample reveal" href="salon/" data-tilt data-tilt-max="6">
+            <div class="sample-photo"><img src="https://images.unsplash.com/photo-1595944024804-733665a112db?auto=format&fit=crop&w=800&h=450&q=70" alt="" width="800" height="450" loading="lazy" onerror="this.remove()"></div>
+            <div class="sample-body">
+              <h3>Salons and parlours</h3>
+              <ul>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Service menu with prices and timings</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Build an appointment, book on WhatsApp</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Packages and gift vouchers</li>
+              </ul>
+              <span class="sample-go">Open the sample <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </div>
+          </a>
+
+          <a class="sample reveal" href="restaurant/" data-tilt data-tilt-max="6">
+            <div class="sample-photo"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&h=450&q=70" alt="" width="800" height="450" loading="lazy" onerror="this.remove()"></div>
+            <div class="sample-body">
+              <h3>Restaurants and cafes</h3>
+              <ul>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Menu with veg filter and search</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Cart that sends the order on WhatsApp</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Table booking in three taps</li>
               </ul>
               <span class="sample-go">Open the sample <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
             </div>
@@ -209,6 +274,22 @@
         var link = "https://wa.me/" + number + "?text=" + encodeURIComponent("Hi " + name.split(" ")[0] + ", I saw your sample websites. I want one for my business.");
         document.querySelectorAll("[data-wa]").forEach(function (node) { node.href = link; node.hidden = false; });
       }
+
+      // Buttons under the phone: show a different sample inside it.
+      var phone = document.querySelector(".fx-phone");
+      var tabs = Array.prototype.slice.call(document.querySelectorAll(".phone-tab"));
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabs.forEach(function (other) {
+            var on = other === tab;
+            other.classList.toggle("is-on", on);
+            other.setAttribute("aria-pressed", String(on));
+          });
+          phone.setAttribute("href", tab.dataset.sample);
+          phone.setAttribute("aria-label", "Open the live " + tab.textContent.toLowerCase() + " sample");
+          phone.querySelector("iframe").src = tab.dataset.sample;
+        });
+      });
 
       // Things rise into place as you scroll to them (the look comes from fx/fx.css).
       var reveals = Array.prototype.slice.call(document.querySelectorAll(".reveal"));

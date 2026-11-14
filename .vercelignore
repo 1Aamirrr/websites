@@ -1,4 +1,2 @@
-gym
-clinic
-salon
-restaurant
+# Files Vercel should not upload. All five samples are published now.
+.git

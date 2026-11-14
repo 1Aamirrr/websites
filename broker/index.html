@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="A website made for your property business">
   <meta property="og:description" content="Listings with photos, WhatsApp enquiry on every property, EMI calculator. Tap to see the sample.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&h=630&q=70">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1610526662524-bd113e746fdb?auto=format&fit=crop&w=1200&h=630&q=70">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f4c3a'/%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M16 5.5 27.5 15.2V26.5H4.5V15.2ZM14.3 18.6A2.9 2.9 0 1 1 17.7 18.6L18.6 23.4H13.4Z'/%3E%3C/svg%3E">
@@ -51,6 +51,7 @@
     <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M6 3h12M6 8h12M6 3h4.5a5 5 0 0 1 0 10H6l9 8"/></symbol>
   </svg>
 
   <a class="skip" href="#listings">Skip to listings</a>
@@ -88,17 +89,13 @@
 
     <!-- ============ Top of page ============ -->
     <section class="hero" data-stage-area>
-      <div class="fx-blobs" aria-hidden="true">
-        <span class="fx-blob" data-parallax="0.18" style="left:-70px;top:10px;width:270px;height:270px;background:#cfe6da"></span>
-        <span class="fx-blob" data-parallax="0.3" style="right:-50px;top:170px;width:230px;height:230px;background:#f6e2b8"></span>
-      </div>
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Property consultants in <span data-area>Dadar</span> since <span data-since>2007</span></p>
           <h1 data-words>Find your next home in <span class="hl" data-area>Dadar</span></h1>
-          <p class="lead">Flats, shops and offices for sale and rent. You talk to us directly, not to a call centre.</p>
+          <p class="lead">Flats, shops and offices for sale and rent. You deal with us directly, not with a call centre.</p>
 
-          <form class="search" id="quickSearch">
+          <form class="search" id="quickSearch" role="search" aria-label="Search properties">
             <div class="search-field">
               <label for="qsDeal">I want to</label>
               <select id="qsDeal">
@@ -118,28 +115,27 @@
               </select>
             </div>
             <button class="btn btn-brand btn-3d" data-ripple type="submit">
-              <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span>
+              <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><span>Show properties</span>
             </button>
           </form>
 
           <ul class="trust">
             <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>MahaRERA registered</li>
-            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Site visits 7 days a week</li>
-            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Help with loan and paperwork</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Free site visits, 7 days a week</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Help with home loan and paperwork</li>
           </ul>
         </div>
 
-        <!-- 3D stage: the photo and the small cards sit at different depths -->
-        <div class="hero-stage" data-stage data-stage-max="9">
+        <!-- 3D stage: the photo and the two small cards sit at different depths -->
+        <div class="hero-stage" data-stage data-stage-max="7">
           <div class="hero-photo" data-depth="0">
-            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=70" alt="Residential building" width="1200" height="900" fetchpriority="high" onerror="this.remove()">
+            <img src="https://images.unsplash.com/photo-1610526662524-bd113e746fdb?auto=format&fit=crop&w=1200&q=70" alt="Apartment towers beside a lake" width="1200" height="800" fetchpriority="high" onerror="this.remove()">
           </div>
-          <div class="hero-chip" data-depth="55"><span class="dot" aria-hidden="true"></span>Replies the same day</div>
-          <div class="hero-mini" data-depth="38" aria-hidden="true">
+          <div class="hero-mini" data-depth="44" aria-hidden="true">
             <span class="hero-mini-photo" id="heroMiniPhoto"></span>
-            <span><strong id="heroMiniPrice">&#8377;1.45 Cr</strong><small id="heroMiniTitle">2 BHK flat</small></span>
+            <span class="hero-mini-text"><small>Featured this week</small><strong id="heroMiniPrice">&#8377;1.45 Cr</strong><small id="heroMiniTitle">2 BHK flat</small></span>
           </div>
-          <div class="hero-card" data-depth="75">
+          <div class="hero-card" data-depth="70">
             <span class="hero-card-num" id="heroCount">9</span>
             <span class="hero-card-text">properties<br>available now</span>
           </div>
@@ -147,13 +143,14 @@
       </div>
     </section>
 
-    <!-- ============ Four quick facts ============ -->
+    <!-- ============ Three quick facts ============ -->
     <section class="stats" aria-label="At a glance">
-      <div class="wrap stats-grid">
-        <div class="stat reveal" data-tilt data-tilt-max="6"><span class="stat-num" id="statYears" data-count="19">19</span><span class="stat-label">years working in <span data-area>Dadar</span></span></div>
-        <div class="stat reveal" data-tilt data-tilt-max="6"><span class="stat-num" id="statLive" data-count="9">9</span><span class="stat-label">properties live today</span></div>
-        <div class="stat reveal" data-tilt data-tilt-max="6"><span class="stat-num" data-count="7">7</span><span class="stat-label">days a week for site visits</span></div>
-        <div class="stat reveal" data-tilt data-tilt-max="6"><span class="stat-num" data-count="24">24</span><span class="stat-label">hours at most for a reply</span></div>
+      <div class="wrap">
+        <div class="stats-grid">
+          <div class="stat reveal"><span class="stat-num" id="statYears" data-count="19">19</span><span class="stat-label">years in <span data-area>Dadar</span></span></div>
+          <div class="stat reveal"><span class="stat-num" id="statLive" data-count="9">9</span><span class="stat-label">properties live today</span></div>
+          <div class="stat reveal"><span class="stat-num" data-count="24">24</span><span class="stat-label">hours at most for a reply</span></div>
+        </div>
       </div>
     </section>
 
@@ -167,7 +164,7 @@
           </div>
         </div>
       </div>
-      <div class="fx-ring" data-ring aria-roledescription="carousel" aria-label="Featured properties">
+      <div class="fx-ring" data-ring role="group" aria-roledescription="carousel" aria-label="Featured properties">
         <div class="fx-ring-stage"><div class="fx-ring-track" id="ringTrack"></div></div>
         <button class="fx-ring-btn fx-ring-prev" type="button" aria-label="Previous property"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
         <button class="fx-ring-btn fx-ring-next" type="button" aria-label="Next property"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
@@ -184,7 +181,7 @@
             <p class="kicker">Listings</p>
             <h2>Available now</h2>
           </div>
-          <p class="muted" id="resultCount" aria-live="polite">9 properties</p>
+          <p class="section-note">We have visited every property on this page ourselves. New ones go up every Monday.</p>
         </div>
 
         <div class="filters">
@@ -202,13 +199,16 @@
               <button type="button" class="chip" data-kind="commercial" aria-pressed="false">Shop / office</button>
             </div>
           </div>
-          <div class="sort">
-            <label for="sort">Sort by</label>
-            <select id="sort">
-              <option value="new">Newest first</option>
-              <option value="low">Price: low to high</option>
-              <option value="high">Price: high to low</option>
-            </select>
+          <div class="filters-foot">
+            <p class="result-count" id="resultCount" aria-live="polite">9 properties</p>
+            <div class="sort">
+              <label for="sort">Sort by</label>
+              <select id="sort">
+                <option value="new">Newest first</option>
+                <option value="low">Price: low to high</option>
+                <option value="high">Price: high to low</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -216,7 +216,7 @@
         <noscript><p class="muted">Please turn on JavaScript to see the listings, or message us on WhatsApp.</p></noscript>
 
         <div class="empty" id="empty" hidden>
-          <p><strong>Nothing matches right now.</strong></p>
+          <p class="empty-title">Nothing matches that right now.</p>
           <p class="muted">New properties come in every week. Tell us what you need and we will message you first.</p>
           <div class="empty-actions">
             <a class="btn btn-wa" data-wa="general" target="_blank" rel="noopener" href="#contact">
@@ -231,14 +231,14 @@
     <!-- ============ For owners ============ -->
     <section class="owners-wrap" id="owners">
       <div class="wrap">
-        <div class="owners reveal" data-tilt data-tilt-max="3" data-tilt-lift="0">
-          <div>
+        <div class="owners reveal" data-spotlight>
+          <div class="owners-copy">
             <p class="kicker kicker-light">For owners</p>
             <h2>Own a flat or shop in <span data-area>Dadar</span>?</h2>
-            <p>Send us the details once. We bring serious buyers and tenants, and we handle the visits.</p>
+            <p>Send the details once on WhatsApp. We take proper photos, bring serious buyers and tenants, and handle the visits. You pay only when the deal is done.</p>
           </div>
           <a class="btn btn-light btn-3d" data-ripple data-wa="owner" target="_blank" rel="noopener" href="#contact">
-            <span>List my property</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg>
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>List my property</span>
           </a>
         </div>
       </div>
@@ -254,9 +254,9 @@
           </div>
         </div>
         <ol class="steps">
-          <li class="step reveal" data-tilt data-tilt-max="6"><span class="step-num" aria-hidden="true">1</span><h3>Tell us what you need</h3><p>Budget, area and size. One WhatsApp message is enough.</p></li>
-          <li class="step reveal" data-tilt data-tilt-max="6"><span class="step-num" aria-hidden="true">2</span><h3>Visit the shortlist</h3><p>We line up 3 to 5 matching properties and take you to see them.</p></li>
-          <li class="step reveal" data-tilt data-tilt-max="6"><span class="step-num" aria-hidden="true">3</span><h3>We handle the paperwork</h3><p>Agreement, society papers and loan help until you get the keys.</p></li>
+          <li class="step reveal"><span class="step-num" aria-hidden="true">1</span><div><h3>Tell us what you need</h3><p>Budget, area and size. One WhatsApp message is enough.</p></div></li>
+          <li class="step reveal"><span class="step-num" aria-hidden="true">2</span><div><h3>Visit the shortlist</h3><p>We line up 3 to 5 matching properties and take you to see them, evenings and Sundays too.</p></div></li>
+          <li class="step reveal"><span class="step-num" aria-hidden="true">3</span><div><h3>We handle the paperwork</h3><p>Agreement, society papers, registration and loan help, until you get the keys.</p></div></li>
         </ol>
       </div>
     </section>
@@ -307,47 +307,38 @@
       </div>
     </section>
 
-    <!-- ============ About ============ -->
+    <!-- ============ About and areas ============ -->
     <section class="section" id="about">
       <div class="wrap about-grid">
-        <div>
+        <div class="about-copy">
           <p class="kicker">About us</p>
           <h2>Why people work with <span data-firm>Greenkey Realty</span></h2>
           <p class="lead-sm">We have worked only in <span data-area>Dadar</span> and nearby areas since <span data-since>2007</span>. We know the buildings, the societies and the fair price for each lane.</p>
-          <p class="rera">MahaRERA No. A518000XXXXX</p>
+          <p class="rera">MahaRERA No. A518000XXXXX <span class="tag">Sample</span></p>
+          <div class="areas" id="areas">
+            <h3 class="areas-title">Areas we cover</h3>
+            <ul class="area-list" id="areaList"></ul>
+          </div>
         </div>
         <ul class="points">
-          <li class="reveal" data-tilt data-tilt-max="5">
-            <span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span>
-            <div><h3>Checked papers</h3><p>We check the title, society dues and RERA details before you pay a token.</p></div>
+          <li class="reveal">
+            <svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>
+            <div><h3>Papers checked first</h3><p>We check the title, society dues and RERA details before you pay any token amount.</p></div>
           </li>
-          <li class="reveal" data-tilt data-tilt-max="5">
-            <span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg></span>
-            <div><h3>Only our area</h3><p>Every property on this site is one we have seen ourselves.</p></div>
+          <li class="reveal">
+            <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+            <div><h3>Only our area</h3><p>Every property on this site is one we have seen ourselves. No photos copied from elsewhere.</p></div>
           </li>
-          <li class="reveal" data-tilt data-tilt-max="5">
-            <span class="point-ico"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span>
-            <div><h3>Quick replies</h3><p>Message us on WhatsApp and you get an answer the same day.</p></div>
+          <li class="reveal">
+            <svg class="ico" aria-hidden="true"><use href="#i-rupee"/></svg>
+            <div><h3>Brokerage agreed up front</h3><p>One month's rent on a rental, 1% on a sale. Written down before the first visit.</p></div>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- ============ Areas ============ -->
-    <section class="section section-flush" id="areas">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="kicker">Where we work</p>
-            <h2>Areas we cover</h2>
-          </div>
-        </div>
-        <ul class="area-list" id="areaList"></ul>
-      </div>
-    </section>
-
     <!-- ============ Questions ============ -->
-    <section class="section" id="faq">
+    <section class="section section-top-line" id="faq">
       <div class="wrap faq-grid">
         <div>
           <p class="kicker">Questions</p>
@@ -378,10 +369,10 @@
     <!-- ============ Contact ============ -->
     <section class="section section-dark" id="contact" data-spotlight>
       <div class="wrap contact-grid">
-        <div>
+        <div class="contact-main">
           <p class="kicker kicker-light">Contact</p>
           <h2>Tell us what you are looking for</h2>
-          <p class="lead-sm">Fill this in and it opens WhatsApp with your message ready. Nothing is stored on this website.</p>
+          <p class="lead-sm">Fill this in and WhatsApp opens with your message ready. Nothing is stored on this website.</p>
           <form class="form" id="enquiry" novalidate>
             <label><span>Your name</span>
               <input type="text" name="name" autocomplete="name" maxlength="60" required>
@@ -397,31 +388,54 @@
             <label><span>Budget <span class="opt">(optional)</span></span>
               <input type="text" name="budget" maxlength="40" placeholder="For example 1.5 Cr or 50,000 a month">
             </label>
-            <p class="form-error" id="formError" role="alert" hidden>Please type your name.</p>
+            <p class="form-error" id="formError" role="alert" hidden>Please type your name, so we know whom to reply to.</p>
             <button class="btn btn-light btn-block btn-3d" data-ripple type="submit">
               <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send on WhatsApp</span>
             </button>
           </form>
         </div>
-        <div class="contact-card">
-          <h3 data-firm>Greenkey Realty</h3>
-          <ul class="contact-list">
-            <li>
-              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
-              <a class="contact-phone" data-call href="#contact"><span data-phone-text>98XXX XXXXX</span></a>
-            </li>
-            <li>
-              <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
-              <span>Shop 7, Sunrise Arcade, Station Road, <span data-area>Dadar</span>, <span data-city>Mumbai</span></span>
-            </li>
-            <li>
-              <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>
-              <span>Open every day, 10 am to 8 pm</span>
-            </li>
-          </ul>
-          <div class="map">
-            <iframe id="map" title="Map of the area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div class="contact-side">
+          <h3 class="sr-only">Our office</h3>
+          <!-- A visiting card and a "For sale / To let" board, drawn in code. Both carry the firm's own name. -->
+          <div class="desk-wrap">
+            <div class="desk" id="desk" data-stage data-stage-max="5">
+              <div class="board" data-depth="0" aria-hidden="true">
+                <svg class="board-strings" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M26 30 100 6 174 30" vector-effect="non-scaling-stroke"/></svg>
+                <span class="board-nail"></span>
+                <span class="board-face">
+                  <span class="board-sale">For sale</span>
+                  <span class="board-let">To let</span>
+                  <span class="board-firm" data-firm>Greenkey Realty</span>
+                  <span class="board-phone" data-phone-text>98XXX XXXXX</span>
+                </span>
+              </div>
+              <div class="vc-stack">
+                <div class="vcard-back" data-depth="22" aria-hidden="true"><svg class="logo"><use href="#logo"/></svg></div>
+                <div class="vcard" data-depth="52">
+                  <div class="vc-head">
+                    <span class="vc-mark" aria-hidden="true"><svg class="logo"><use href="#logo"/></svg></span>
+                    <div class="vc-id">
+                      <p class="vc-firm" data-firm>Greenkey Realty</p>
+                      <p class="vc-tag">Property consultants</p>
+                    </div>
+                  </div>
+                  <div class="vc-foot">
+                    <a class="vc-phone contact-phone" data-call href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span data-phone-text>98XXX XXXXX</span></a>
+                    <p class="vc-line">Shop 7, Sunrise Arcade, Station Road, <span data-area>Dadar</span>, <span data-city>Mumbai</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <ul class="contact-list">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span>Open every day, 10 am to 8 pm. Site visits on Sundays too.</span></li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg><span>2 minutes' walk from the station. Look for the green board.</span></li>
+          </ul>
+        </div>
+
+        <div class="map">
+          <iframe id="map" title="Map of the area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
@@ -431,7 +445,7 @@
   <footer class="foot">
     <div class="wrap foot-row">
       <p class="foot-brand"><span class="brand-mark brand-mark-sm" aria-hidden="true"><svg class="logo"><use href="#logo"/></svg></span><span><span data-firm>Greenkey Realty</span>, <span data-area>Dadar</span>, <span data-city>Mumbai</span></span></p>
-      <p class="muted-on-dark">All properties on this page are examples. Website by <span id="builtBy">Aamir Behlim</span>.</p>
+      <p class="muted-on-dark">All details on this page are examples. Website by <span id="builtBy">Aamir Behlim</span>.</p>
     </div>
   </footer>
 

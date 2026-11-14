@@ -29,58 +29,65 @@
     {
       id: "S-101", deal: "sale", kind: "2", title: "2 BHK flat", amount: 14500000, isNew: true,
       sqft: 780, floor: "7th of 14", furnish: "Semi-furnished", baths: 2, parking: "1 covered", facing: "East",
-      note: "5 minutes from the station.",
-      desc: "Bright corner flat with cross ventilation and a balcony off the living room. The society has a lift, power backup and a children's play area.",
+      note: "Corner flat, 5 minutes' walk to the station.",
+      desc: "Bright corner flat with cross ventilation and a balcony off the living room. The society has a lift, power backup and a children's play area. Maintenance is about ₹4,500 a month.",
       amenities: ["Lift", "Power backup", "24-hour security", "Play area"],
-      photos: ["1560448204-e02f11c3d0e2", "1505693416388-ac5ce068fe85", "1556911220-bff31c812dba"]
+      // living room with balcony, bedroom, bathroom
+      photos: ["1665249934445-1de680641f50", "1780777683071-a622896a1bdd", "1730140123802-f1ae008190e4"]
     },
     {
       id: "R-204", deal: "rent", kind: "1", title: "1 BHK flat", amount: 32000, isNew: false,
       sqft: 450, floor: "3rd of 7", furnish: "Furnished", baths: 1, parking: "Bike only", facing: "North",
-      note: "Families and working professionals welcome.",
+      note: "Families and working people welcome.",
       desc: "Comes with a bed, wardrobe, fridge and washing machine. The deposit is three months of rent.",
       amenities: ["Lift", "Piped gas", "Water 24 hours"],
-      photos: ["1502672260266-1c1ef2d93688", "1522771739844-6a9f6d5f14af", "1552321554-5fefe8c9ef14"]
+      // living room with a city view, bedroom, bathroom
+      photos: ["1612419299101-6c294dc2901d", "1771328756144-02bde5549a9a", "1722859033308-c8abfe1161a3"]
     },
     {
       id: "S-102", deal: "sale", kind: "3", title: "3 BHK flat", amount: 26000000, isNew: true,
       sqft: 1150, floor: "11th of 22", furnish: "Unfurnished", baths: 3, parking: "2 covered", facing: "West",
-      note: "Garden-facing, quiet lane.",
-      desc: "Large living room, three bedrooms with attached bathrooms and a separate utility area. Clubhouse and gym in the complex.",
+      note: "Garden-facing, in a quiet lane.",
+      desc: "Large living room, three bedrooms with attached bathrooms and a separate utility area. Clubhouse and gym in the complex. Occupancy certificate received.",
       amenities: ["Clubhouse", "Gym", "Lift", "Power backup", "Garden"],
-      photos: ["1505691938895-1758d7feb511", "1540518614846-7eded433c457", "1484154218962-a197022b5858"]
+      // living room, bedroom with study table, kitchen and dining
+      photos: ["1748957368338-ff3224693be3", "1720420021124-4e18564e070f", "1746517757473-7c88850e539b"]
     },
     {
       id: "R-205", deal: "rent", kind: "2", title: "2 BHK flat", amount: 55000, isNew: false,
       sqft: 720, floor: "5th of 12", furnish: "Semi-furnished", baths: 2, parking: "1 covered", facing: "East",
-      note: "Gated society with lift and security.",
+      note: "Gated society. Free from the 1st of next month.",
       desc: "Modular kitchen, wardrobes in both bedrooms and a geyser in each bathroom. Free from the 1st of next month.",
       amenities: ["Lift", "24-hour security", "Modular kitchen", "Piped gas"],
-      photos: ["1522708323590-d24dbb6b0267", "1616594039964-ae9021a400a0", "1584622650111-993a426fbf0a"]
+      // living and dining room, modular kitchen, bedroom
+      photos: ["1654506012740-09321c969dc2", "1682662045846-77f6e1ce55b4", "1746700060416-5b7100d33618"]
     },
     {
       id: "S-103", deal: "sale", kind: "1", title: "1 BHK flat", amount: 7800000, isNew: false,
       sqft: 410, floor: "2nd of 4", furnish: "Unfurnished", baths: 1, parking: "Open", facing: "South",
-      note: "Good for first-time buyers.",
-      desc: "Well-kept flat in a small, friendly society. Walking distance to the market, school and bus stop.",
+      note: "Small, friendly society. A good first home.",
+      desc: "Well-kept flat in a small, friendly society. Walking distance to the market, school and bus stop. Society maintenance is ₹2,800 a month.",
       amenities: ["Water 24 hours", "Society office", "Close to market"],
-      photos: ["1493809842364-78817add7ffb", "1586023492125-27b2c045efd7", "1552321554-5fefe8c9ef14"]
+      // the building, living room, wash basin
+      photos: ["1573815153723-c43122227d26", "1706098436683-1371255ab387", "1580900512895-21d212a0ac13"]
     },
     {
       id: "S-104", deal: "sale", kind: "commercial", title: "Shop", amount: 9500000, isNew: true,
       sqft: 240, floor: "Ground floor", furnish: "Bare shell", baths: 1, parking: "On street", facing: "Main road",
-      note: "Wide frontage on a busy market road.",
+      note: "12 ft frontage on a busy market road.",
       desc: "12-foot frontage with a loft for storage. Suits a clinic, salon or retail shop.",
       amenities: ["12 ft frontage", "Loft", "Three-phase power"],
-      photos: ["1441986300917-64674bd600d8", "1567401893414-76b7b1e5a7a5", "1604719312566-8912e9227c6a"]
+      // empty shop front, rolling shutter, a fitted shop for ideas
+      photos: ["1758030320753-dbfce21007b2", "1484009479330-67a6e7339295", "1771033834141-023d630b3965"]
     },
     {
       id: "R-206", deal: "rent", kind: "commercial", title: "Office", amount: 85000, isNew: false,
       sqft: 900, floor: "4th of 9", furnish: "Fully fitted", baths: 2, parking: "2 covered", facing: "North",
-      note: "Ready office with a meeting room.",
+      note: "Ready to use, with a meeting room.",
       desc: "12 workstations, a manager's cabin, a meeting room and a pantry. Central air conditioning and two lifts.",
       amenities: ["12 workstations", "Meeting room", "Central AC", "Lift"],
-      photos: ["1497366216548-37526070297c", "1497366811353-6870744d04b2", "1524758631624-e2822e304c36"]
+      // workstations, manager's cabin, meeting room
+      photos: ["1666718622024-dc6bdc808bda", "1684394469715-cb528600aa6d", "1765371512971-9d4da531d004"]
     },
     {
       id: "R-207", deal: "rent", kind: "3", title: "3 BHK flat", amount: 95000, isNew: false,
@@ -88,15 +95,17 @@
       note: "High floor with an open view.",
       desc: "Fully furnished, with air conditioners in every room. Swimming pool, gym and clubhouse in the tower.",
       amenities: ["Swimming pool", "Gym", "Clubhouse", "Power backup"],
-      photos: ["1560185127-6ed189bf02f4", "1600210492486-724fe5c67fb0", "1600607687939-ce8a6c25118c"]
+      // living room, bedroom, dining and kitchen
+      photos: ["1665480894010-641a994b6a92", "1617098900591-3f90928e8c54", "1725257928373-dc6d2ac7b145"]
     },
     {
       id: "S-105", deal: "sale", kind: "2", title: "2 BHK flat", amount: 11200000, isNew: false,
       sqft: 650, floor: "4th of 7", furnish: "Semi-furnished", baths: 2, parking: "1 open", facing: "North-east",
-      note: "Renovated last year.",
+      note: "Renovated last year. Ready to move in.",
       desc: "New flooring, new bathrooms and a modular kitchen. Ready to move in.",
       amenities: ["Lift", "Renovated", "Modular kitchen"],
-      photos: ["1582037928769-181f2644ecb7", "1554995207-c18c203602cb", "1522771739844-6a9f6d5f14af"]
+      // living room, dining and kitchen, living room
+      photos: ["1746439324733-cae3b67aa0fa", "1612320648993-61c1cd604b71", "1667375185256-9bf71ce75e15"]
     }
   ];
 
@@ -202,11 +211,12 @@
   // ---------- Areas and map ----------
   const areaList = $("#areaList");
   (customArea ? [area, "Nearby areas on request"] : CONFIG.nearby).forEach((name) => {
-    const li = el("li");
-    li.appendChild(icon("pin"));
-    li.appendChild(el("span", "", name));
-    areaList.appendChild(li);
+    areaList.appendChild(el("li", "", name));
   });
+
+  // ---------- Visiting card: a long firm name gets a smaller size so it still fits ----------
+  const visitingCard = $(".vcard");
+  if (visitingCard) { visitingCard.classList.toggle("is-long", firm.length > 22); }
   $("#map").src = "https://www.google.com/maps?q=" + encodeURIComponent(area + ", " + CONFIG.city) + "&output=embed";
 
   // ---------------------------------------------------------------------
@@ -306,25 +316,12 @@
     body.appendChild(priceRow);
 
     body.appendChild(el("h3", "card-title", item.title));
-
-    const where = el("p", "card-where");
-    where.appendChild(icon("pin"));
-    where.appendChild(el("span", "", area + ", " + CONFIG.city));
-    body.appendChild(where);
-
-    const facts = el("div", "facts");
-    [["area", item.sqft.toLocaleString("en-IN") + " sq ft"], ["layers", item.floor], ["check", item.furnish]].forEach(([name, text]) => {
-      const fact = el("span", "fact");
-      fact.appendChild(icon(name));
-      fact.appendChild(document.createTextNode(text));
-      facts.appendChild(fact);
-    });
-    body.appendChild(facts);
-
+    // One quiet line of facts: size, floor, furnishing
+    body.appendChild(el("p", "card-meta", [sqftText(item), floorText(item.floor), item.furnish].join(" \u00b7 ")));
     body.appendChild(el("p", "card-note", item.note));
 
     const actions = el("div", "card-actions");
-    const wa = el("a", "btn btn-wa btn-3d");
+    const wa = el("a", "btn btn-wa");
     wa.dataset.ripple = "";
     wa.target = "_blank";
     wa.rel = "noopener";
@@ -346,6 +343,10 @@
     card.appendChild(body);
     return card;
   };
+
+  const sqftText = (item) => item.sqft.toLocaleString("en-IN") + " sq ft";
+  // "7th of 14" reads better on a card as "7th floor of 14"
+  const floorText = (floor) => (/^\d/.test(floor) && floor.indexOf(" of ") > 0 ? floor.replace(" of ", " floor of ") : floor);
 
   const enquiryLink = (item) =>
     waLink("Hello " + firm + ", I am interested in the " + item.title + " in " + area + " (" + priceText(item) + ", ID " + item.id + "). Please share details.");
