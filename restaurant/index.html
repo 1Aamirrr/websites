@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Saffron Tawa Kitchen | Restaurant in Mira Road, Mumbai</title>
+  <meta name="description" content="See the menu, add dishes to your order and send it on WhatsApp. Pickup in 20 minutes, home delivery and table booking.">
+  <!-- This is a sample site, so search engines are asked not to list it. Remove this line for a real client. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#9c2b1b">
+
+  <!-- What WhatsApp shows when this link is shared -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Saffron Tawa Kitchen | Restaurant and cafe in Mira Road">
+  <meta property="og:description" content="A sample restaurant website: menu with a cart, orders and table booking on WhatsApp, open or closed shown live.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=1200&h=630&q=70">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%239c2b1b'/%3E%3Cpath d='M5.5 17.5h21c0 4.7-4.7 8-10.5 8s-10.5-3.3-10.5-8z' fill='%23fff'/%3E%3Cpath d='M3.8 17.5h24.4' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M11 13.5c-1.5-1.7 1.5-3.1 0-5M16 13c-1.7-2 1.7-3.6 0-6M21 13.5c-1.5-1.7 1.5-3.1 0-5' fill='none' stroke='%23f2a31b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Shared motion and 3D kit, one copy for all samples -->
+  <link rel="stylesheet" href="../fx/fx.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- Icons, drawn once and reused across the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- The logo mark: a hot tawa with steam. Used in the header, the footer and the browser tab icon. -->
+    <symbol id="i-logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#9c2b1b"/><path d="M5.5 17.5h21c0 4.7-4.7 8-10.5 8s-10.5-3.3-10.5-8z" fill="#fff"/><path d="M3.8 17.5h24.4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M11 13.5c-1.5-1.7 1.5-3.1 0-5M16 13c-1.7-2 1.7-3.6 0-6M21 13.5c-1.5-1.7 1.5-3.1 0-5" fill="none" stroke="#f2a31b" stroke-width="2" stroke-linecap="round"/></symbol>
+    <!-- The same mark in one ink colour, as it would be printed on a paper bag or a bill -->
+    <symbol id="i-logo-print" viewBox="0 0 32 32"><path d="M5.5 17.5h21c0 4.7-4.7 8-10.5 8s-10.5-3.3-10.5-8z" fill="currentColor"/><path d="M3.8 17.5h24.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M11 13.5c-1.5-1.7 1.5-3.1 0-5M16 13c-1.7-2 1.7-3.6 0-6M21 13.5c-1.5-1.7 1.5-3.1 0-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-3.2-2.2-5.2-3.6-7.4-.5 1.6-1.2 2.5-2.4 3.1C13.3 7.4 11.8 4.5 9 2c.3 3.6-4 6.4-4 13a7 7 0 0 0 7 7z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol>
+  </svg>
+
+  <a class="skip" href="#menu">Skip to the menu</a>
+
+  <div class="demo-bar">
+    <span id="demoText">Sample website. All details, prices and timings are examples.</span>
+    <a id="demoLink" class="demo-link" hidden target="_blank" rel="noopener">Get yours</a>
+  </div>
+
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#home" aria-label="Home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-logo"/></svg>
+        <span class="brand-name" data-firm>Saffron Tawa Kitchen</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#menu">Menu</a>
+        <a href="#book">Book a table</a>
+        <a href="#gallery">Photos</a>
+        <a href="#faq">Questions</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="top-actions">
+        <a class="btn btn-wa btn-sm only-wide" data-wa="general" target="_blank" rel="noopener" href="#contact">
+          <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span>
+        </a>
+        <a class="btn btn-ghost btn-sm" data-call href="#contact">
+          <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- ============ Top of page ============ -->
+    <section class="hero" data-stage-area>
+      <div class="fx-blobs" aria-hidden="true">
+        <span class="fx-blob" data-parallax="0.18" style="left:-70px;top:10px;width:270px;height:270px;background:#f8d6c3"></span>
+        <span class="fx-blob" data-parallax="0.3" style="right:-50px;top:170px;width:230px;height:230px;background:#fbe2a9"></span>
+      </div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Family restaurant and cafe, since <span data-since>2012</span></p>
+          <h1 data-words>Fresh, hot food in <span class="hl" data-area>Mira Road</span></h1>
+          <p class="lead">Choose your dishes, send the order on WhatsApp and collect it hot in <span data-pickup>20</span> minutes.</p>
+
+          <div class="hero-cta">
+            <a class="btn btn-wa btn-3d" data-ripple href="#menu">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Order on WhatsApp</span>
+            </a>
+            <a class="btn btn-quiet" href="#book">
+              <svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg><span>Book a table</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3D stage: the photo and the small cards sit at different depths -->
+        <div class="hero-stage" data-stage data-stage-max="9">
+          <div class="hero-photo" data-depth="0">
+            <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=1200&h=900&q=70" alt="Paneer butter masala with rice and papad" width="1200" height="900" fetchpriority="high" onerror="this.remove()">
+          </div>
+          <div class="hero-chip" id="heroChip" data-depth="55"><span class="dot" aria-hidden="true"></span><span id="heroStatus">Open every day</span></div>
+          <div class="hero-mini" data-depth="40" aria-hidden="true">
+            <span class="mark" id="heroMiniMark"></span>
+            <span><strong id="heroMiniName">Paneer Butter Masala</strong><small><span id="heroMiniTag">Bestseller</span> <span id="heroMiniPrice">&#8377;270</span></small></span>
+          </div>
+          <div class="hero-card" data-depth="75">
+            <span class="hero-card-num" data-pickup>20</span>
+            <span class="hero-card-text">minutes for<br>a pickup order</span>
+          </div>
+        </div>
+
+        <ul class="trust">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Order directly, no app needed</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Separate pure veg kitchen section</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span data-landmark>2 minutes from the station</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ Today: open or closed right now, pickup and delivery in one line each ============ -->
+    <section class="today" aria-label="Today at a glance">
+      <div class="wrap">
+        <div class="today-card reveal" id="statusCard">
+          <div class="today-main">
+            <p class="status-line"><span class="dot" aria-hidden="true"></span><span id="statusText">Open every day for lunch and dinner</span></p>
+            <p class="today-hours" id="statusToday">See the timings for each day below.</p>
+          </div>
+          <dl class="today-facts">
+            <div><dt>Pickup</dt><dd>Ready in <span data-pickup>20</span> minutes</dd></div>
+            <div><dt>Home delivery</dt><dd>Within <span data-km>3</span> km, from <span data-min>&#8377;300</span></dd></div>
+          </dl>
+          <a class="text-link" href="#timings">All timings<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Bestsellers: 3D carousel ============ -->
+    <section class="section section-ring" id="bestsellers">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Bestsellers</p>
+            <h2>The dishes people come back for</h2>
+          </div>
+        </div>
+      </div>
+      <div class="fx-ring" data-ring data-ring-auto="4600" role="group" aria-roledescription="carousel" aria-label="Bestseller dishes">
+        <div class="fx-ring-stage"><div class="fx-ring-track" id="ringTrack"></div></div>
+        <button class="fx-ring-btn fx-ring-prev" type="button" aria-label="Previous dish"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+        <button class="fx-ring-btn fx-ring-next" type="button" aria-label="Next dish"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+        <div class="fx-ring-dots"></div>
+        <p class="fx-ring-hint">Drag to turn</p>
+      </div>
+    </section>
+
+    <!-- ============ Menu and order. Today's specials are the first group in the list. ============ -->
+    <section class="section" id="menu">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Menu</p>
+            <h2 id="menuTitle" tabindex="-1">Order from our menu</h2>
+          </div>
+        </div>
+
+        <div class="menu-tools">
+          <div class="search-box">
+            <label class="vh" for="dishSearch">Search the menu by dish name</label>
+            <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+            <input type="search" id="dishSearch" placeholder="Search a dish" autocomplete="off" maxlength="40" enterkeyhint="search">
+            <button type="button" class="search-clear" id="searchClear" aria-label="Clear the search" hidden>
+              <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+            </button>
+          </div>
+          <button type="button" class="veg-toggle" id="vegOnly" aria-pressed="false">
+            <span class="mark" aria-hidden="true"></span><span>Veg only</span><span class="switch" aria-hidden="true"></span>
+          </button>
+          <p class="result-count" id="resultCount" aria-live="polite">24 dishes</p>
+        </div>
+
+        <div class="menu-bar" id="menuBar">
+          <div class="chips" id="cats" role="group" aria-label="Menu sections"></div>
+        </div>
+
+        <div class="menu-body" id="menuBody">
+          <div class="menu-list" id="menuList"></div>
+          <noscript><p class="muted">Please turn on JavaScript to see the menu, or message us on WhatsApp.</p></noscript>
+
+          <div class="empty" id="empty" hidden>
+            <p class="empty-title" id="emptyTitle">No dish matches.</p>
+            <p class="muted">Try a shorter name, or ask us on WhatsApp. If the kitchen has it, we will make it.</p>
+            <div class="empty-actions">
+              <button class="btn btn-ghost" type="button" id="resetMenu">Show the full menu</button>
+              <a class="btn btn-wa" data-wa="general" target="_blank" rel="noopener" href="#contact">
+                <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Ask on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p class="menu-note">
+          <span class="legend"><span class="mark" aria-hidden="true"></span>Veg</span>
+          <span class="legend"><span class="mark nonveg" aria-hidden="true"></span>Non-veg</span>
+          <span>Jain or less spicy? Write it in your WhatsApp message.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ How an order reaches you, with the takeaway bag and its bill ============ -->
+    <section class="section section-tint" id="order" data-stage-area>
+      <div class="wrap order-grid">
+        <!-- A takeaway bag drawn in code. The name on it is the restaurant name; the bill shows the visitor's own order. -->
+        <div class="bag-scene" id="bagScene" role="img" aria-label="A takeaway bag with the bill stapled to it">
+          <div class="bag-stage" data-stage data-stage-max="7">
+            <div class="bag-shadow" data-depth="-30"></div>
+            <div class="bag" data-depth="0">
+              <svg class="bag-handles" viewBox="0 0 240 64" aria-hidden="true" focusable="false"><path d="M76 64C76 6 112 6 112 64M128 64C128 6 164 6 164 64"/></svg>
+              <div class="bag-body">
+                <svg class="bag-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-logo-print"/></svg>
+                <strong class="bag-name" data-firm>Saffron Tawa Kitchen</strong>
+                <span class="bag-line"><span data-area>Mira Road</span>, since <span data-since>2012</span></span>
+                <span class="bag-thanks">Thank you. Eat it while it is hot.</span>
+              </div>
+            </div>
+            <div class="bill" data-depth="38">
+              <div class="bill-paper">
+                <span class="staple"></span>
+                <strong class="bill-name" data-firm>Saffron Tawa Kitchen</strong>
+                <span class="bill-meta" id="billMeta">Today</span>
+                <ul class="bill-lines" id="billLines"></ul>
+                <p class="bill-total"><span>Total</span><strong id="billTotal">&#8377;0</strong></p>
+                <span class="bill-foot" id="billFoot">Sample bill</span>
+              </div>
+            </div>
+            <div class="bag-sticker" data-depth="62"><span>Packed<br>hot</span></div>
+          </div>
+        </div>
+
+        <div class="order-copy">
+          <p class="kicker">Pickup and home delivery</p>
+          <h2>Packed hot, with the bill on the bag</h2>
+          <ol class="flow">
+            <li><strong>Send your order on WhatsApp.</strong> Add dishes from the menu and press send. No app and no login.</li>
+            <li><strong>We reply with the total and the time.</strong> The kitchen starts only after that reply.</li>
+            <li><strong>Collect it, or get it at home.</strong> Pickup in <span data-pickup>20</span> minutes. Home delivery within <span data-km>3</span> km, on orders from <span data-min>&#8377;300</span>.</li>
+          </ol>
+          <p class="pay-line">Pay by UPI, cash or card, at the counter or at your door.</p>
+          <button class="btn btn-brand btn-3d" data-ripple type="button" id="orderGo">Start my order</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Table booking ============ -->
+    <section class="section" id="book">
+      <div class="wrap book-grid">
+        <div>
+          <p class="kicker">Book a table</p>
+          <h2>Coming with family or friends?</h2>
+          <p class="lead-sm">Pick the day, the time and the number of people. Your request opens in WhatsApp and we reply there to confirm.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Your table is booked only after we confirm on WhatsApp</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>For 10 or more people, please ask one day before</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>High chairs for small children</li>
+          </ul>
+        </div>
+
+        <form class="book-card reveal" id="bookForm" novalidate>
+          <div class="field-row">
+            <label class="field"><span>Date</span>
+              <input type="date" id="bookDate" name="date" required>
+            </label>
+            <label class="field"><span>Time</span>
+              <select id="bookTime" name="time"></select>
+            </label>
+          </div>
+          <div class="people">
+            <span class="people-label" id="peopleLabel">Number of people</span>
+            <div class="qty qty-light" role="group" aria-labelledby="peopleLabel">
+              <button type="button" class="qty-btn" id="peopleMinus" aria-label="One person less"><svg class="ico" aria-hidden="true"><use href="#i-minus"/></svg></button>
+              <output class="qty-num" id="peopleCount" aria-live="polite">2</output>
+              <button type="button" class="qty-btn" id="peoplePlus" aria-label="One more person"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button>
+            </div>
+          </div>
+          <label class="field"><span>Your name</span>
+            <input type="text" id="bookName" name="name" autocomplete="name" maxlength="60" required>
+          </label>
+          <p class="form-error" id="bookError" role="alert" hidden></p>
+          <a class="btn btn-wa btn-block btn-3d" data-ripple id="bookSend" href="#book" target="_blank" rel="noopener">
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Request a table on WhatsApp</span>
+          </a>
+          <p class="fine" id="bookNote">This is a request. Your table is booked only when we reply on WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ Party orders ============ -->
+    <section class="band-wrap" id="party">
+      <div class="wrap">
+        <div class="band reveal" data-tilt data-tilt-max="3" data-tilt-lift="0" data-spotlight>
+          <div>
+            <p class="kicker kicker-light">Party and bulk orders</p>
+            <h2>Birthday at home or lunch for the office?</h2>
+            <p>Tell us the number of people one day before. We send a menu with the price, and the food reaches you hot.</p>
+          </div>
+          <a class="btn btn-light btn-3d" data-ripple data-wa="party" target="_blank" rel="noopener" href="#contact">
+            <span>Ask about a party order</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Photos ============ -->
+    <section class="section" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Photos</p>
+            <h2>From our kitchen and our tables</h2>
+          </div>
+          <p class="head-note">Tap a photo to see it larger</p>
+        </div>
+        <div class="gal-grid" id="galGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ Questions ============ -->
+    <section class="section section-flush" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="kicker">Questions</p>
+          <h2>Things people ask us</h2>
+          <p class="lead-sm">Not here? Ask on WhatsApp. We answer during working hours.</p>
+        </div>
+        <div class="faq">
+          <details class="reveal">
+            <summary>Do you deliver to my home?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. We deliver in <span data-area>Mira Road</span> and up to <span data-km>3</span> km around. Send your order on WhatsApp with your address and we tell you the time.</p>
+          </details>
+          <details class="reveal">
+            <summary>What is the minimum order?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p><span data-min>&#8377;300</span> for home delivery. There is no minimum for pickup or for eating here.</p>
+          </details>
+          <details class="reveal">
+            <summary>Do you take party and bulk orders?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes, for birthdays, office lunches and functions at home. Tell us the number of people one day before and we send a menu with the price.</p>
+          </details>
+          <details class="reveal">
+            <summary>Can you make Jain food?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes, on request. Most veg dishes can be made without onion, garlic and root vegetables. Write the word Jain in your WhatsApp message.</p>
+          </details>
+          <details class="reveal">
+            <summary>Is veg food cooked separately?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. Veg food has its own section in the kitchen, with separate vessels and oil.</p>
+          </details>
+          <details class="reveal">
+            <summary>How do I know you got my order?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>We reply on WhatsApp with the total and the time. Your order is confirmed only after that reply.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section class="section section-dark" id="contact" data-spotlight>
+      <div class="wrap contact-grid">
+        <div>
+          <p class="kicker kicker-light">Contact</p>
+          <h2>Come over, or order in</h2>
+          <p class="lead-sm">Message us for orders, table bookings and party menus. Nothing you type on this website is stored.</p>
+          <div class="contact-cta">
+            <a class="btn btn-light btn-3d" data-ripple data-wa="general" target="_blank" rel="noopener" href="#contact">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp us</span>
+            </a>
+            <a class="btn btn-line" data-call href="#contact">
+              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span>
+            </a>
+          </div>
+
+          <div class="hours" id="timings">
+            <div class="hours-head">
+              <h3>Timings</h3>
+              <span class="status-pill" id="hoursPill" hidden></span>
+            </div>
+            <table class="hours-table">
+              <caption class="vh">Opening hours for each day of the week</caption>
+              <tbody id="hoursBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3 data-firm>Saffron Tawa Kitchen</h3>
+          <ul class="contact-list">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+              <span>Shop 3, Sunrise Arcade, <span data-area>Mira Road</span>, <span data-city>Mumbai</span><small data-landmark>2 minutes from the station</small></span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+              <a class="contact-phone" data-call href="#contact"><span data-phone-text>98XXX XXXXX</span></a>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>
+              <span id="contactToday">Open every day for lunch and dinner</span>
+            </li>
+          </ul>
+          <div class="map">
+            <iframe id="map" title="Map of the area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <div class="foot-brand">
+        <svg class="foot-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-logo"/></svg>
+        <p><span data-firm>Saffron Tawa Kitchen</span>, <span data-area>Mira Road</span>, <span data-city>Mumbai</span><small>FSSAI Lic. No. 1152XXXXXXXXXX</small></p>
+      </div>
+      <p class="muted-on-dark">All details on this page are examples. Website by <span id="builtBy">Aamir Behlim</span>.</p>
+    </div>
+  </footer>
+
+  <!-- Order bar: shows after the first dish is added -->
+  <button class="cartbar" id="cartBar" type="button" data-ripple aria-haspopup="dialog" hidden>
+    <span class="cartbar-ico"><svg class="ico" aria-hidden="true"><use href="#i-bag"/></svg></span>
+    <span class="cartbar-text"><span id="cartBarCount">1 item</span><strong id="cartBarTotal">&#8377;0</strong></span>
+    <span class="cartbar-go">View order<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+  </button>
+
+  <!-- Phone only: call and WhatsApp always within thumb reach -->
+  <nav class="dock" aria-label="Quick contact">
+    <a class="dock-btn" data-call href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span></a>
+    <a class="dock-btn dock-wa btn-3d" data-ripple data-wa="general" target="_blank" rel="noopener" href="#contact"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+  </nav>
+
+  <!-- Read out by screen readers when the order changes -->
+  <p class="vh" id="cartLive" role="status" aria-live="polite"></p>
+
+  <!-- The order: opens from the order bar -->
+  <dialog class="sheet" id="cart" aria-labelledby="cartTitle">
+    <div class="sheet-head">
+      <h2 class="sheet-title" id="cartTitle">Your order</h2>
+      <button class="sheet-close" id="cartClose" type="button" aria-label="Close your order">
+        <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="sheet-scroll" id="cartScroll">
+      <div class="cart-empty" id="cartEmpty" hidden>
+        <span class="cart-empty-ico"><svg class="ico" aria-hidden="true"><use href="#i-bag"/></svg></span>
+        <p class="empty-title">Nothing in your order yet.</p>
+        <p class="muted">Add a dish or two from the menu and come back here.</p>
+        <button class="btn btn-brand btn-3d" data-ripple type="button" id="cartBack">See the menu</button>
+      </div>
+
+      <div class="cart-full" id="cartFull">
+        <ul class="cart-list" id="cartList"></ul>
+        <div class="cart-sub">
+          <button class="text-btn" id="cartClear" type="button"><svg class="ico" aria-hidden="true"><use href="#i-trash"/></svg>Remove all</button>
+          <p class="cart-sub-total"><span>Total</span><strong id="cartTotal">&#8377;0</strong></p>
+        </div>
+
+        <form class="cart-form" id="cartForm" novalidate>
+          <fieldset class="order-type">
+            <legend>How do you want it?</legend>
+            <div class="seg">
+              <label class="seg-opt"><input type="radio" name="type" value="delivery" checked><span>Home delivery</span></label>
+              <label class="seg-opt"><input type="radio" name="type" value="pickup"><span>Pickup</span></label>
+            </div>
+          </fieldset>
+          <p class="type-note" id="typeNote"></p>
+          <label class="field"><span>Your name</span>
+            <input type="text" id="cartName" name="name" autocomplete="name" maxlength="60" required>
+          </label>
+          <label class="field" id="addressField"><span>Delivery address</span>
+            <textarea id="cartAddress" name="address" rows="2" maxlength="160" autocomplete="street-address" placeholder="Flat, building, road and a landmark"></textarea>
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <div class="sheet-actions" id="cartActions">
+      <p class="form-error" id="cartError" role="alert" hidden></p>
+      <a class="btn btn-wa btn-block btn-3d" data-ripple id="cartSend" href="#menu" target="_blank" rel="noopener">
+        <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send order on WhatsApp</span>
+      </a>
+      <p class="fine" id="cartFine" role="status">We reply on WhatsApp with the time. Pay by UPI, cash or card.</p>
+    </div>
+  </dialog>
+
+  <!-- Larger photo: opens from the photo grid -->
+  <dialog class="lightbox" id="lightbox" aria-label="Photos">
+    <div class="lb-top">
+      <p class="lb-count" id="lbCount" aria-live="polite">Photo 1 of 5</p>
+      <button class="lb-close" id="lbClose" type="button" aria-label="Close photos">
+        <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+    <figure class="lb-fig">
+      <div class="lb-frame">
+        <img id="lbImg" alt="" width="1200" height="900">
+        <button class="gal-btn gal-prev" id="lbPrev" type="button" aria-label="Previous photo"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+        <button class="gal-btn gal-next" id="lbNext" type="button" aria-label="Next photo"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+      </div>
+      <figcaption id="lbCap"></figcaption>
+    </figure>
+  </dialog>
+
+  <script src="../owner.js"></script>
+  <script src="app.js"></script>
+  <script src="../fx/fx.js"></script>
+</body>
+</html>

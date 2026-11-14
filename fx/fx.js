@@ -232,6 +232,7 @@
     let quietUntil = 0;
     let drag = null;
     let justDragged = false;
+    let paused = false;
 
     const dotsBox = ring.querySelector(".fx-ring-dots");
     const dots = [];
@@ -241,7 +242,8 @@
         const dot = document.createElement("button");
         dot.type = "button";
         dot.className = "fx-ring-dot";
-        dot.setAttribute("aria-label", "Show item " + (i + 1) + " of " + count);
+        const title = item.querySelector("[data-ring-label], h2, h3, h4");
+        dot.setAttribute("aria-label", "Show " + (title ? title.textContent.trim() : "item " + (i + 1)) + " (" + (i + 1) + " of " + count + ")");
         dot.addEventListener("click", () => {
           const now = Math.round(angle / step);
           let move = i - (((now % count) + count) % count);
@@ -303,6 +305,7 @@
     stage.addEventListener("pointerdown", (event) => {
       if (event.button !== undefined && event.button !== 0) { return; }
       justDragged = false;
+      quietUntil = performance.now() + 7000; // someone is touching it: do not turn by itself
       drag = { id: event.pointerId, x: event.clientX, from: angle, moved: false, lastX: event.clientX, lastTime: event.timeStamp, speed: 0 };
     });
     stage.addEventListener("pointermove", (event) => {
@@ -347,6 +350,9 @@
         event.stopPropagation();
         return;
       }
+      // A keyboard "click" (Enter or Space) has no position, and a click on the front card
+      // belongs to that card. Neither may turn the ring.
+      if (event.detail === 0 || closest(event.target, ".fx-ring-item.is-front")) { return; }
       const rect = stage.getBoundingClientRect();
       const half = (track.offsetWidth || 280) / 2;
       const middle = rect.left + rect.width / 2;
@@ -358,8 +364,21 @@
       new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; }, { threshold: 0.35 }).observe(ring);
     }
     if (!reduce && ring.dataset.ringAuto !== "off") {
+      // A pause button, so nobody is forced to watch it move.
+      if (dotsBox) {
+        const pause = document.createElement("button");
+        pause.type = "button";
+        pause.className = "fx-ring-pause";
+        pause.setAttribute("aria-label", "Pause the carousel");
+        pause.addEventListener("click", () => {
+          paused = !paused;
+          pause.classList.toggle("is-paused", paused);
+          pause.setAttribute("aria-label", paused ? "Play the carousel" : "Pause the carousel");
+        });
+        dotsBox.appendChild(pause);
+      }
       window.setInterval(() => {
-        if (!visible || document.hidden || drag || performance.now() < quietUntil) { return; }
+        if (paused || !visible || document.hidden || drag || performance.now() < quietUntil) { return; }
         if (canHover && ring.matches(":hover")) { return; }
         if (ring.contains(document.activeElement)) { return; }
         go(position() + 1, false);
@@ -414,7 +433,9 @@
   // ---------------------------------------------------------------------
   // 7. Headline words rise one after another
   // ---------------------------------------------------------------------
-  if (!reduce) {
+  // Inside the phone mockup the page is a small preview, so the headline simply shows.
+  const framed = window.self !== window.top;
+  if (!reduce && !framed) {
     $$("[data-words]").forEach((heading) => {
       heading.setAttribute("aria-label", heading.textContent.replace(/\s+/g, " ").trim());
       let index = 0;
@@ -452,9 +473,54 @@
     const screen = phone.querySelector(".fx-phone-screen");
     const frame = phone.querySelector("iframe");
     if (!screen || !frame) { return; }
-    const fit = () => { frame.style.transform = "scale(" + (screen.clientWidth / 375).toFixed(4) + ")"; };
+    // Dress the frame as an iPhone: status bar, Dynamic Island, home line, glass shine.
+    const status = document.createElement("div");
+    status.className = "fx-phone-status";
+    status.innerHTML =
+      '<span>9:41</span><span class="fx-phone-icons">' +
+      '<svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".7"/><rect x="5" y="5.5" width="3" height="6.5" rx=".7"/><rect x="10" y="3" width="3" height="9" rx=".7"/><rect x="15" y="0" width="3" height="12" rx=".7"/></svg>' +
+      '<svg viewBox="0 0 16 12"><path d="M1.2 4.3a9.8 9.8 0 0 1 13.6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3.7 6.9a6.2 6.2 0 0 1 8.6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="10" r="1.4"/></svg>' +
+      '<svg viewBox="0 0 27 12"><rect x=".6" y=".6" width="22" height="10.8" rx="3.2" fill="none" stroke="currentColor" stroke-opacity=".45" stroke-width="1.1"/><rect x="2.2" y="2.2" width="18.8" height="7.6" rx="1.9"/><rect x="24" y="4" width="2" height="4" rx="1" fill-opacity=".45"/></svg>' +
+      "</span>";
+    const island = document.createElement("span");
+    island.className = "fx-phone-island";
+    const home = document.createElement("span");
+    home.className = "fx-phone-home";
+    const glare = document.createElement("span");
+    glare.className = "fx-phone-glare";
+    [status, island, home, glare].forEach((part) => { part.setAttribute("aria-hidden", "true"); screen.appendChild(part); });
+
+    // The page sits under the status bar and is scaled to the phone's width.
+    const fit = () => {
+      const scale = screen.clientWidth / 393;
+      const top = status.offsetHeight;
+      frame.style.top = top + "px";
+      frame.style.height = Math.ceil((screen.clientHeight - top) / scale) + "px";
+      frame.style.transform = "scale(" + scale.toFixed(4) + ")";
+    };
+    // The status bar takes the colour of whatever is at the top of the page, like a real phone.
+    const paint = () => {
+      try {
+        const inner = frame.contentWindow;
+        const doc = inner.document;
+        let node = doc.elementFromPoint(12, 3) || doc.body;
+        let colour = "";
+        while (node && node.nodeType === 1) {
+          const bg = inner.getComputedStyle(node).backgroundColor;
+          if (bg && bg !== "transparent" && !/, 0\)$/.test(bg)) { colour = bg; break; }
+          node = node.parentElement;
+        }
+        if (!colour) { return; }
+        const parts = colour.match(/[\d.]+/g).map(Number);
+        status.style.background = "rgb(" + parts[0] + "," + parts[1] + "," + parts[2] + ")";
+        status.dataset.tone = (0.299 * parts[0] + 0.587 * parts[1] + 0.114 * parts[2]) / 255 < 0.55 ? "light" : "dark";
+      } catch (error) { /* the page inside is not ours to read */ }
+    };
     fit();
+    paint();
+    frame.addEventListener("load", () => { fit(); paint(); });
     window.addEventListener("resize", fit);
+    window.setInterval(paint, 700);
     if (reduce || !("IntersectionObserver" in window)) { return; }
 
     let seen = false;

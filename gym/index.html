@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ironleaf Fitness | Gym in Andheri West, Mumbai</title>
+  <meta name="description" content="Ironleaf Fitness, gym and fitness studio in Andheri West. See plans and prices, the weekly class timetable, check your BMI and book a free trial on WhatsApp.">
+  <!-- This is a sample site, so search engines are asked not to list it. Remove this line for a real client. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#17130f">
+
+  <!-- What WhatsApp shows when this link is shared -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ironleaf Fitness | Gym in Andheri West, Mumbai">
+  <meta property="og:description" content="Membership plans with prices, weekly class timetable, BMI calculator and free trial booking on WhatsApp.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?auto=format&fit=crop&w=1200&h=630&q=70">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- The logo mark. The same drawing is in the icon list below (i-logo): change both together. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23c84400'/%3E%3Cpath d='M10.2 16V9.6a3 3 0 0 1 3-3h5.6a3 3 0 0 1 3 3V16' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linejoin='round'/%3E%3Cpath d='M10.34 26.5a9 9 0 1 1 11.32 0z' fill='%23fff' stroke='%23fff' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M11.9 23.8c0-5.6 2.9-8.5 8.5-8.5 0 5.6-2.9 8.5-8.5 8.5z' fill='%23c84400'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Shared motion and 3D kit (one copy for all samples) -->
+  <link rel="stylesheet" href="../fx/fx.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- Icons, drawn once and reused across the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- Logo mark: a kettlebell with a leaf cut into it. Colours match --brand in styles.css. -->
+    <symbol id="i-logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#c84400"/><path d="M10.2 16V9.6a3 3 0 0 1 3-3h5.6a3 3 0 0 1 3 3V16" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/><path d="M10.34 26.5a9 9 0 1 1 11.32 0z" fill="#fff" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M11.9 23.8c0-5.6 2.9-8.5 8.5-8.5 0 5.6-2.9 8.5-8.5 8.5z" fill="#c84400"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+    <!-- Class type icons (Strength uses the dumbbell below) -->
+    <symbol id="i-yoga" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M12 8v6"/><path d="M5 13l7-4.5 7 4.5"/><path d="M4 20c2.5-3.5 5-5 8-5s5.5 1.5 8 5"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></symbol>
+    <!-- Facility icons -->
+    <symbol id="i-cardio" viewBox="0 0 24 24"><polyline points="2 12 7 12 10 5 14 19 17 12 22 12"/></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><line x1="7" y1="6" x2="7" y2="18"/><line x1="17" y1="6" x2="17" y2="18"/><line x1="3" y1="9" x2="3" y2="15"/><line x1="21" y1="9" x2="21" y2="15"/><line x1="7" y1="12" x2="17" y2="12"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-shower" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M6.5 13a5.5 5.5 0 0 1 11 0z"/><line x1="9" y1="16.5" x2="9" y2="18"/><line x1="12" y1="16.5" x2="12" y2="20"/><line x1="15" y1="16.5" x2="15" y2="18"/></symbol>
+    <symbol id="i-steam" viewBox="0 0 24 24"><path d="M7 4c2 3-2 5 0 8s-2 5 0 8"/><path d="M12 4c2 3-2 5 0 8s-2 5 0 8"/><path d="M17 4c2 3-2 5 0 8s-2 5 0 8"/></symbol>
+    <symbol id="i-park" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h9a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><line x1="3" y1="16" x2="9" y2="16"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11z"/></symbol>
+  </svg>
+
+  <a class="skip" href="#plans">Skip to plans and prices</a>
+
+  <div class="demo-bar">
+    <span id="demoText">Sample website. All details, prices and timings are examples.</span>
+    <a id="demoLink" class="demo-link" hidden target="_blank" rel="noopener">Get yours</a>
+  </div>
+
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#home" aria-label="Home">
+        <svg class="brand-mark" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-name" data-firm>Ironleaf Fitness</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#plans">Plans</a>
+        <a href="#classes">Classes</a>
+        <a href="#bmi">BMI check</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="top-actions">
+        <a class="btn btn-wa btn-sm only-wide" data-wa="general" target="_blank" rel="noopener" href="#contact">
+          <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span>
+        </a>
+        <a class="btn btn-dark btn-sm" data-call href="#contact">
+          <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- ============ Top of page ============ -->
+    <section class="hero" data-stage-area>
+      <div class="fx-blobs" aria-hidden="true">
+        <span class="fx-blob" data-parallax="0.18" style="left:-80px;top:20px;width:280px;height:280px;background:#ffd9b8"></span>
+        <span class="fx-blob" data-parallax="0.3" style="right:-60px;top:190px;width:240px;height:240px;background:#f6e4bb"></span>
+      </div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Gym in <span data-area>Andheri West</span> &middot; since <span data-since>2015</span></p>
+          <h1 data-words>Get fit in <span class="hl" data-area>Andheri West</span></h1>
+          <p class="lead">A clean, air-conditioned gym <span data-landmark>2 minutes from the station</span>, with certified trainers on the floor all day.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-brand btn-3d" data-ripple data-wa="trial" target="_blank" rel="noopener" href="#contact">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Book a free trial</span>
+            </a>
+            <a class="link-more" href="#plans"><span>See plans from <span class="num" id="heroFrom">₹1,500</span> a month</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <ul class="trust">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>No joining fee</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Women-only batch at 11 am</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span id="trustHours">Open 6 am to 11 pm</span></li>
+          </ul>
+        </div>
+
+        <!-- 3D stage: the photo and the small cards sit at different depths -->
+        <div class="hero-stage" data-stage data-stage-max="9">
+          <div class="hero-photo" data-depth="0">
+            <img src="https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?auto=format&fit=crop&w=1200&h=900&q=70" alt="A loaded barbell on a rack by the gym window at sunset" width="1200" height="900" fetchpriority="high" onerror="this.remove()">
+          </div>
+          <div class="hero-chip" data-depth="55" data-open-badge="short"><span class="dot" aria-hidden="true"></span><span data-open-text>Open 6 am to 11 pm</span></div>
+          <a class="hero-card" data-depth="75" href="#classes" id="heroNext" hidden>
+            <span class="hero-card-label" id="heroNextWhen">Next class today</span>
+            <strong class="hero-card-name" id="heroNextName">Morning Yoga</strong>
+            <span class="hero-card-text" id="heroNextTime">7:30 am</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Four quick facts ============ -->
+    <section class="stats" aria-label="At a glance">
+      <div class="wrap">
+        <div class="stat-strip reveal" data-tilt data-tilt-max="3" data-tilt-lift="0">
+          <div class="stat"><span class="stat-num" id="statYears" data-count="11">11</span><span class="stat-label">years in <span data-area>Andheri West</span></span></div>
+          <div class="stat"><span class="stat-num" id="statClasses" data-count="31">31</span><span class="stat-label">group classes every week</span></div>
+          <div class="stat"><span class="stat-num" id="statTrainers" data-count="6">6</span><span class="stat-label">trainers on the floor</span></div>
+          <div class="stat"><span class="stat-num" id="statFloor" data-count="4500">4,500</span><span class="stat-label">sq ft, fully air-conditioned</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Coming up: 3D carousel of the next classes ============ -->
+    <section class="section section-ring" id="next">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Coming up</p>
+            <h2>Next classes on the floor</h2>
+          </div>
+        </div>
+      </div>
+      <div class="fx-ring" data-ring aria-roledescription="carousel" aria-label="Next classes">
+        <div class="fx-ring-stage"><div class="fx-ring-track" id="ringTrack"></div></div>
+        <button class="fx-ring-btn fx-ring-prev" type="button" aria-label="Previous class"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+        <button class="fx-ring-btn fx-ring-next" type="button" aria-label="Next class"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+        <div class="fx-ring-dots"></div>
+        <p class="fx-ring-hint">Drag to turn</p>
+      </div>
+    </section>
+
+    <!-- ============ Timings ============ -->
+    <section class="section" id="timings">
+      <div class="wrap hours-grid">
+        <div>
+          <p class="kicker">Timings</p>
+          <h2>Open early, open late</h2>
+          <p class="lead-sm">Train before work or after dinner. The floor is quietest between 11 am and 4 pm.</p>
+          <p class="open-badge" data-open-badge="full" role="status"><span class="dot" aria-hidden="true"></span><span data-open-text>See the hours in the table</span></p>
+        </div>
+        <div class="hours-card reveal">
+          <ul class="hours-list" id="hoursList"></ul>
+          <noscript><p class="muted">Monday to Saturday 6 am to 11 pm. Sunday 7 am to 2 pm.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Membership plans ============ -->
+    <section class="section section-tint" id="plans">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Membership</p>
+            <h2>Plans and prices</h2>
+          </div>
+        </div>
+
+        <div class="period">
+          <div class="seg" role="group" aria-label="Membership period" id="periodSeg"></div>
+          <p class="period-note" id="periodNote" aria-live="polite">Longer plans cost less per month.</p>
+        </div>
+
+        <div class="plans" id="planGrid"></div>
+        <noscript><p class="muted">Please turn on JavaScript to see the prices, or message us on WhatsApp.</p></noscript>
+        <p class="fine-note">All prices include GST. No joining fee. Pay by UPI, card or cash.</p>
+
+        <!-- The membership card: a drawn card that carries the gym's own name and logo -->
+        <div class="pass" data-stage-area>
+          <div class="pass-frame">
+          <div class="pass-stage" id="passStage" data-stage data-stage-max="11" role="img" aria-label="Membership card">
+            <div class="mcard-back" aria-hidden="true"><span></span></div>
+            <div class="mcard" data-depth="0" aria-hidden="true"></div>
+            <div class="mcard-brand" data-depth="22" aria-hidden="true">
+              <svg class="mcard-logo"><use href="#i-logo"/></svg>
+              <span class="mcard-firm" data-firm>Ironleaf Fitness</span>
+            </div>
+            <span class="mcard-kind" data-depth="22" aria-hidden="true">Member</span>
+            <div class="mcard-name" data-depth="14" aria-hidden="true">
+              <small>Member name</small>
+              <strong id="mcardMember">Riya S.</strong>
+            </div>
+            <div class="mcard-fields" data-depth="14" aria-hidden="true">
+              <span><small>Plan</small><strong id="mcardPlan">Gym + classes</strong></span>
+              <span><small>Valid until</small><strong id="mcardUntil">13 Feb 2027</strong></span>
+            </div>
+            <div class="mcard-code" data-depth="34" aria-hidden="true">
+              <svg id="mcardBars" viewBox="0 0 100 34" preserveAspectRatio="none" focusable="false"></svg>
+              <small id="mcardNo">2611 0427 15</small>
+            </div>
+          </div>
+          </div>
+          <div class="pass-copy">
+            <h3>Your card, the same day</h3>
+            <p>Join at the front desk and we print your card while you change. It opens the door and your locker.</p>
+            <p class="pass-live" id="passLive">Join today for 3 months and your card is valid until 13 Feb 2027.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Class timetable ============ -->
+    <section class="section" id="classes">
+      <div class="wrap tt">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Group classes</p>
+            <h2>Weekly class timetable</h2>
+          </div>
+        </div>
+
+        <div class="tt-controls">
+          <div class="chips-wrap">
+            <div class="chips" role="group" aria-label="Day of the week" id="dayTabs"></div>
+          </div>
+          <div class="chips-wrap">
+            <div class="chips" role="group" aria-label="Class type" id="typeChips"></div>
+          </div>
+        </div>
+
+        <p class="slot-count" id="slotCount" aria-live="polite"></p>
+        <ul class="slots" id="slots"></ul>
+        <noscript><p class="muted">Please turn on JavaScript to see the timetable, or ask us on WhatsApp.</p></noscript>
+
+        <div class="empty" id="slotsEmpty" hidden>
+          <p><strong id="slotsEmptyText">No classes of this type on this day.</strong></p>
+          <p class="muted">Try another day, or see everything on this day.</p>
+          <div class="empty-actions">
+            <button class="btn btn-ghost btn-sm" type="button" id="slotsReset">Show all classes</button>
+          </div>
+        </div>
+        <p class="fine-note">Every class runs for 60 minutes. Classes are part of the Gym + classes and Personal training plans.</p>
+      </div>
+    </section>
+
+    <!-- ============ BMI calculator ============ -->
+    <section class="section section-tint" id="bmi">
+      <div class="wrap bmi-grid">
+        <div>
+          <p class="kicker">BMI calculator</p>
+          <h2>Check your BMI in ten seconds</h2>
+          <p class="lead-sm">BMI compares your weight with your height. Move the sliders or type your numbers.</p>
+
+          <div class="ranges">
+            <div class="range">
+              <div class="range-head">
+                <label for="bmiHeight">Height <span class="sr-only">in centimetres</span></label>
+                <span class="num-box"><input type="number" id="bmiHeight" inputmode="decimal" min="120" max="210" step="0.1" value="170" autocomplete="off"><span aria-hidden="true">cm</span></span>
+              </div>
+              <label class="sr-only" for="bmiHeightRange">Height slider, in centimetres</label>
+              <input type="range" id="bmiHeightRange" min="120" max="210" step="1" value="170">
+              <div class="range-ends" aria-hidden="true"><span>120 cm</span><span>210 cm</span></div>
+            </div>
+            <div class="range">
+              <div class="range-head">
+                <label for="bmiWeight">Weight <span class="sr-only">in kilograms</span></label>
+                <span class="num-box"><input type="number" id="bmiWeight" inputmode="decimal" min="30" max="160" step="0.1" value="70" autocomplete="off"><span aria-hidden="true">kg</span></span>
+              </div>
+              <label class="sr-only" for="bmiWeightRange">Weight slider, in kilograms</label>
+              <input type="range" id="bmiWeightRange" min="30" max="160" step="0.5" value="70">
+              <div class="range-ends" aria-hidden="true"><span>30 kg</span><span>160 kg</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bmi-card reveal" data-tilt data-tilt-max="4" data-tilt-lift="0" data-spotlight>
+          <p class="bmi-label">Your BMI</p>
+          <div class="bmi-top">
+            <p class="bmi-value" id="bmiValue">24.2</p>
+            <span class="bmi-band" id="bmiBand">Healthy range</span>
+          </div>
+          <!-- The dial: a coloured scale with a needle, like a weighing machine. Drawn by app.js. -->
+          <div class="bmi-dial" id="bmiDial" aria-hidden="true"></div>
+          <p class="bmi-text" id="bmiText">Your BMI is in the healthy range.</p>
+          <ul class="bmi-legend" id="bmiLegend"></ul>
+          <p class="bmi-ideal" id="bmiIdeal"></p>
+          <a class="btn btn-light btn-block btn-3d" data-ripple id="bmiWa" target="_blank" rel="noopener" href="#contact">
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Ask for a plan on WhatsApp</span>
+          </a>
+          <p class="fine">A rough guide only, not medical advice.</p>
+        </div>
+        <p class="sr-only" id="bmiLive" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ============ Facilities ============ -->
+    <section class="section" id="facilities">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Facilities</p>
+            <h2>Everything under one roof</h2>
+          </div>
+        </div>
+        <ul class="fac-list reveal" id="facGrid"></ul>
+      </div>
+    </section>
+
+    <!-- ============ Trainers ============ -->
+    <section class="section section-flush" id="trainers">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Trainers</p>
+            <h2>The team on the floor</h2>
+          </div>
+        </div>
+        <ul class="team reveal" id="team"></ul>
+      </div>
+    </section>
+
+    <!-- ============ Free trial ============ -->
+    <section class="band-wrap" id="trial">
+      <div class="wrap">
+        <div class="band reveal" data-tilt data-tilt-max="3" data-tilt-lift="0" data-spotlight>
+          <div>
+            <p class="kicker kicker-light">Free trial</p>
+            <h2>Try one full session before you pay</h2>
+            <p>Come in workout clothes. A trainer shows you around and takes you through a full workout.</p>
+          </div>
+          <a class="btn btn-brand btn-3d" data-ripple data-wa="trial" target="_blank" rel="noopener" href="#contact">
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Book a free trial</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Gallery ============ -->
+    <section class="section" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Gallery</p>
+            <h2>Take a look inside</h2>
+          </div>
+          <p class="muted">Tap a photo to see it larger</p>
+        </div>
+        <ul class="shots" id="shots"></ul>
+      </div>
+    </section>
+
+    <!-- ============ Questions ============ -->
+    <section class="section section-flush" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="kicker">Questions</p>
+          <h2>Things people ask us</h2>
+          <p class="lead-sm">Not here? Ask on WhatsApp and we will answer the same day.</p>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Is there a joining fee?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>No. You pay only the price of the plan. There is no joining fee and no hidden charge.</p>
+          </details>
+          <details>
+            <summary>Can I pause my membership?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. You can pause a 3-month plan once for up to 15 days, and a 12-month plan for up to 30 days. Tell us on WhatsApp before you go.</p>
+          </details>
+          <details>
+            <summary>How does the free trial work?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Book a time on WhatsApp and come in workout clothes. A trainer shows you the gym and takes you through one full session. You pay nothing.</p>
+          </details>
+          <details>
+            <summary>Is there a women-only batch?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. The 11 am batch from Monday to Friday is only for women, with a woman trainer on the floor.</p>
+          </details>
+          <details>
+            <summary>I have never been to a gym. Can I join?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. Most members start as beginners. Your trainer plans the first month with you and checks your form on every exercise.</p>
+          </details>
+          <details>
+            <summary>What should I bring?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Clean sports shoes that you keep for the gym, a small towel and a water bottle. Lockers are free to use while you train.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section class="section section-dark" id="contact" data-spotlight>
+      <div class="wrap contact-grid">
+        <div>
+          <p class="kicker kicker-light">Contact</p>
+          <h2>Tell us what you are looking for</h2>
+          <p class="lead-sm">Fill this in and it opens WhatsApp with your message ready. Nothing is stored on this website.</p>
+          <form class="form" id="enquiry" novalidate>
+            <label><span>Your name</span>
+              <input type="text" name="name" autocomplete="name" maxlength="60" required>
+            </label>
+            <label><span>I am interested in</span>
+              <select name="need" id="needSelect">
+                <option>A free trial session</option>
+              </select>
+            </label>
+            <label><span>Best time for me <span class="opt">(optional)</span></span>
+              <select name="time">
+                <option value="">Not sure yet</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+                <option>Evening</option>
+              </select>
+            </label>
+            <p class="form-error" id="formError" role="alert" hidden>Please type your name so we know who is asking.</p>
+            <button class="btn btn-light btn-block btn-3d" data-ripple type="submit">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send on WhatsApp</span>
+            </button>
+          </form>
+        </div>
+        <div class="contact-card">
+          <h3 data-firm>Ironleaf Fitness</h3>
+          <ul class="contact-list">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+              <a class="contact-phone" data-call href="#contact"><span data-phone-text>98XXX XXXXX</span></a>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+              <span><span data-address>2nd floor, Sunrise Arcade</span>, <span data-area>Andheri West</span>, <span data-city>Mumbai</span><span class="contact-note" data-landmark>2 minutes from the station</span></span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>
+              <span class="contact-hours">
+                <span id="contactHours">Mon to Sat: 6 am to 11 pm. Sun: 7 am to 2 pm.</span>
+                <span class="open-badge open-badge-sm" data-open-badge="short" hidden><span class="dot" aria-hidden="true"></span><span data-open-text></span></span>
+              </span>
+            </li>
+          </ul>
+          <div class="map">
+            <iframe id="map" title="Map of the area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <p class="foot-brand"><svg class="foot-mark" aria-hidden="true"><use href="#i-logo"/></svg><span><span data-firm>Ironleaf Fitness</span>, <span data-area>Andheri West</span>, <span data-city>Mumbai</span></span></p>
+      <p class="muted-on-dark">All details on this page are examples. Website by <span id="builtBy">Aamir Behlim</span>.</p>
+    </div>
+  </footer>
+
+  <!-- Phone only: call and WhatsApp always within thumb reach -->
+  <nav class="dock" aria-label="Quick contact">
+    <a class="dock-btn" data-call href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span></a>
+    <a class="dock-btn dock-wa btn-3d" data-ripple data-wa="general" target="_blank" rel="noopener" href="#contact"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+  </nav>
+
+  <!-- Larger photo: opens when you tap a gallery photo -->
+  <dialog class="lightbox" id="lightbox" aria-label="Gallery photo">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close photo">
+      <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+    <div class="lb-stage" id="lbStage">
+      <img id="lbImg" alt="" width="1200" height="800">
+      <button class="gal-btn gal-prev" id="lbPrev" type="button" aria-label="Previous photo"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <button class="gal-btn gal-next" id="lbNext" type="button" aria-label="Next photo"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+    <div class="lb-bar" aria-live="polite">
+      <p id="lbCaption"></p>
+      <span id="lbCount"></span>
+    </div>
+  </dialog>
+
+  <script src="../owner.js"></script>
+  <script src="app.js"></script>
+  <!-- Shared motion and 3D kit. It must come last. -->
+  <script src="../fx/fx.js"></script>
+</body>
+</html>
