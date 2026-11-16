@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Websites for small businesses | Aamir Behlim</title>
+  <title>Websites for small businesses | Oxzi</title>
   <meta name="description" content="Sample websites for small businesses. Works on phones, and customers reach you on WhatsApp in one tap.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0f4c3a">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Websites for small businesses">
+  <meta property="og:title" content="Oxzi: websites for small businesses">
   <meta property="og:description" content="Tap a sample to see how your business could look online.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&h=630&q=70">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f4c3a'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='7' width='22' height='18' rx='4'/%3E%3Cpath d='M5 13h22M11.5 21l3.2-3.2 2.6 2.6 3.7-3.9'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="icon" href="oxzi-logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,6 +39,7 @@
     .top { border-bottom: 1px solid var(--line); }
     .top-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 64px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand-logo { width: 38px; height: 38px; border-radius: 10px; display: block; }
     .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: var(--brand); color: #fff; }
     .brand-mark .logo { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border: 1px solid transparent; border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
@@ -121,7 +122,7 @@
 
   <header class="top">
     <div class="wrap top-row">
-      <div class="brand"><span class="brand-mark" aria-hidden="true"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="7" width="22" height="18" rx="4"/><path d="M5 13h22"/><path d="M11.5 21l3.2-3.2 2.6 2.6 3.7-3.9"/></svg></span><span data-owner>Aamir Behlim</span></div>
+      <div class="brand"><img class="brand-logo" src="oxzi-logo.png" alt="" width="38" height="38"><span data-owner>Oxzi</span></div>
       <a class="btn btn-wa btn-sm" data-wa hidden target="_blank" rel="noopener">
         <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp me</span>
       </a>
@@ -258,7 +259,7 @@
 
   <footer class="foot">
     <div class="wrap">
-      <p>Samples by <span data-owner>Aamir Behlim</span>, <span data-city>Mumbai</span>. All business details shown in the samples are examples.</p>
+      <p>Samples by <span data-owner>Oxzi</span>, <span data-city>Mumbai</span>. All business details shown in the samples are examples.</p>
     </div>
   </footer>
 
@@ -266,7 +267,7 @@
   <script>
     (function () {
       var owner = window.OWNER || {};
-      var name = owner.name || "Aamir Behlim";
+      var name = owner.name || "Oxzi";
       document.querySelectorAll("[data-owner]").forEach(function (node) { node.textContent = name; });
       document.querySelectorAll("[data-city]").forEach(function (node) { node.textContent = owner.city || "Mumbai"; });
       var number = String(owner.whatsapp || "").replace(/\D/g, "");

@@ -18,7 +18,7 @@
     timeZone: "Asia/Kolkata",
     // Your own name and number come from owner.js (one file for all samples).
     // When the number is set, the top bar shows "Get yours" and opens a chat with you.
-    builtBy: (window.OWNER && window.OWNER.name) || "Aamir Behlim",
+    builtBy: (window.OWNER && window.OWNER.name) || "Oxzi",
     builtByWhatsApp: (window.OWNER && window.OWNER.whatsapp) || ""
   };
 

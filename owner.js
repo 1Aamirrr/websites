@@ -2,7 +2,7 @@
 // whatsapp: your number with country code, digits only. Example: "919820012345".
 // While it is empty, the "Get yours" and "WhatsApp me" buttons stay hidden.
 window.OWNER = {
-  name: "Aamir Behlim",
+  name: "Oxzi",
   city: "Mumbai",
   whatsapp: "918655102089"
 };
