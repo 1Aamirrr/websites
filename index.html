@@ -95,7 +95,7 @@
     .phone-wrap .fx-phone { display: block; -webkit-tap-highlight-color: transparent; }
     .phone-col { display: grid; justify-items: center; gap: 4px; min-width: 0; }
     .phone-tabs { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 340px; }
-    .phone-tab { min-height: 40px; padding: 0 14px; border: 1px solid #d8cfc0; border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+    .phone-tab { min-height: 44px; padding: 0 14px; border: 1px solid #d8cfc0; border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
     .phone-tab.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
     .float-tag-a { top: 14%; left: max(6px, calc(50% - var(--phone-w) / 2 - 58px)); }
     .float-tag-b { bottom: 17%; right: max(6px, calc(50% - var(--phone-w) / 2 - 72px)); }
@@ -104,6 +104,83 @@
     @media (min-width: 900px) {
       .hero-grid { grid-template-columns: 1.1fr .9fr; align-items: center; gap: 40px; }
       .phone-wrap, .phone-wrap .fx-phone { --phone-w: 280px; }
+    }
+
+    /* ---------- Header link, prices, steps, questions, final call to action ---------- */
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    .top-actions { display: flex; align-items: center; gap: 2px; }
+    .top-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 999px; font-size: 14.5px; font-weight: 700; text-decoration: none; }
+    .top-link:hover { background: var(--brand-soft); color: var(--brand); }
+    .section-lead { margin-top: 8px; color: var(--muted); max-width: 36em; }
+
+    .plans { display: grid; gap: 16px; }
+    .plan { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 22px 20px 20px; border: 1px solid var(--line); border-radius: 22px; background: #fff; }
+    .plan-fit { border: 2px solid var(--brand); box-shadow: var(--shadow); }
+    .plan-for { align-self: flex-start; padding: 6px 12px; border-radius: 12px; background: #f8ebcf; color: var(--amber-text); font-size: 13px; font-weight: 700; line-height: 1.35; }
+    .plan-name { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 1.15rem; font-weight: 800; letter-spacing: -.01em; }
+    .plan-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; line-height: 1.1; }
+    .plan-num { font-size: 2.2rem; font-weight: 800; letter-spacing: -.035em; }
+    .plan-cur { font-size: 1.15rem; font-weight: 800; }
+    .plan-from, .plan-per { font-size: .95rem; font-weight: 600; color: var(--muted); }
+    .plan-time { display: flex; align-items: center; gap: 8px; padding-bottom: 14px; border-bottom: 1px dashed var(--line); font-size: 14.5px; font-weight: 700; color: var(--brand); }
+    .plan-list { display: grid; align-content: start; gap: 9px; flex: 1; }
+    .plan-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 15px; line-height: 1.45; }
+    .plan-list .ico { width: 15px; height: 15px; margin-top: 3px; color: var(--wa); stroke-width: 3; }
+    .plan .btn { width: 100%; margin-top: 8px; }
+    .plans-note { margin-top: 14px; font-size: 13.5px; color: var(--muted); }
+
+    .care { display: grid; gap: 14px; margin-top: 22px; padding: 22px 20px; border: 1px solid #cfe2d8; border-radius: 22px; background: var(--brand-soft); }
+    .care .plan-list { flex: none; }
+    .care-tag { padding: 3px 10px; border-radius: 999px; background: #fff; color: var(--brand); font-size: 12.5px; font-weight: 700; letter-spacing: 0; }
+    .care .btn { width: 100%; }
+    .care-wa { color: var(--wa); }
+
+    .steps { display: grid; padding: 6px 20px; border: 1px solid var(--line); border-radius: 22px; background: #fff; }
+    .step { position: relative; display: flex; gap: 16px; padding: 16px 0; }
+    .step-num { position: relative; z-index: 1; display: grid; place-items: center; width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--brand); color: #fff; font-size: 17px; font-weight: 800; }
+    .step:not(:last-child)::before { content: ""; position: absolute; left: 20px; top: 64px; bottom: -10px; width: 2px; border-radius: 2px; background: #cfe2d8; }
+    .step h3 { padding-top: 8px; font-size: 1.02rem; }
+    .step p { margin-top: 2px; font-size: 14.5px; color: var(--muted); }
+
+    .faq-grid { display: grid; gap: 4px; }
+    .faq { display: grid; gap: 10px; }
+    .qa { border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+    .qa[open] { border-color: #cfc6b8; box-shadow: var(--shadow); }
+    .qa summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 58px; padding: 12px 16px 12px 18px; border-radius: 16px; font-weight: 700; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent; }
+    .qa summary::-webkit-details-marker { display: none; }
+    .qa summary:focus-visible { border-radius: 15px; }
+    .qa summary:hover .qa-ico { background: #d3e7dc; }
+    .qa-ico { position: relative; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--brand-soft); transition: background .15s ease; }
+    .qa-ico::before, .qa-ico::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 2px; background: var(--brand); transition: transform .25s ease; }
+    .qa-ico::after { transform: rotate(90deg); }
+    .qa[open] .qa-ico::after { transform: rotate(0deg); }
+    .qa p { padding: 0 18px 18px; font-size: 15px; color: var(--muted); }
+
+    .cta-section { padding-top: 8px; }
+    .cta { display: grid; justify-items: start; gap: 20px; padding: 30px 22px; border-radius: 26px; overflow: hidden; background: radial-gradient(120% 130% at 0% 0%, #1d5a47 0%, #13211d 58%); color: #fff; }
+    .cta h2 { color: #fff; }
+    .cta p { margin-top: 6px; color: rgba(255, 255, 255, .8); }
+
+    @media (min-width: 640px) {
+      .plans { grid-template-columns: repeat(2, 1fr); }
+      .plans .plan:last-child { grid-column: 1 / -1; }
+    }
+    @media (min-width: 640px) and (max-width: 899px) {
+      .plans .plan:last-child .btn, .care .btn { width: auto; align-self: flex-start; justify-self: start; padding: 0 28px; }
+    }
+    @media (min-width: 900px) {
+      .top-link { font-size: 15px; padding: 0 16px; }
+      .plans { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      .plans .plan:last-child { grid-column: auto; }
+      .plan { padding: 26px 24px 24px; }
+      .care { grid-template-columns: 1fr 1.3fr auto; align-items: center; gap: 28px; padding: 24px 28px; }
+      .care .btn { width: auto; }
+      .steps { grid-template-columns: repeat(4, 1fr); gap: 22px; padding: 28px; }
+      .step { flex-direction: column; gap: 12px; padding: 0; }
+      .step:not(:last-child)::before { left: 54px; right: -16px; top: 20px; bottom: auto; width: auto; height: 2px; }
+      .step h3 { padding-top: 0; }
+      .faq-grid { grid-template-columns: .75fr 1.4fr; align-items: start; gap: 40px; }
+      .cta { grid-template-columns: 1fr auto; align-items: center; gap: 28px; padding: 40px 44px; }
     }
   </style>
   <link rel="stylesheet" href="fx/fx.css">
@@ -118,14 +195,19 @@
     <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><line x1="11" y1="18" x2="13" y2="18"/></symbol>
     <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
     <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></symbol>
+    <symbol id="i-call" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
   </svg>
 
   <header class="top">
     <div class="wrap top-row">
       <div class="brand"><img class="brand-logo" src="oxzi-logo.png" alt="" width="38" height="38"><span data-owner>Oxzi</span></div>
-      <a class="btn btn-wa btn-sm" data-wa hidden target="_blank" rel="noopener">
-        <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp me</span>
-      </a>
+      <div class="top-actions">
+        <nav aria-label="Page sections"><a class="top-link" href="#prices">Prices</a></nav>
+        <a class="btn btn-wa btn-sm" data-wa hidden target="_blank" rel="noopener">
+          <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp me</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -255,6 +337,146 @@
         </div>
       </div>
     </section>
+
+    <!-- Prices: plan buttons get their WhatsApp link from data-wa-msg (see the script at the bottom) -->
+    <section class="section" id="prices" aria-labelledby="prices-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Prices</p>
+          <h2 id="prices-title">Know the price before you message us</h2>
+          <p class="section-lead">Tap a plan. WhatsApp opens with your message ready to send.</p>
+        </div>
+        <div class="plans">
+
+          <article class="plan reveal" data-tilt data-tilt-max="4" aria-labelledby="plan-starter">
+            <h3 class="plan-name" id="plan-starter">Starter</h3>
+            <p class="plan-price"><span class="plan-cur">Rs</span><span class="plan-num">7,999</span></p>
+            <p class="plan-time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Ready in 5 days</p>
+            <ul class="plan-list">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>1 page</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>About, services and photos</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Google Maps location</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>WhatsApp and call buttons</li>
+            </ul>
+            <a class="btn btn-wa btn-3d" data-ripple data-wa-msg="I want the Starter website (Rs 7,999). My business is: " hidden target="_blank" rel="noopener">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Choose Starter</span>
+            </a>
+          </article>
+
+          <article class="plan plan-fit reveal" data-tilt data-tilt-max="4" aria-labelledby="plan-business">
+            <p class="plan-for">For brokers, restaurants and clinics with many items</p>
+            <h3 class="plan-name" id="plan-business">Business</h3>
+            <p class="plan-price"><span class="plan-cur">Rs</span><span class="plan-num">14,999</span></p>
+            <p class="plan-time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Ready in 7 days</p>
+            <ul class="plan-list">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Everything in Starter</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Up to 5 pages</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Listings or product page</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Enquiry form that lands on your WhatsApp</li>
+            </ul>
+            <a class="btn btn-wa btn-3d" data-ripple data-wa-msg="I want the Business website (Rs 14,999). My business is: " hidden target="_blank" rel="noopener">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Choose Business</span>
+            </a>
+          </article>
+
+          <article class="plan reveal" data-tilt data-tilt-max="4" aria-labelledby="plan-custom">
+            <h3 class="plan-name" id="plan-custom">Custom</h3>
+            <p class="plan-price"><span class="plan-from">from</span><span class="plan-cur">Rs</span><span class="plan-num">25,000</span></p>
+            <p class="plan-time"><svg class="ico" aria-hidden="true"><use href="#i-call"/></svg>Quoted after a call</p>
+            <ul class="plan-list">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Search and filters</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>An admin panel to add listings yourself</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Or a mobile app</li>
+            </ul>
+            <a class="btn btn-wa btn-3d" data-ripple data-wa-msg="I want a Custom website (from Rs 25,000). My business is: " hidden target="_blank" rel="noopener">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Ask about Custom</span>
+            </a>
+          </article>
+
+        </div>
+        <p class="plans-note">&ldquo;Ready in&rdquo; counts from the day you send your logo, photos and text.</p>
+
+        <div class="care reveal" aria-labelledby="plan-care">
+          <div>
+            <h3 class="plan-name" id="plan-care">Monthly care <span class="care-tag">Optional</span></h3>
+            <p class="plan-price"><span class="plan-cur">Rs</span><span class="plan-num">1,499</span><span class="plan-per">per month</span></p>
+          </div>
+          <ul class="plan-list">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Site kept online</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Anything broken, fixed</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Up to 5 small changes a month</li>
+          </ul>
+          <a class="btn btn-ghost" data-wa-msg="I want Monthly care (Rs 1,499 per month). My business is: " hidden target="_blank" rel="noopener">
+            <svg class="ico ico-fill care-wa" aria-hidden="true"><use href="#i-wa"/></svg><span>Add monthly care</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">How it works</p>
+          <h2 id="how-title">From first message to a live site in 4 steps</h2>
+        </div>
+        <ol class="steps">
+          <li class="step reveal"><span class="step-num" aria-hidden="true">1</span><div><h3>Pick a sample</h3><p>Pick a sample you like and message us on WhatsApp.</p></div></li>
+          <li class="step reveal"><span class="step-num" aria-hidden="true">2</span><div><h3>Pay 50% and send your details</h3><p>Pay 50% advance by UPI. Send your logo, photos and prices.</p></div></li>
+          <li class="step reveal"><span class="step-num" aria-hidden="true">3</span><div><h3>We build it</h3><p>You get 2 rounds of changes.</p></div></li>
+          <li class="step reveal"><span class="step-num" aria-hidden="true">4</span><div><h3>It goes live</h3><p>Pay the other 50%. You get 30 days of free fixes after launch.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="questions" aria-labelledby="questions-title">
+      <div class="wrap faq-grid">
+        <div class="section-head">
+          <p class="kicker">Questions</p>
+          <h2 id="questions-title">Common questions</h2>
+          <p class="section-lead">Tap a question to see the answer.</p>
+        </div>
+        <div class="faq">
+          <details class="qa reveal">
+            <summary><span>Who owns the domain?</span><span class="qa-ico" aria-hidden="true"></span></summary>
+            <p>You do. The domain (for example yourbusiness.in) is bought in your name and you pay for it directly, so it is always yours.</p>
+          </details>
+          <details class="qa reveal">
+            <summary><span>Do I need to know computers?</span><span class="qa-ico" aria-hidden="true"></span></summary>
+            <p>No. You send photos and text on WhatsApp; we do the rest.</p>
+          </details>
+          <details class="qa reveal">
+            <summary><span>Can I change things later?</span><span class="qa-ico" aria-hidden="true"></span></summary>
+            <p>Yes. With monthly care, up to 5 small changes a month are included. Without it, we quote small changes separately.</p>
+          </details>
+          <details class="qa reveal">
+            <summary><span>How do customers contact me?</span><span class="qa-ico" aria-hidden="true"></span></summary>
+            <p>Every page has a WhatsApp button and a call button, so a customer reaches you in one tap. Forms send the message to your WhatsApp; nothing is stored on a server.</p>
+          </details>
+          <details class="qa reveal">
+            <summary><span>Will it show on Google?</span><span class="qa-ico" aria-hidden="true"></span></summary>
+            <p>It is built so it shows when people search your business name. Ranking for general searches takes time and is not promised.</p>
+          </details>
+          <details class="qa reveal">
+            <summary><span>How do I pay?</span><span class="qa-ico" aria-hidden="true"></span></summary>
+            <p>50% advance and 50% when the site is live, by UPI.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="cta reveal" data-spotlight>
+          <div>
+            <h2 id="cta-title">Want a site like these?</h2>
+            <p>Tell us your kind of business and the sample you like.</p>
+          </div>
+          <a class="btn btn-wa btn-3d" data-ripple data-wa hidden target="_blank" rel="noopener">
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Message us on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="foot">
@@ -274,6 +496,12 @@
       if (number) {
         var link = "https://wa.me/" + number + "?text=" + encodeURIComponent("Hi " + name.split(" ")[0] + ", I saw your sample websites. I want one for my business.");
         document.querySelectorAll("[data-wa]").forEach(function (node) { node.href = link; node.hidden = false; });
+        // Plan buttons: WhatsApp opens with that plan's message already typed.
+        document.querySelectorAll("[data-wa-msg]").forEach(function (node) {
+          var text = "Hi " + name.split(" ")[0] + ", " + node.getAttribute("data-wa-msg");
+          node.href = "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
+          node.hidden = false;
+        });
       }
 
       // Buttons under the phone: show a different sample inside it.
