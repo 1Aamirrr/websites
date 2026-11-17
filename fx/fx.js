@@ -579,7 +579,7 @@
       "Shows up when people search your name on Google"
     ],
     plans: [
-      { name: "Starter", price: "7,999", lines: ["1 page", "Ready in 5 days"], tag: "Like this sample" },
+      { name: "Starter", price: "7,999", lines: ["1 page", "Ready in 5 days"] },
       { name: "Business", price: "14,999", lines: ["Up to 5 pages", "Ready in 7 days"] }
     ],
     care: { name: "Monthly care", price: "1,499", note: "Site kept online, up to 5 small changes a month." },
@@ -616,7 +616,7 @@
       '<div class="fx-plan' + (item.tag ? " is-pick" : "") + '">' +
       (item.tag ? '<span class="fx-plan-tag">' + item.tag + "</span>" : "") +
       '<p class="fx-plan-name">' + item.name + "</p>" +
-      '<p class="fx-plan-price"><span>&#8377;</span>' + item.price + "</p>" +
+      '<p class="fx-plan-price"><span>Rs</span> ' + item.price + "</p>" +
       '<ul class="fx-plan-lines">' + item.lines.map((line) => "<li>" + line + "</li>").join("") + "</ul></div>";
     dialog.innerHTML =
       '<div class="fx-offer-scrim" aria-hidden="true"></div>' +
@@ -633,7 +633,7 @@
           '<div><h3 class="fx-offer-label">Plans</h3>' +
             '<div class="fx-offer-plans">' + OFFER.plans.map(plan).join("") + "</div>" +
             '<div class="fx-offer-care"><p class="fx-care-top"><strong>' + OFFER.care.name + '</strong><span class="fx-care-opt">Optional</span>' +
-            '<span class="fx-care-price">&#8377;' + OFFER.care.price + ' a month</span></p><p class="fx-care-note">' + OFFER.care.note + "</p></div>" +
+            '<span class="fx-care-price">Rs ' + OFFER.care.price + ' a month</span></p><p class="fx-care-note">' + OFFER.care.note + "</p></div>" +
           "</div>" +
           '<div><h3 class="fx-offer-label">Simple terms</h3><ul class="fx-offer-terms">' +
             OFFER.terms.map((term) => '<li><span class="fx-offer-ico">' + offerIcon(term[0]) + "</span><span>" + term[1] + "</span></li>").join("") +
@@ -657,7 +657,7 @@
     const closeButton = dialog.querySelector(".fx-offer-x");
     const modal = typeof dialog.showModal === "function";
     const cardLayout = window.matchMedia("(min-width: 720px)");
-    const state = { open: false, closing: false, opener: null };
+    const state = { open: false, closing: false, opener: null, backs: 0 };
     const ours = () => Boolean(window.history.state && window.history.state.fxOffer);
 
     // Tidy up once the sheet is out of sight. Safe to run more than once.
@@ -680,7 +680,7 @@
     const close = (fromHistory) => {
       if (!state.open || state.closing) { return; }
       state.closing = true;
-      if (!fromHistory && ours()) { window.history.back(); }
+      if (!fromHistory && ours()) { state.backs += 1; window.history.back(); }
       dialog.classList.remove("is-open", "is-dragging");
       panel.style.transform = "";
       scrim.style.opacity = "";
@@ -717,7 +717,7 @@
         li.appendChild(document.createElement("span")).textContent = text;
         gets.appendChild(li);
       });
-      dialog.querySelector(".fx-offer-yes").href = wa(hello + " I want the Starter plan.");
+      dialog.querySelector(".fx-offer-yes").href = wa(hello + " I want a site like this.");
       dialog.querySelector(".fx-offer-ask").href = wa(hello + " I have a question.");
 
       state.open = true;
@@ -744,10 +744,14 @@
     dialog.addEventListener("close", () => {
       // dialog.open is true when this is a late event from an earlier close and the sheet is open again.
       if (!state.open || dialog.open) { return; }
-      if (!state.closing && ours()) { window.history.back(); }
+      if (!state.closing && ours()) { state.backs += 1; window.history.back(); }
       finish();
     });
-    window.addEventListener("popstate", () => { if (state.open && !state.closing) { close(true); } });
+    // Our own back() steps arrive here later; skip them so a quickly reopened sheet stays open.
+    window.addEventListener("popstate", () => {
+      if (state.backs > 0) { state.backs -= 1; return; }
+      if (state.open && !state.closing) { close(true); }
+    });
 
     // Keyboard: Escape closes, Tab goes round inside the sheet.
     dialog.addEventListener("keydown", (event) => {
