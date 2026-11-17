@@ -12,6 +12,8 @@
      data-words             headline words rise one after another
      data-parallax="0.15"   moves slower than the page while scrolling
      data-phone             a phone frame whose page scrolls slowly by itself
+     data-offer="clinic"    a tap opens the offer sheet: what the owner gets, the price, WhatsApp buttons
+                            (data-offer-firm="Name" puts the firm name in it; see section 9)
 
    After adding new data-ring or data-stage elements later, call window.FX.refresh(). */
 (() => {
@@ -552,6 +554,276 @@
       seen = entries[0].isIntersecting;
       if (seen && !frameId) { last = 0; frameId = requestAnimationFrame(tick); }
     }, { threshold: 0.2 }).observe(phone);
+  });
+
+  // ---------------------------------------------------------------------
+  // 9. Offer sheet. "Get a site like this" opens what the owner gets and the price,
+  //    with two WhatsApp buttons, instead of jumping straight to WhatsApp.
+  //    Markup: <a id="demoLink" data-offer="clinic" ...> (broker, clinic, gym, salon or restaurant).
+  //    app.js puts the firm name from the link (?firm=) in data-offer-firm.
+  //    The prices live here, in one place for every sample.
+  // ---------------------------------------------------------------------
+  const OFFER = {
+    kinds: {
+      broker: { word: "property", line: "Listings with photos and an enquiry button on each" },
+      clinic: { word: "clinic", line: "Treatments and appointment requests" },
+      gym: { word: "gym", line: "Plans, timetable and free-trial booking" },
+      salon: { word: "salon", line: "Service menu and booking" },
+      restaurant: { word: "restaurant", line: "Menu with WhatsApp ordering, no Zomato commission" }
+    },
+    gets: [
+      "Your services, photos and timings",
+      "WhatsApp and call buttons",
+      "Your location on Google Maps",
+      "Works well on phones",
+      "Shows up when people search your name on Google"
+    ],
+    plans: [
+      { name: "Starter", price: "7,999", lines: ["1 page", "Ready in 5 days"], tag: "Like this sample" },
+      { name: "Business", price: "14,999", lines: ["Up to 5 pages", "Ready in 7 days"] }
+    ],
+    care: { name: "Monthly care", price: "1,499", note: "Site kept online, up to 5 small changes a month." },
+    terms: [
+      ["pay", "50% advance, 50% when your site is live. Pay by UPI."],
+      ["key", "The domain (yourname.in) is bought in your name, so you own it."],
+      ["edit", "2 rounds of changes before going live."]
+    ],
+    steps: ["Say yes on WhatsApp.", "Send your logo, photos and prices.", "Your site is live in 5 days."]
+  };
+  const OFFER_ICONS = {
+    check: '<path d="M5 12.5l4.3 4.3L19 7.2"/>',
+    close: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+    pay: '<path d="M6.5 4h11M6.5 8.5h11M9.5 4c3.6 0 5.3 1.9 5.3 4.5S13.1 13 9.5 13H7l8 7.5"/>',
+    key: '<circle cx="8" cy="15.5" r="3.8"/><path d="M10.8 12.7L19.5 4M16 7.5l2.6 2.6M13.6 9.9l2 2"/>',
+    edit: '<path d="M4.5 19.5l1-4.2L15.8 5a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.7 18.5z"/><path d="M13.8 7l3.2 3.2"/>',
+    wa: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+    ask: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3.2 2.1c-.6.3-1 .8-1 1.4v.3M12 16.4v.1"/>'
+  };
+  const offerIcon = (name, fill) =>
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"' + (fill ? ' class="is-fill"' : "") + ">" + OFFER_ICONS[name] + "</svg>";
+
+  let offer = null; // the sheet, built on first use
+
+  const buildOffer = () => {
+    const dialog = document.createElement("dialog");
+    dialog.className = "fx-offer";
+    dialog.id = "fxOffer";
+    dialog.setAttribute("role", "dialog");
+    dialog.setAttribute("aria-modal", "true");
+    dialog.setAttribute("aria-labelledby", "fxOfferTitle");
+    dialog.setAttribute("aria-describedby", "fxOfferLead");
+    const plan = (item) =>
+      '<div class="fx-plan' + (item.tag ? " is-pick" : "") + '">' +
+      (item.tag ? '<span class="fx-plan-tag">' + item.tag + "</span>" : "") +
+      '<p class="fx-plan-name">' + item.name + "</p>" +
+      '<p class="fx-plan-price"><span>&#8377;</span>' + item.price + "</p>" +
+      '<ul class="fx-plan-lines">' + item.lines.map((line) => "<li>" + line + "</li>").join("") + "</ul></div>";
+    dialog.innerHTML =
+      '<div class="fx-offer-scrim" aria-hidden="true"></div>' +
+      '<div class="fx-offer-panel">' +
+        '<div class="fx-offer-head">' +
+          '<span class="fx-offer-grip" aria-hidden="true"></span>' +
+          '<p class="fx-offer-kicker">Price and what you get</p>' +
+          '<h2 class="fx-offer-title" id="fxOfferTitle">Your website</h2>' +
+          '<button type="button" class="fx-offer-x" aria-label="Close">' + offerIcon("close") + "</button>" +
+        "</div>" +
+        '<div class="fx-offer-body" tabindex="0" role="region" aria-label="What you get and the price">' +
+          '<p class="fx-offer-lead" id="fxOfferLead">A site like this one, with your own name, photos and prices.</p>' +
+          '<div><h3 class="fx-offer-label">What you get</h3><ul class="fx-offer-gets"></ul></div>' +
+          '<div><h3 class="fx-offer-label">Plans</h3>' +
+            '<div class="fx-offer-plans">' + OFFER.plans.map(plan).join("") + "</div>" +
+            '<div class="fx-offer-care"><p class="fx-care-top"><strong>' + OFFER.care.name + '</strong><span class="fx-care-opt">Optional</span>' +
+            '<span class="fx-care-price">&#8377;' + OFFER.care.price + ' a month</span></p><p class="fx-care-note">' + OFFER.care.note + "</p></div>" +
+          "</div>" +
+          '<div><h3 class="fx-offer-label">Simple terms</h3><ul class="fx-offer-terms">' +
+            OFFER.terms.map((term) => '<li><span class="fx-offer-ico">' + offerIcon(term[0]) + "</span><span>" + term[1] + "</span></li>").join("") +
+          "</ul></div>" +
+          '<div><h3 class="fx-offer-label">How it works</h3><ol class="fx-offer-steps">' +
+            OFFER.steps.map((step, i) => '<li><span class="fx-step-n" aria-hidden="true">' + (i + 1) + "</span><span>" + step + "</span></li>").join("") +
+          "</ol></div>" +
+        "</div>" +
+        '<div class="fx-offer-foot">' +
+          '<a class="fx-offer-yes" target="_blank" rel="noopener">' + offerIcon("wa", true) + "<span>Yes, I want this site</span></a>" +
+          '<a class="fx-offer-ask" target="_blank" rel="noopener">' + offerIcon("ask") + "<span>Ask a question first</span></a>" +
+        "</div>" +
+      "</div>";
+    document.body.appendChild(dialog);
+    $$(".fx-offer-body > *", dialog).forEach((block, i) => block.style.setProperty("--i", String(i)));
+
+    const panel = dialog.querySelector(".fx-offer-panel");
+    const scrim = dialog.querySelector(".fx-offer-scrim");
+    const head = dialog.querySelector(".fx-offer-head");
+    const body = dialog.querySelector(".fx-offer-body");
+    const closeButton = dialog.querySelector(".fx-offer-x");
+    const modal = typeof dialog.showModal === "function";
+    const cardLayout = window.matchMedia("(min-width: 720px)");
+    const state = { open: false, closing: false, opener: null };
+    const ours = () => Boolean(window.history.state && window.history.state.fxOffer);
+
+    // Tidy up once the sheet is out of sight. Safe to run more than once.
+    const finish = () => {
+      if (!state.open) { return; }
+      state.open = false;
+      state.closing = false;
+      dialog.classList.remove("is-open", "is-dragging");
+      panel.style.transform = "";
+      scrim.style.opacity = "";
+      if (dialog.open) {
+        if (modal) { dialog.close(); } else { dialog.removeAttribute("open"); }
+      }
+      root.classList.remove("fx-offer-lock");
+      if (state.opener && document.contains(state.opener)) { state.opener.focus({ preventScroll: true }); }
+      state.opener = null;
+    };
+
+    // fromHistory: the phone's back button already left our history step.
+    const close = (fromHistory) => {
+      if (!state.open || state.closing) { return; }
+      state.closing = true;
+      if (!fromHistory && ours()) { window.history.back(); }
+      dialog.classList.remove("is-open", "is-dragging");
+      panel.style.transform = "";
+      scrim.style.opacity = "";
+      if (reduce) { finish(); return; }
+      let done = false;
+      const end = () => {
+        if (done) { return; }
+        done = true;
+        panel.removeEventListener("transitionend", onEnd);
+        finish();
+      };
+      const onEnd = (event) => { if (event.target === panel && event.propertyName === "transform") { end(); } };
+      panel.addEventListener("transitionend", onEnd);
+      window.setTimeout(end, 420);
+    };
+
+    const open = (trigger) => {
+      if (state.open) { return; }
+      const kind = OFFER.kinds[trigger.dataset.offer] || { word: "business", line: "" };
+      const firm = (trigger.dataset.offerFirm || "").trim();
+      const number = String((window.OWNER && window.OWNER.whatsapp) || "").replace(/\D/g, "");
+      const hello = "Hi " + String((window.OWNER && window.OWNER.name) || "Oxzi").split(" ")[0] + ", I saw the sample " +
+        (firm ? "website for " + firm : "for a " + kind.word + " website") + ".";
+      const wa = (text) => "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
+
+      const title = dialog.querySelector(".fx-offer-title");
+      title.textContent = firm ? "Your website, " + firm : "Your website";
+      title.classList.toggle("is-long", firm.length > 24); // a long name gets a smaller size
+      const gets = dialog.querySelector(".fx-offer-gets");
+      gets.replaceChildren();
+      (kind.line ? [kind.line] : []).concat(OFFER.gets).forEach((text) => {
+        const li = document.createElement("li");
+        li.innerHTML = '<span class="fx-offer-tick">' + offerIcon("check") + "</span>";
+        li.appendChild(document.createElement("span")).textContent = text;
+        gets.appendChild(li);
+      });
+      dialog.querySelector(".fx-offer-yes").href = wa(hello + " I want the Starter plan.");
+      dialog.querySelector(".fx-offer-ask").href = wa(hello + " I have a question.");
+
+      state.open = true;
+      state.closing = false;
+      state.opener = trigger;
+      if (modal) { dialog.showModal(); } else { dialog.setAttribute("open", ""); }
+      root.classList.add("fx-offer-lock");
+      body.scrollTop = 0;
+      dialog.classList.remove("is-scrolled");
+      void panel.offsetWidth; // start from below the screen, so the slide-up runs
+      dialog.classList.add("is-open");
+      closeButton.focus({ preventScroll: true });
+      // One step in the history, so the phone's back button closes the sheet instead of leaving.
+      try { window.history.pushState({ fxOffer: true }, ""); } catch (error) { /* very old browsers */ }
+    };
+
+    body.addEventListener("scroll", () => { dialog.classList.toggle("is-scrolled", body.scrollTop > 4); }, { passive: true });
+    closeButton.addEventListener("click", () => close(false));
+    scrim.addEventListener("click", () => close(false));
+    dialog.addEventListener("click", (event) => { if (event.target === dialog) { close(false); } });
+    // Escape, and the Android back gesture where the browser sends it to the open dialog.
+    dialog.addEventListener("cancel", (event) => { event.preventDefault(); close(false); });
+    // If the browser closed it by itself, tidy up all the same.
+    dialog.addEventListener("close", () => {
+      // dialog.open is true when this is a late event from an earlier close and the sheet is open again.
+      if (!state.open || dialog.open) { return; }
+      if (!state.closing && ours()) { window.history.back(); }
+      finish();
+    });
+    window.addEventListener("popstate", () => { if (state.open && !state.closing) { close(true); } });
+
+    // Keyboard: Escape closes, Tab goes round inside the sheet.
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") { event.preventDefault(); close(false); return; }
+      if (event.key !== "Tab") { return; }
+      const stops = $$('button, a[href], [tabindex="0"]', panel).filter((node) => node.offsetParent !== null);
+      if (!stops.length) { return; }
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      const inside = panel.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || !inside)) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || !inside)) { event.preventDefault(); first.focus(); }
+    });
+
+    // Drag the top of the sheet down to close it (phones only).
+    let drag = null;
+    head.addEventListener("pointerdown", (event) => {
+      if (!state.open || state.closing || reduce || cardLayout.matches) { return; }
+      if (event.button !== undefined && event.button !== 0) { return; }
+      drag = { id: event.pointerId, y: event.clientY, dy: 0, lastY: event.clientY, lastTime: event.timeStamp, speed: 0, moved: false };
+    });
+    head.addEventListener("pointermove", (event) => {
+      if (!drag || event.pointerId !== drag.id) { return; }
+      const dy = event.clientY - drag.y;
+      if (!drag.moved) {
+        if (Math.abs(dy) < 6) { return; }
+        drag.moved = true;
+        dialog.classList.add("is-dragging");
+        try { head.setPointerCapture(event.pointerId); } catch (error) { /* older browsers */ }
+      }
+      drag.dy = dy > 0 ? dy : dy / 5; // pulling up only gives a little
+      const dt = event.timeStamp - drag.lastTime;
+      if (dt > 0) {
+        drag.speed = (event.clientY - drag.lastY) / dt;
+        drag.lastY = event.clientY;
+        drag.lastTime = event.timeStamp;
+      }
+      panel.style.transform = "translate3d(0," + drag.dy.toFixed(1) + "px,0)";
+      scrim.style.opacity = String(clamp(1 - drag.dy / (panel.offsetHeight || 600), 0.15, 1));
+    });
+    const dragEnd = (event) => {
+      if (!drag || (event && event.pointerId !== drag.id)) { return; }
+      const ended = drag;
+      drag = null;
+      if (!ended.moved) { return; }
+      const flicked = event && event.timeStamp - ended.lastTime < 120 && ended.speed > 0.5 && ended.dy > 24;
+      if (ended.dy > Math.min(120, panel.offsetHeight * 0.25) || flicked) {
+        close(false);
+      } else {
+        dialog.classList.remove("is-dragging");
+        panel.style.transform = "";
+        scrim.style.opacity = "";
+      }
+    };
+    head.addEventListener("pointerup", dragEnd);
+    head.addEventListener("pointercancel", dragEnd);
+
+    return { open: open, close: () => close(false) };
+  };
+
+  // A reload while the sheet was open keeps its history step: clear the mark, the sheet is shut.
+  try {
+    if (window.history.state && window.history.state.fxOffer) { window.history.replaceState(null, ""); }
+  } catch (error) { /* very old browsers */ }
+  $$("[data-offer]").forEach((trigger) => {
+    if (trigger.fxOffer) { return; }
+    trigger.fxOffer = true;
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.addEventListener("click", (event) => {
+      // Without a WhatsApp number there is nothing to offer: let the link do its own thing.
+      if (!String((window.OWNER && window.OWNER.whatsapp) || "").replace(/\D/g, "")) { return; }
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) { return; }
+      event.preventDefault();
+      if (!offer) { offer = buildOffer(); }
+      offer.open(trigger);
+    });
   });
 
   // ---------------------------------------------------------------------
