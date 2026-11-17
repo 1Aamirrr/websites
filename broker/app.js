@@ -205,6 +205,8 @@
   if (builderNumber) {
     const link = $("#demoLink");
     link.href = waLink("Hi " + CONFIG.builtBy.split(" ")[0] + ", I saw the sample website for " + firm + ". I want one.", builderNumber);
+    // A tap opens the offer sheet (../fx/fx.js, section 9). The link above is the fallback.
+    link.dataset.offerFirm = customFirm;
     link.hidden = false;
   }
 
