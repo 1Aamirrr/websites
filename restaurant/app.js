@@ -149,6 +149,8 @@
   const customArea = clean(params.get("area"), 40);
   const firm = customFirm || CONFIG.firm;
   const area = customArea || CONFIG.area;
+  // ?city=Dubai: for a business outside Mumbai
+  const city = clean(params.get("city"), 30) || CONFIG.city;
   const phone = CONFIG.phone.replace(/\D/g, "");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -211,10 +213,10 @@
   };
 
   // ---------- Names, phone and links across the page ----------
-  document.title = firm + " | Restaurant in " + area + ", " + CONFIG.city;
+  document.title = firm + " | Restaurant in " + area + ", " + city;
   $$("[data-firm]").forEach((node) => { node.textContent = firm; });
   $$("[data-area]").forEach((node) => { node.textContent = area; });
-  $$("[data-city]").forEach((node) => { node.textContent = CONFIG.city; });
+  $$("[data-city]").forEach((node) => { node.textContent = city; });
   $$("[data-since]").forEach((node) => { node.textContent = String(CONFIG.since); });
   $$("[data-pickup]").forEach((node) => { node.textContent = String(CONFIG.pickupMinutes); });
   $$("[data-km]").forEach((node) => { node.textContent = String(CONFIG.deliveryKm); });
@@ -246,7 +248,7 @@
     link.hidden = false;
   }
 
-  $("#map").src = "https://www.google.com/maps?q=" + encodeURIComponent(area + ", " + CONFIG.city) + "&output=embed";
+  $("#map").src = "https://www.google.com/maps?q=" + encodeURIComponent(area + ", " + city) + "&output=embed";
 
   // ---------------------------------------------------------------------
   // Timings: open or closed right now, and the table of hours

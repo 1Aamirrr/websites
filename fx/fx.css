@@ -747,3 +747,10 @@ html.fx-offer-lock { overflow: hidden; scrollbar-gutter: stable; }
   .fx-offer.is-open .fx-offer-yes::after { animation: none; }
   .fx-offer-head { cursor: auto; touch-action: auto; }
 }
+
+/* ---------- 14. The business's own Google rating in the hero (?rating=4.9&reviews=98) ---------- */
+.fx-rating { font-weight: 600; }
+.fx-stars { position: relative; display: inline-block; flex: none; width: 5.2em; height: 1.04em; line-height: 0; vertical-align: -0.15em; }
+.fx-stars svg { width: 5.2em; height: 1.04em; fill: currentColor; opacity: .28; }
+.fx-stars-fill { position: absolute; inset: 0 auto 0 0; overflow: hidden; }
+.fx-stars-fill svg { fill: #f2a900; opacity: 1; }
