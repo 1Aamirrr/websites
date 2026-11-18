@@ -596,6 +596,9 @@
     launch: { label: "Launch offer: first 3 clients", price: "4,999", was: "7,999",
               note: "Starter site. You pay nothing until your site is live and you like it." }
   };
+  if (OFFER.launch) {
+    OFFER.terms[0][1] = "Launch offer: pay after your site is live. Other plans: 50% advance, 50% when live. Pay by UPI.";
+  }
   // A sample made for a business in the UAE (owner.js sets the money) gets the dirham prices.
   if (window.OWNER && window.OWNER.money && window.OWNER.money.code === "AED") {
     OFFER.currency = "AED";
