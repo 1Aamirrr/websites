@@ -157,7 +157,10 @@
 
   const waLink = (text, number = phone) => "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
 
-  const inr = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
+  // Prices are in rupees here; owner.js decides how they are shown (rupees, or dirhams for the UAE).
+  const money = (window.OWNER && window.OWNER.money) || { code: "INR", sign: "₹", scale: 1, locale: "en-IN" };
+  const amount = (n) => Math.round(n * money.scale).toLocaleString(money.locale);
+  const inr = (n) => money.sign + amount(n);
 
   const prettyPhone = (digits) => {
     const local = digits.slice(-10);

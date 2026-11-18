@@ -151,10 +151,14 @@
 
   const waLink = (text, number = phone) => "https://wa.me/" + number + "?text=" + encodeURIComponent(text);
 
-  const inr = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
+  // Prices are in rupees here; owner.js decides how they are shown (rupees, or dirhams for the UAE).
+  const money = (window.OWNER && window.OWNER.money) || { code: "INR", sign: "₹", scale: 1, locale: "en-IN" };
+  const amount = (n) => Math.round(n * money.scale).toLocaleString(money.locale);
+  const inr = (n) => money.sign + amount(n);
   const tidy = (x, digits) => String(parseFloat(x.toFixed(digits)));
-  const shortMoney = (n) =>
-    n >= 1e7 ? "₹" + tidy(n / 1e7, 2) + " Cr" : n >= 1e5 ? "₹" + tidy(n / 1e5, 1) + " Lakh" : inr(n);
+  const shortMoney = (n) => money.code !== "INR"
+    ? (n * money.scale >= 1e6 ? money.sign + tidy(n * money.scale / 1e6, 2) + "M" : inr(n))
+    : n >= 1e7 ? "₹" + tidy(n / 1e7, 2) + " Cr" : n >= 1e5 ? "₹" + tidy(n / 1e5, 1) + " Lakh" : inr(n);
   const priceText = (item) => (item.deal === "rent" ? inr(item.amount) + " a month" : shortMoney(item.amount));
 
   const prettyPhone = (digits) => {
