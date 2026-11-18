@@ -590,12 +590,24 @@
       ["key", "The domain (yourname.in) is bought in your name, so you own it."],
       ["edit", "2 rounds of changes before going live."]
     ],
-    steps: ["Say yes on WhatsApp.", "Send your logo, photos and prices.", "Your site is live in 5 days."]
+    steps: ["Say yes on WhatsApp.", "Send your logo, photos and prices.", "Your site is live in 5 days."],
+    currency: "Rs"
   };
+  // A sample made for a business in the UAE (owner.js sets the money) gets the dirham prices.
+  if (window.OWNER && window.OWNER.money && window.OWNER.money.code === "AED") {
+    OFFER.currency = "AED";
+    OFFER.plans[0].price = "799";
+    OFFER.plans[1].price = "1,499";
+    OFFER.care.price = "149";
+    OFFER.kinds.restaurant.line = "Menu with WhatsApp ordering, no delivery-app commission";
+    OFFER.terms[0] = ["card", "50% advance, 50% when your site is live. Pay by bank transfer or card."];
+    OFFER.terms[1][1] = "The domain (yourname.com) is bought in your name, so you own it.";
+  }
   const OFFER_ICONS = {
     check: '<path d="M5 12.5l4.3 4.3L19 7.2"/>',
     close: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
     pay: '<path d="M6.5 4h11M6.5 8.5h11M9.5 4c3.6 0 5.3 1.9 5.3 4.5S13.1 13 9.5 13H7l8 7.5"/>',
+    card: '<rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3 10h18M7 14.5h4"/>',
     key: '<circle cx="8" cy="15.5" r="3.8"/><path d="M10.8 12.7L19.5 4M16 7.5l2.6 2.6M13.6 9.9l2 2"/>',
     edit: '<path d="M4.5 19.5l1-4.2L15.8 5a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.7 18.5z"/><path d="M13.8 7l3.2 3.2"/>',
     wa: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
@@ -618,7 +630,7 @@
       '<div class="fx-plan' + (item.tag ? " is-pick" : "") + '">' +
       (item.tag ? '<span class="fx-plan-tag">' + item.tag + "</span>" : "") +
       '<p class="fx-plan-name">' + item.name + "</p>" +
-      '<p class="fx-plan-price"><span>Rs</span> ' + item.price + "</p>" +
+      '<p class="fx-plan-price"><span>' + OFFER.currency + '</span> ' + item.price + "</p>" +
       '<ul class="fx-plan-lines">' + item.lines.map((line) => "<li>" + line + "</li>").join("") + "</ul></div>";
     dialog.innerHTML =
       '<div class="fx-offer-scrim" aria-hidden="true"></div>' +
@@ -635,7 +647,7 @@
           '<div><h3 class="fx-offer-label">Plans</h3>' +
             '<div class="fx-offer-plans">' + OFFER.plans.map(plan).join("") + "</div>" +
             '<div class="fx-offer-care"><p class="fx-care-top"><strong>' + OFFER.care.name + '</strong><span class="fx-care-opt">Optional</span>' +
-            '<span class="fx-care-price">Rs ' + OFFER.care.price + ' a month</span></p><p class="fx-care-note">' + OFFER.care.note + "</p></div>" +
+            '<span class="fx-care-price">' + OFFER.currency + " " + OFFER.care.price + ' a month</span></p><p class="fx-care-note">' + OFFER.care.note + "</p></div>" +
           "</div>" +
           '<div><h3 class="fx-offer-label">Simple terms</h3><ul class="fx-offer-terms">' +
             OFFER.terms.map((term) => '<li><span class="fx-offer-ico">' + offerIcon(term[0]) + "</span><span>" + term[1] + "</span></li>").join("") +
