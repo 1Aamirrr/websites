@@ -119,6 +119,8 @@
   const customArea = clean(params.get("area"), 40);
   const firm = customFirm || CONFIG.firm;
   const area = customArea || CONFIG.area;
+  // ?city=Dubai: for a business outside Mumbai
+  const city = clean(params.get("city"), 30) || CONFIG.city;
   const phone = CONFIG.phone.replace(/\D/g, "");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -172,10 +174,10 @@
   };
 
   // ---------- Names, phone and links across the page ----------
-  document.title = firm + " | Property in " + area + ", " + CONFIG.city;
+  document.title = firm + " | Property in " + area + ", " + city;
   $$("[data-firm]").forEach((node) => { node.textContent = firm; });
   $$("[data-area]").forEach((node) => { node.textContent = area; });
-  $$("[data-city]").forEach((node) => { node.textContent = CONFIG.city; });
+  $$("[data-city]").forEach((node) => { node.textContent = city; });
   $$("[data-since]").forEach((node) => { node.textContent = String(CONFIG.since); });
   $("#builtBy").textContent = CONFIG.builtBy;
 
@@ -219,7 +221,7 @@
   // ---------- Visiting card: a long firm name gets a smaller size so it still fits ----------
   const visitingCard = $(".vcard");
   if (visitingCard) { visitingCard.classList.toggle("is-long", firm.length > 22); }
-  $("#map").src = "https://www.google.com/maps?q=" + encodeURIComponent(area + ", " + CONFIG.city) + "&output=embed";
+  $("#map").src = "https://www.google.com/maps?q=" + encodeURIComponent(area + ", " + city) + "&output=embed";
 
   // ---------------------------------------------------------------------
   // Saved properties (the heart button). Kept on the visitor's own phone.
@@ -476,7 +478,7 @@
 
     $("#sheetTitle").textContent = item.title + " in " + area;
     const where = $("#sheetWhere");
-    where.replaceChildren(icon("pin"), el("span", "", area + ", " + CONFIG.city + ". " + item.note));
+    where.replaceChildren(icon("pin"), el("span", "", area + ", " + city + ". " + item.note));
 
     const commercial = item.kind === "commercial";
     const specs = [
@@ -734,7 +736,7 @@
       body.appendChild(el("h3", "", item.title));
       const where = el("p", "card-where");
       where.appendChild(icon("pin"));
-      where.appendChild(el("span", "", area + ", " + CONFIG.city));
+      where.appendChild(el("span", "", area + ", " + city));
       body.appendChild(where);
       const open = el("button", "btn btn-brand btn-sm btn-3d", "See details");
       open.type = "button";

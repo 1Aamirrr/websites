@@ -14,6 +14,8 @@
      data-phone             a phone frame whose page scrolls slowly by itself
      data-offer="clinic"    a tap opens the offer sheet: what the owner gets, the price, WhatsApp buttons
                             (data-offer-firm="Name" puts the firm name in it; see section 9)
+     data-google-rating     a list that gets "4.9 stars from 98 Google reviews" on top when the
+                            link has ?rating=4.9&reviews=98 (see section 10)
 
    After adding new data-ring or data-stage elements later, call window.FX.refresh(). */
 (() => {
@@ -829,6 +831,42 @@
       offer.open(trigger);
     });
   });
+
+  // ---------------------------------------------------------------------
+  // 10. The business's own Google rating, from the link:
+  //     ?rating=4.9&reviews=98 adds "4.9 stars from 98 Google reviews" with stars
+  //     to the top of every list marked data-google-rating (the hero's trust list).
+  //     Missing or odd values (rating not 1 to 5, reviews not a whole number) add nothing.
+  // ---------------------------------------------------------------------
+  const ratingLists = $$("[data-google-rating]");
+  if (ratingLists.length) {
+    const query = new URLSearchParams(window.location.search);
+    const rawRating = String(query.get("rating") || "").trim();
+    const rawReviews = String(query.get("reviews") || "").replace(/[\s,]/g, "");
+    const stars = /^[1-5](\.\d{1,2})?$/.test(rawRating) ? Math.round(parseFloat(rawRating) * 10) / 10 : 0;
+    const count = /^\d{1,7}$/.test(rawReviews) ? parseInt(rawReviews, 10) : 0;
+    if (stars >= 1 && stars <= 5) {
+      const shown = stars.toFixed(1);
+      const words = count
+        ? shown + " stars from " + count.toLocaleString("en-IN") + " Google review" + (count === 1 ? "" : "s")
+        : shown + " stars on Google";
+      const star = (x) => '<path transform="translate(' + x + ' 0)" d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4l-5.8 3 1.1-6.4-4.7-4.6 6.5-.9z"/>';
+      const row = '<svg viewBox="0 0 120 24" focusable="false">' + [0, 24, 48, 72, 96].map(star).join("") + "</svg>";
+      ratingLists.forEach((list) => {
+        if (list.querySelector(".fx-rating")) { return; }
+        const item = document.createElement("li");
+        item.className = "fx-rating";
+        const meter = document.createElement("span");
+        meter.className = "fx-stars";
+        meter.setAttribute("aria-hidden", "true");
+        meter.innerHTML = row + '<span class="fx-stars-fill" style="width:' + (stars / 5 * 100).toFixed(1) + '%">' + row + "</span>";
+        const text = document.createElement("span");
+        text.textContent = words;
+        item.append(meter, text);
+        list.prepend(item);
+      });
+    }
+  }
 
   // ---------------------------------------------------------------------
   const refresh = () => {
