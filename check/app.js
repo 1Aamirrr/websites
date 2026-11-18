@@ -4,6 +4,7 @@
      /check/?firm=Chetan+Realtor&area=Wadala&kind=broker&rating=4.9&reviews=43&web=none
 
    firm, area   text (cleaned and cut to 60 and 40 letters, like the samples)
+   city         text, only passed on to the sample (e.g. Dubai)
    kind         broker | clinic | gym | salon | restaurant   (picks the sample to link to)
    rating       1.0 to 5.0          reviews  whole number
    web          what they have instead of their own website:
@@ -46,7 +47,7 @@
   const stars = (name) => {
     const value = String(params.get(name) || "").trim().replace(",", ".");
     if (!/^\d(\.\d{1,2})?$/.test(value)) { return null; }
-    const rounded = Math.round(Number(value) * 10) / 10;
+    const rounded = Math.floor(Number(value) * 10 + 1e-9) / 10;  // 4.95 shows 4.9, never rounded up
     return rounded >= 1 && rounded <= 5 ? rounded : null;
   };
   const yesNo = (name) => {
@@ -57,6 +58,7 @@
   const link = {
     firm: text("firm", 60),
     area: text("area", 40),
+    city: text("city", 30),
     kind: oneOf("kind", ["broker", "clinic", "gym", "salon", "restaurant"]),
     rating: stars("rating"),
     reviews: whole("reviews", 1000000),
@@ -246,6 +248,7 @@
     const query = new URLSearchParams();
     if (link.firm) { query.set("firm", link.firm); }
     if (link.area) { query.set("area", link.area); }
+    if (link.city) { query.set("city", link.city); }
     if (link.rating !== null) { query.set("rating", starText(link.rating)); }
     if (link.reviews !== null) { query.set("reviews", String(link.reviews)); }
     const search = query.toString();
@@ -277,7 +280,7 @@
   }
 
   // ---------- 6. Cards rise into place as you scroll (the look comes from fx/fx.css) ----------
-  window.CHECK_READY = true;
+  window.CHECK_READY = true; // tells the fallback in index.html that the page was filled
   const reveals = $$(".reveal");
   reveals.forEach((node) => {
     const group = Array.from(node.parentElement.children).filter((child) => child.classList.contains("reveal"));
