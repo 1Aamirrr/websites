@@ -591,11 +591,15 @@
       ["edit", "2 rounds of changes before going live."]
     ],
     steps: ["Say yes on WhatsApp.", "Send your logo, photos and prices.", "Your site is live in 5 days."],
-    currency: "Rs"
+    currency: "Rs",
+    // Launch offer for the first clients. Set to null to remove it everywhere in the sheet.
+    launch: { label: "Launch offer: first 3 clients", price: "4,999", was: "7,999",
+              note: "Starter site. You pay nothing until your site is live and you like it." }
   };
   // A sample made for a business in the UAE (owner.js sets the money) gets the dirham prices.
   if (window.OWNER && window.OWNER.money && window.OWNER.money.code === "AED") {
     OFFER.currency = "AED";
+    OFFER.launch = null;
     OFFER.plans[0].price = "799";
     OFFER.plans[1].price = "1,499";
     OFFER.care.price = "149";
@@ -643,6 +647,12 @@
         "</div>" +
         '<div class="fx-offer-body" tabindex="0" role="region" aria-label="What you get and the price">' +
           '<p class="fx-offer-lead" id="fxOfferLead">A site like this one, with your own name, photos and prices.</p>' +
+          (OFFER.launch
+            ? '<div class="fx-offer-launch"><p class="fx-launch-label">' + OFFER.launch.label + "</p>" +
+              '<p class="fx-launch-price"><span>' + OFFER.currency + "</span> " + OFFER.launch.price +
+              ' <s aria-label="instead of ' + OFFER.currency + " " + OFFER.launch.was + '">' + OFFER.launch.was + "</s></p>" +
+              '<p class="fx-launch-note">' + OFFER.launch.note + "</p></div>"
+            : "") +
           '<div><h3 class="fx-offer-label">What you get</h3><ul class="fx-offer-gets"></ul></div>' +
           '<div><h3 class="fx-offer-label">Plans</h3>' +
             '<div class="fx-offer-plans">' + OFFER.plans.map(plan).join("") + "</div>" +
