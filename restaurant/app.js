@@ -92,7 +92,7 @@
 
     { id: "butter-naan", section: "breads", name: "Butter Naan", veg: true, price: 50, tags: [],
       desc: "Soft tandoor bread brushed with butter." },
-    { id: "tandoori-roti", section: "breads", name: "Tandoori Roti", veg: true, price: 25, tags: [],
+    { id: "tandoori-roti", section: "breads", name: "Tandoori Roti", veg: true, price: 30, tags: [],
       desc: "Whole wheat roti baked in the tandoor." },
     { id: "jeera-rice", section: "breads", name: "Jeera Rice", veg: true, price: 150, tags: [],
       desc: "Basmati rice tossed with cumin and ghee." },
