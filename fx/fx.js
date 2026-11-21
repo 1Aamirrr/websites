@@ -571,7 +571,13 @@
       clinic: { word: "clinic", line: "Treatments and appointment requests" },
       gym: { word: "gym", line: "Plans, timetable and free-trial booking" },
       salon: { word: "salon", line: "Service menu and booking" },
-      restaurant: { word: "restaurant", line: "Menu with WhatsApp ordering, no Zomato commission" }
+      restaurant: { word: "restaurant", line: "Menu with WhatsApp ordering, no Zomato commission" },
+      coaching: { word: "coaching class", line: "Batches, fees and free demo class booking" },
+      bakery: { word: "bakery", line: "Cake menu and custom cake orders on WhatsApp" },
+      physio: { word: "physio clinic", line: "Conditions treated, packages and appointment requests" },
+      garage: { word: "garage", line: "Service prices, estimate and pick-up booking" },
+      interior: { word: "interior design", line: "Portfolio, packages and a budget estimator" },
+      homeservice: { word: "home services", line: "Service prices and same-day slot booking" }
     },
     gets: [
       "Your services, photos and timings",
