@@ -155,6 +155,9 @@
     const n = nowMin();
     const inside = today.find((r) => n >= r[0] && n < r[1]);
     if (inside) { return { open: true, until: inside[1] }; }
+    // Still open from last night, for example a cafe that closes at 1 am
+    const lateNight = rangesOn(dateAt(-1)).find((r) => r[1] > 1440 && n < r[1] - 1440);
+    if (lateNight) { return { open: true, until: lateNight[1] - 1440 }; }
     for (let off = 0; off < 8; off += 1) {
       const next = rangesOn(dateAt(off)).find((r) => off > 0 || r[0] > n);
       if (next) { return { open: false, offset: off, at: next[0] }; }
@@ -188,7 +191,7 @@
     const last = biz.booking.people ? 60 : step; // tables: last seating an hour before closing
     const out = [];
     rangesOn(date).forEach((r) => {
-      for (let t = r[0]; t + last <= r[1]; t += step) { out.push(t); }
+      for (let t = r[0]; t + last <= Math.min(r[1], 1440); t += step) { out.push(t); } // bookings stop at midnight
     });
     return out.map((t) => ({ t: t, free: isFree(offset, t) }));
   };
@@ -226,15 +229,17 @@
     .replace(/[^a-z0-9:\s]/g, " ")
     .replace(/\s+/g, " ").trim() + " ";
   const reCache = new Map();
-  const has = (n, word) => {
-    if (word.slice(-1) === "*") {
-      let re = reCache.get(word);
-      if (!re) {
-        re = new RegExp(" " + normWord(word.slice(0, -1)).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[a-z]*(?= )");
-        reCache.set(word, re);
-      }
-      return re.test(n);
+  // "clean*" matches "clean", "cleaning", "cleanup"
+  const prefixRe = (word) => {
+    let re = reCache.get(word);
+    if (!re) {
+      re = new RegExp(" " + normWord(word.slice(0, -1)).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[a-z]*(?= )");
+      reCache.set(word, re);
     }
+    return re;
+  };
+  const has = (n, word) => {
+    if (word.slice(-1) === "*") { return prefixRe(word).test(n); }
     return n.indexOf(" " + normWord(word) + " ") !== -1;
   };
   const hasAny = (n, list) => list.some((w) => has(n, w));
@@ -253,7 +258,8 @@
     cancel: ["cancel*", "nahi aa*", "nahin aa*", "nahi aana", "reschedul*"],
     thanks: ["thank*", "thx", "thnx", "tnx", "shukriya", "dhanyavad", "dhanyawad", "great", "perfect", "awesome", "super", "nice"],
     yes: ["yes", "yeah", "yep", "yup", "haan", "han", "ha", "haa", "ji", "ok", "okay", "okk", "confirm*", "sure", "done", "theek", "thik", "chalega", "pakka", "bilkul", "correct", "go ahead", "kar do", "book it", "yes book it"],
-    no: ["no", "nope", "nahi", "nahin", "na", "mat", "dont", "not now", "later", "baad mein", "rehne do"],
+    no: ["no", "nope", "nahi", "nahin", "mat", "dont", "not now", "later", "baad mein", "rehne do"],
+    dontBook: ["dont", "do not", "nahi chahiye", "mat karo", "mat kar", "not now", "rehne do", "wait"],
     change: ["change*", "badal*", "another", "dusra", "doosra", "different", "other time", "koi aur"],
     pay: ["upi", "gpay", "google pay", "phonepe", "phone pe", "paytm", "card", "cash", "online payment", "payment"],
     checkout: ["checkout", "check out", "place order", "thats all", "that is all", "bas", "itna hi", "itna", "done", "confirm order", "order karo", "order kar do"],
@@ -261,7 +267,7 @@
     clear: ["clear cart", "empty cart", "start again", "sab hata"],
     delivery: ["delivery", "deliver*", "home", "ghar", "ghar pe", "bhej do"],
     pickup: ["pickup", "pick up", "takeaway", "take away", "collect", "le jaunga", "le jaungi", "aakar"],
-    cash: ["cash", "cod", "cash on delivery"],
+    cash: ["cash", "cod", "cash on delivery", "pay at pickup", "counter"],
     paid: ["paid", "pay kar diya", "payment done", "kar diya"],
     whoami: ["who are you", "are you a bot", "are you bot", "bot", "robot", "chatbot", "ai", "are you human", "are you real", "aapka naam", "tumhara naam", "aap kaun", "tum kaun", "kaun ho", "machine"]
   };
@@ -292,17 +298,26 @@
     ["friday", "fri", "shukravar", "shukrawar"],
     ["saturday", "sat", "shanivar", "shaniwar", "weekend"]
   ];
+  const DAY_WORDS = [
+    [2, ["day after tomorrow", "parso", "parson", "parsoon"]],
+    [1, ["kal", "tomorrow", "tmrw", "tmr", "tomorow", "tommorow", "tommorrow"]],
+    [0, ["aaj", "today", "tonight", "aj", "abhi"]]
+  ];
   const parseDay = (n) => {
-    if (hasAny(n, ["day after tomorrow", "parso", "parson", "parsoon"])) { return 2; }
-    if (hasAny(n, ["kal", "tomorrow", "tmrw", "tmr", "tomorow", "tommorow", "tommorrow"])) { return 1; }
-    if (hasAny(n, ["aaj", "today", "tonight", "aj", "abhi"])) { return 0; }
+    const found = [];
     const today = new Date().getDay();
-    for (let idx = 0; idx < 7; idx += 1) {
-      if (hasAny(n, WEEKDAYS[idx])) {
-        let off = (idx - today + 7) % 7;
-        if (off === 0 && has(n, "next")) { off = 7; }
-        return off;
-      }
+    DAY_WORDS.forEach((d) => d[1].forEach((w) => { const at = n.indexOf(" " + w + " "); if (at !== -1) { found.push({ at: at, off: d[0] }); } }));
+    WEEKDAYS.forEach((names, idx) => names.forEach((w) => {
+      const at = n.indexOf(" " + w + " ");
+      if (at === -1) { return; }
+      let off = (idx - today + 7) % 7;
+      if (off === 0 && has(n, "next")) { off = 7; }
+      found.push({ at: at, off: off });
+    }));
+    if (found.length) {
+      found.sort((a, b) => a.at - b.at);
+      // "kal nahi, Friday ko" or "not Monday, Tuesday": the last day named is the one wanted
+      return hasAny(n, ["nahi", "nahin", "not", "instead", "no"]) ? found[found.length - 1].off : found[0].off;
     }
     const m = n.match(/ (\d{1,2})(?:st|nd|rd|th)? (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* /) ||
       n.match(/ (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* (\d{1,2})(?:st|nd|rd|th)? /);
@@ -321,8 +336,8 @@
   // Time: "5 baje", "5:30 pm", "saade 5", "subah 7", "17:00". Or only a part of the day.
   const parseTime = (n, bare) => {
     let pm = null;
-    if (hasAny(n, ["pm", "shaam", "sham", "evening", "raat", "night", "dopahar", "afternoon", "noon"])) { pm = true; }
-    if (hasAny(n, ["am", "subah", "morning", "savere", "early"])) { pm = false; }
+    if (hasAny(n, ["shaam", "sham", "evening", "raat", "night", "dopahar", "afternoon", "noon"]) || / \d{1,2}(:\d\d)? ?pm /.test(n)) { pm = true; }
+    if (hasAny(n, ["subah", "morning", "savere"]) || / \d{1,2}(:\d\d)? ?am /.test(n)) { pm = false; }
     let h = null;
     let m = 0;
     let ap = null;
@@ -389,7 +404,7 @@
   const spanOf = (n, word) => {
     const w = normWord(word);
     if (w.slice(-1) === "*") {
-      const m = n.match(new RegExp(" " + w.slice(0, -1).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[a-z]*(?= )"));
+      const m = n.match(prefixRe(word));
       return m ? { start: m.index + 1, end: m.index + m[0].length } : null;
     }
     const at = n.indexOf(" " + w + " ");
@@ -437,13 +452,14 @@
     return kept.map((k) => {
       const before = n.slice(0, k.start).trim().split(" ").reverse();
       let qty = 1;
+      let counted = false;
       for (let i = 0; i < Math.min(before.length, 3); i += 1) {
         if (fillers.indexOf(before[i]) !== -1) { continue; }
         const q = toNumber(before[i]);
-        if (q && (before[i] !== "do" || i === 0)) { qty = q; }
+        if (q && (before[i] !== "do" || i === 0)) { qty = q; counted = true; }
         break;
       }
-      return { item: k.item, qty: Math.min(qty, 20) };
+      return { item: k.item, qty: Math.min(qty, 20), counted: counted };
     });
   };
 
@@ -495,7 +511,7 @@
       faq: (biz.faqs || []).find((q) => hasAny(n, q.words)) || null
     };
     const bookingContext = (f && f.type === "booking") || hasAny(n, K.bookStrong) || hasAny(n, K.bookWeak);
-    if (bookingContext) { ctx.time = parseTime(n, f && f.type === "booking" && f.await === "time"); }
+    if (bookingContext || ctx.services.length || ctx.day !== null) { ctx.time = parseTime(n, f && f.type === "booking" && f.await === "time"); }
     const I = {};
     Object.keys(K).forEach((key) => { I[key] = hasAny(n, K[key]); });
     ctx.I = I;
@@ -551,10 +567,15 @@
     }
 
     // Food: dishes in the message go straight to the cart
-    if (biz.items.length && ctx.items.length && !I.remove) { addToCart(ctx, plan); return; }
-    if (biz.items.length && (I.order || I.menu) && !I.bookStrong && !ctx.faq) { showMenu(ctx, plan, I.order); return; }
+    if (biz.items.length && ctx.items.length && !I.remove) {
+      if (dishQuestion(ctx)) { dishInfo(ctx, plan); } else { addToCart(ctx, plan); }
+      return;
+    }
+    if (biz.items.length && (I.order || I.menu) && !I.bookStrong && !ctx.faq && !I.location && !I.timing) { showMenu(ctx, plan, I.order); return; }
 
-    const wantsBooking = I.bookStrong || (I.bookWeak && (ctx.day !== null || (ctx.time && ctx.time.min !== undefined)));
+    // "kal 11 baje cleaning" is a booking even without the word "book"
+    const when = ctx.day !== null || (ctx.time && ctx.time.min !== undefined);
+    const wantsBooking = I.bookStrong || ((I.bookWeak || (ctx.services.length && !I.price)) && when);
     const info = [];
     if (I.timing) { info.push("timing"); }
     if (I.location && !(ctx.faq && ctx.faq.over)) { info.push("location"); }
@@ -850,6 +871,9 @@
         if (off === 0 && want <= nowMin()) {
           plan.step("alert", clock(want) + " has already passed today", { tone: "warn", ms: 400 });
           note += T(clock(want) + " has passed today. ", clock(want) + " nikal gaya aaj. ");
+        } else if (off === 0 && inside && want < nowMin() + 30) {
+          plan.step("alert", clock(want) + " is less than 30 minutes away", { detail: "Too soon to get ready", tone: "warn", ms: 420 });
+          note += T(clock(want) + " is too soon to book. ", clock(want) + " bahut jaldi hai. ");
         } else if (!inside) {
           plan.step("alert", clock(want) + " is outside opening hours", { detail: DAY_NAMES[date.getDay()] + ": " + rangesText(ranges), tone: "warn", ms: 420 });
           note += T("On " + DAY_NAMES[date.getDay()] + " we are open " + rangesText(ranges) + ". ", DAY_NAMES[date.getDay()] + " ko timing " + rangesText(ranges, true) + " hai. ");
@@ -912,13 +936,14 @@
     const f = S.flow;
     const I = ctx.I;
     if (I.handoff && !ctx.faq) { S.flow = null; handoff(ctx, plan, "asked"); return true; }
+    const yesBook = f.await === "confirm" && I.yes && !I.change && !hasAny(ctx.n, K.dontBook);
+    if (yesBook) { book(plan); return true; }
     if (I.cancel || (I.no && f.await === "confirm")) {
       S.flow = null;
       plan.step("spark", "Understood: stop the booking", { ms: 380 });
       plan.say(T("Okay, I have not booked anything. Message me any time to book.", "Theek hai, kuch book nahi kiya. Jab chahiye message kar dijiye."));
       return true;
     }
-    if (f.await === "confirm" && I.yes && !I.change) { book(plan); return true; }
 
     const before = JSON.stringify([f.service && f.service.name, f.day, f.time, f.people, f.name, f.slot]);
     if (I.change || has(ctx.n, "another day")) {
@@ -954,6 +979,11 @@
     }
     if (changed) {
       plan.step("spark", "Understood the reply", { detail: foundText(ctx), ms: 420 });
+      bookingNext(ctx, plan);
+      return true;
+    }
+    if (I.bookStrong) {
+      plan.step("spark", "Understood: still booking", { ms: 360 });
       bookingNext(ctx, plan);
       return true;
     }
@@ -1029,6 +1059,22 @@
   };
 
   // ---------- Food order: menu, cart, checkout, pay ----------
+  const sampleAddressChip = () => ({ label: "Use a sample address", send: fill("Flat 302, Shanti Nagar, near {area} station") });
+  const cartCard = () => ({ type: "card", title: T("Your cart", "Aapka cart"), rows: cartRows(), total: [T("Total", "Total"), rs(cartTotal())] });
+
+  // "is paneer tikka spicy?" or "butter chicken kitne ka hai" is a question, not an order
+  const dishQuestion = (ctx) => !ctx.items.some((x) => x.counted) && !ctx.I.order &&
+    (ctx.I.price || !!ctx.faq || /\?/.test(ctx.raw) || hasAny(ctx.n, ["is", "hai kya", "kaisa", "kaisi", "how", "what"]));
+  const dishInfo = (ctx, plan) => {
+    const list = ctx.items.map((x) => x.item);
+    plan.step("spark", "Understood: a question about " + list.map((i) => i.name).join(" and "), { ms: 420 });
+    plan.step("book", "Looked up the dish on the menu", { tag: "Menu", ms: 420 });
+    bump("dish questions");
+    plan.say(list.map((i) => "*" + i.name + "*: " + rs(i.price) + (i.veg ? T(" (veg)", " (veg)") : T(" (non-veg)", " (non-veg)"))).join("\n"));
+    if (ctx.faq) { plan.say(fill(T(ctx.faq.en, ctx.faq.hi))); }
+    plan.say(T("Shall I add it to your order?", "Order mein add kar doon?"));
+    plan.chipsSet(list.slice(0, 3).map((i) => "1 " + i.name).concat(["See menu"]));
+  };
   const showMenu = (ctx, plan, ordering, quiet) => {
     if (!quiet) { plan.step("spark", ordering ? "Understood: wants to order food" : "Understood: asking for the menu", { ms: 420 }); }
     plan.step("book", "Opened today's menu", { tag: "Menu", ms: 440 });
@@ -1054,7 +1100,7 @@
     plan.step("cart", "Updated the cart: " + rs(cartTotal()), { tag: "Cart", ms: 380 });
     bump("orders");
     S.flow.await = "items";
-    plan.say({ type: "card", title: T("Your cart", "Aapka cart"), rows: cartRows(), total: [T("Total", "Total"), rs(cartTotal())] });
+    plan.say(cartCard());
     plan.say(T("Added " + words + ". Anything else, or shall I place the order?", words + " add kar diya. Aur kuch, ya order place kar doon?"));
     plan.chipsSet(["Checkout", "See menu", "Clear cart"]);
   };
@@ -1089,14 +1135,17 @@
     if (ctx.items.length && I.remove) {
       ctx.items.forEach((x) => { S.cart = S.cart.filter((l) => l.item.id !== x.item.id); });
       plan.step("cart", "Removed " + ctx.items.map((x) => x.item.name).join(", "), { tag: "Cart", ms: 380 });
-      plan.say(S.cart.length ? { type: "card", title: T("Your cart", "Aapka cart"), rows: cartRows(), total: ["Total", rs(cartTotal())] } : T("Your cart is empty now.", "Cart khaali hai."));
+      plan.say(S.cart.length ? cartCard() : T("Your cart is empty now.", "Cart khaali hai."));
       plan.chipsSet(S.cart.length ? ["Checkout", "See menu"] : ["See menu"]);
       return true;
     }
-    if (ctx.items.length && (f.await === "items" || f.await === "mode")) { addToCart(ctx, plan); return true; }
+    if (ctx.items.length && (f.await === "items" || f.await === "mode")) {
+      if (dishQuestion(ctx)) { dishInfo(ctx, plan); } else { addToCart(ctx, plan); }
+      return true;
+    }
     if (has(n, "see menu") || (I.menu && !ctx.items.length)) { showMenu(ctx, plan, false); return true; }
 
-    if (f.await === "items" && S.cart.length && (I.checkout || I.yes || I.order)) {
+    if (f.await === "items" && S.cart.length && (I.checkout || I.yes || (I.order && !I.location && !I.timing && !ctx.faq))) {
       f.await = "mode";
       plan.step("spark", "Understood: ready to order", { ms: 380 });
       plan.say(T("Great. Delivery or pickup?", "Badhiya. Delivery chahiye ya pickup?"));
@@ -1109,7 +1158,7 @@
       if (f.mode === "delivery") {
         f.await = "address";
         plan.say(T("Please send your delivery address.", "Delivery address bhej dijiye."));
-        plan.chipsSet([{ label: "Use a sample address", send: fill("Flat 302, Shanti Nagar, near {area} station") }]);
+        plan.chipsSet([sampleAddressChip()]);
         return true;
       }
       placeOrder(plan);
@@ -1136,7 +1185,7 @@
     const want = { items: "a dish", mode: "delivery or pickup", address: "an address", pay: "a payment" }[f.await];
     plan.step("alert", "Could not find " + want + " in the reply", { tone: "warn", ms: 400 });
     if (f.await === "mode") { plan.say(T("Delivery or pickup?", "Delivery ya pickup?")); plan.chipsSet(["Delivery", "Pickup"]); }
-    else if (f.await === "address") { plan.say(T("Please type the full address with the building and road.", "Building aur road ke saath poora address likh dijiye.")); plan.chipsSet([{ label: "Use a sample address", send: fill("Flat 302, Shanti Nagar, near {area} station") }]); }
+    else if (f.await === "address") { plan.say(T("Please type the full address with the building and road.", "Building aur road ke saath poora address likh dijiye.")); plan.chipsSet([sampleAddressChip()]); }
     else { plan.say(T("Tap the pay link above, or choose cash on delivery.", "Upar wale link se pay kijiye, ya cash on delivery chuniye.")); plan.chipsSet(["Cash on delivery"]); }
     return true;
   };
@@ -1170,14 +1219,14 @@
       ));
     }
     plan.say({ type: "pay", amount: total, no: f.no });
-    plan.chipsSet(["Cash on delivery"]);
+    plan.chipsSet([f.mode === "pickup" ? "Pay at pickup" : "Cash on delivery"]);
   };
 
   const paid = (plan, how) => {
     const f = S.flow;
     if (!f || f.type !== "order" || f.await !== "pay") { return; }
     const total = f.total;
-    const record = { id: "o" + f.no, name: S.customerName || "Customer (you)", what: "Order #" + f.no + ": " + S.cart.map((l) => l.item.name + (l.qty > 1 ? " x" + l.qty : "")).join(", "), day: 0, t: f.eta.at, price: total, live: true, order: true, status: how === "cash" ? "Cash on delivery" : "Paid" };
+    const record = { id: "o" + f.no, name: S.customerName || "Customer (you)", what: "Order #" + f.no + ": " + S.cart.map((l) => l.item.name + (l.qty > 1 ? " x" + l.qty : "")).join(", "), day: 0, t: f.mode === "pickup" ? f.eta.at - 10 : f.eta.at, price: total, live: true, order: true, status: how === "cash" ? (f.mode === "pickup" ? "Pay at pickup" : "Cash on delivery") : "Paid" };
     if (how === "cash") {
       plan.step("spark", "Understood: cash on delivery", { ms: 360 });
     } else {
@@ -1185,9 +1234,18 @@
     }
     plan.step("bowl", "Sent order #" + f.no + " to the kitchen", { tag: "Kitchen", ms: 420, effect: () => dash.addBooking(record) });
     ownerAlert(plan, "New order #" + f.no + ": " + rs(total), false, true);
-    plan.say(how === "cash"
+    const pickup = f.mode === "pickup";
+    plan.say(how === "cash" && pickup
+      ? T("Done. Order #" + f.no + " is placed. It will be ready at " + clock(f.eta.at - 10) + ". Please pay " + rs(total) + " at the counter.", "Ho gaya. Order #" + f.no + " place ho gaya. " + clock(f.eta.at - 10) + " pe ready hoga. " + rs(total) + " counter pe de dijiye.")
+      : how === "cash"
       ? T("Done. Order #" + f.no + " is placed. Please keep " + rs(total) + " ready. It will reach you by " + clock(f.eta.at) + ".", "Ho gaya. Order #" + f.no + " place ho gaya. " + rs(total) + " cash ready rakhiye. " + clock(f.eta.at) + " tak pahunch jayega.")
+      : pickup
+      ? T("Payment of " + rs(total) + " received, thank you! Order #" + f.no + " will be ready for pickup at " + clock(f.eta.at - 10) + ".", rs(total) + " mil gaye, shukriya! Order #" + f.no + " " + clock(f.eta.at - 10) + " pe pickup ke liye ready hoga.")
       : T("Payment of " + rs(total) + " received, thank you! Order #" + f.no + " is being prepared and will reach you by " + clock(f.eta.at) + ". I will message you when it leaves the kitchen.", rs(total) + " mil gaye, shukriya! Order #" + f.no + " ban raha hai, " + clock(f.eta.at) + " tak pahunch jayega. Kitchen se nikalte hi message karunga."));
+    if (how === "cash") {
+      const link = waLog.querySelector('[data-pay="' + f.no + '"]');
+      if (link) { link.disabled = true; link.textContent = "Cash on delivery chosen"; }
+    }
     S.cart = [];
     S.flow = null;
     plan.chipsSet(["Book a table", "Location", "Talk to owner"]);
@@ -1218,7 +1276,7 @@
     bump("other questions");
     ownerAlert(plan, "Asked: \"" + ctx.raw.slice(0, 60) + "\"", true);
     plan.say(T(
-      "Good question. I do not want to give you a wrong answer, so I have sent it to " + biz.ownerShort + ". " + biz.pronoun + (biz.pronoun === "They" ? " will" : " will") + " reply here soon.\nMeanwhile, I can help with timings, prices or booking.",
+      "Good question. I do not want to give you a wrong answer, so I have sent it to " + biz.ownerShort + ". " + biz.pronoun + " will reply here soon.\nMeanwhile, I can help with timings, prices or booking.",
       "Achha sawaal hai. Galat jawab nahi dena chahta, isliye " + biz.ownerShort + " ko bhej diya hai. Woh jaldi yahin reply karenge.\nTab tak timings, price ya booking mein madad kar sakta hoon."
     ));
   };
@@ -1530,7 +1588,6 @@
     window.setTimeout(() => setTicks(li, li.querySelector(".is-read") ? "read" : "delivered"), fast ? 60 : 260);
     chipsBox.replaceChildren();
     enqueue(async (gen) => {
-      if (S.paused) { await waitFor(() => !S.paused); }
       if (gen !== S.gen) { return; }
       const plan = think(clean1, src);
       await runPlan(plan, { text: clean1, li: li }, gen);
@@ -1552,6 +1609,10 @@
     enqueue(async (gen) => {
       await wait(900);
       if (gen !== S.gen) { return; }
+      if (!S.flow || S.flow.type !== "order" || S.flow.await !== "pay" || String(S.flow.no) !== btn.dataset.pay) {
+        btn.textContent = "Order already placed";
+        return;
+      }
       btn.replaceChildren(icon("check"), el("span", null, "Paid"));
       btn.classList.add("is-paid");
       const plan = newPlan({ kind: "event", who: "Payment came in", text: "Order #" + S.flow.no + ", " + rs(S.flow.total) });
@@ -1707,7 +1768,7 @@
       }
       lines.push(waiting.length ? waiting.length + " waiting for you: " + waiting.map((h) => (h.live ? (this.liveName || "the demo chat") : h.name)).join(", ") : "Nothing waiting for you");
       if (top3.length) { lines.push("Most asked: " + top3.join(", ")); }
-      lines.push("Reminders go out 2 hours before each " + (kindOrders ? "table booking" : biz.booking.noun));
+      lines.push("Reminders go out " + biz.booking.reminderHours + " hours before each " + (kindOrders ? "table booking" : biz.booking.noun) + ", or the evening before for early ones");
       const box = $("#summary");
       box.replaceChildren();
       lines.forEach((line, i) => {
@@ -1756,7 +1817,6 @@
         dash.render();
       };
       await runPlan(plan, null, gen);
-      S.paused = false;
     });
   };
 

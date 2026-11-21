@@ -423,7 +423,7 @@ h1 { margin-top: 6px; font-size: clamp(1.55rem, 6.4vw, 2.25rem); line-height: 1.
 .pill-confirmed, .pill-booked, .pill-ordered, .pill-paid, .pill-live { background: #e5f5ea; color: #0b7340; }
 .pill-answered { background: #e7f0fb; color: #1d5fa8; }
 .pill-needs-you { background: #fff0dc; color: #a14b06; }
-.pill-cash-on-delivery { background: #fff4dd; color: var(--amber-text); }
+.pill-cash-on-delivery, .pill-pay-at-pickup { background: #fff4dd; color: var(--amber-text); }
 .pill-cancelled { background: #fde8e8; color: #b42318; }
 .pill-owner-replied { background: #efe9fb; color: #5b3fb4; }
 
