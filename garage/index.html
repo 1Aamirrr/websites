@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Torqline Auto Care | Car and bike garage in Chembur, Mumbai</title>
+  <meta name="description" content="Torqline Auto Care, car and bike service garage in Chembur. Service prices for every car size, an estimate calculator, free pick-up and drop, and booking on WhatsApp.">
+  <!-- This is a sample site, so search engines are asked not to list it. Remove this line for a real client. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#15181c">
+
+  <!-- What WhatsApp shows when this link is shared -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="A website made for your garage">
+  <meta property="og:description" content="Service prices for every car and bike, an estimate calculator, free pick-up and drop, and service booking on WhatsApp. Tap to see the sample.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1200&h=630&q=70">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- The logo mark: a yellow nut on graphite. The same drawing is in the icon list below (i-logo): change both together. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315181c'/%3E%3Cpath d='M16 5.2l9.35 5.4v10.8L16 26.8l-9.35-5.4V10.6z' fill='%23f5b301'/%3E%3Ccircle cx='16' cy='16' r='4.6' fill='%2315181c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Shared motion and 3D kit (one copy for all samples) -->
+  <link rel="stylesheet" href="../fx/fx.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- Icons, drawn once and reused across the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- Logo mark: a yellow nut on graphite. Colours match --ink and --brand in styles.css. -->
+    <symbol id="i-logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#15181c"/><path d="M16 5.2l9.35 5.4v10.8L16 26.8l-9.35-5.4V10.6z" fill="#f5b301"/><circle cx="16" cy="16" r="4.6" fill="#15181c"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <!-- Vehicles -->
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 16v-3.6l2.1-4.5A2 2 0 0 1 6.9 6.7h10.2a2 2 0 0 1 1.8 1.2l2.1 4.5V16"/><line x1="3" y1="12.4" x2="21" y2="12.4"/><line x1="9.6" y1="17" x2="14.4" y2="17"/><circle cx="7.2" cy="17" r="2.2"/><circle cx="16.8" cy="17" r="2.2"/></symbol>
+    <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="5" cy="16" r="3.5"/><circle cx="19" cy="16" r="3.5"/><path d="M5 16l3.6-6h5.6L19 16"/><path d="M8.6 10L7.4 7.5H5"/><path d="M14.2 10l1.6-3.5H18.5"/></symbol>
+    <!-- Services -->
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-snow" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="3.3" y1="7" x2="20.7" y2="17"/><line x1="20.7" y1="7" x2="3.3" y2="17"/><polyline points="9 3.8 12 6.3 15 3.8"/><polyline points="9 20.2 12 17.7 15 20.2"/></symbol>
+    <symbol id="i-spray" viewBox="0 0 24 24"><rect x="6" y="10" width="9" height="12" rx="2"/><path d="M8 10V7h5v3"/><path d="M10.5 7V4.5h4"/><line x1="18" y1="5" x2="19" y2="5"/><line x1="18" y1="8.5" x2="21" y2="8.5"/><line x1="18" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-tyre" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2.5" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21.5" y2="12"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="12" rx="2"/><line x1="6" y1="4" x2="6" y2="7"/><line x1="16" y1="4" x2="16" y2="7"/><line x1="5" y1="13" x2="8" y2="13"/><line x1="14" y1="13" x2="17" y2="13"/><line x1="15.5" y1="11.5" x2="15.5" y2="14.5"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11z"/></symbol>
+    <symbol id="i-oil" viewBox="0 0 24 24"><path d="M3 9h3l2-2h5l2 2h3l3-2v3l-3 6H6a3 3 0 0 1-3-3z"/><path d="M20 17.5s1.5 1.6 1.5 2.6a1.5 1.5 0 0 1-3 0c0-1 1.5-2.6 1.5-2.6z"/></symbol>
+    <symbol id="i-brake" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.8"/><path d="M4.2 8.5A9 9 0 0 1 8.5 4.2"/><path d="M19.8 15.5a9 9 0 0 1-4.3 4.3"/></symbol>
+    <!-- Reasons to trust -->
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="8.5 12 11 14.5 15.5 9.5"/></symbol>
+    <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M6 3h12"/><path d="M6 8h12"/><path d="M6 13l8.5 8"/><path d="M6 13h3c6.67 0 6.67-10 0-10"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><rect x="1" y="4" width="14" height="12" rx="1"/><path d="M15 8h4l3 3.5V16h-7z"/><circle cx="5.5" cy="18.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5"/><path d="M11 12L21 2"/><path d="M16 7l3 3"/><path d="M18.5 4.5l2.5 2.5"/></symbol>
+  </svg>
+
+  <a class="skip" href="#services">Skip to service prices</a>
+
+  <div class="demo-bar">
+    <span id="demoText">Sample website. All details, prices and timings are examples.</span>
+    <a id="demoLink" class="demo-link" data-offer="garage" hidden target="_blank" rel="noopener">Get a site like this</a>
+  </div>
+
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#home" aria-label="Home">
+        <svg class="brand-mark" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-name" data-firm>Torqline Auto Care</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#services">Prices</a>
+        <a href="#estimate">Estimate</a>
+        <a href="#pickup">Pick-up</a>
+        <a href="#timings">Timings</a>
+        <a href="#contact">Book</a>
+      </nav>
+      <div class="top-actions">
+        <a class="btn btn-wa btn-sm only-wide" data-wa="general" target="_blank" rel="noopener" href="#contact">
+          <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span>
+        </a>
+        <a class="btn btn-light btn-sm" data-call href="#contact">
+          <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- ============ Top of page ============ -->
+    <section class="hero" data-stage-area>
+      <div class="fx-blobs" aria-hidden="true">
+        <span class="fx-blob" data-parallax="0.18" style="left:-90px;top:40px;width:280px;height:280px;background:#6b5200"></span>
+        <span class="fx-blob" data-parallax="0.3" style="right:-70px;top:220px;width:240px;height:240px;background:#2d3640"></span>
+      </div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Car and bike garage in <span data-area>Chembur</span> &middot; since <span data-since>2012</span></p>
+          <h1 data-words>Honest car and bike service in <span class="hl" data-area>Chembur</span></h1>
+          <p class="lead">Free pick-up and drop within <span data-pickup-km>5</span> km. You see the price and the photos on WhatsApp before we start any work.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-brand btn-3d" data-ripple data-wa="book" target="_blank" rel="noopener" href="#contact">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Book a service</span>
+            </a>
+            <a class="link-more" href="#services"><span>See prices from <span class="num" id="heroFrom">₹349</span></span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <ul class="trust" data-google-rating>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Free pick-up and drop</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Genuine parts with a bill</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span id="trustHours">Open 9 am to 8 pm</span></li>
+          </ul>
+        </div>
+
+        <!-- 3D stage: the photo and the small cards sit at different depths -->
+        <div class="hero-stage" data-stage data-stage-max="9">
+          <div class="hero-photo" data-depth="0">
+            <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1200&h=900&q=70" alt="Two mechanics working under the open bonnet of a car" width="1200" height="900" fetchpriority="high" onerror="this.remove()">
+          </div>
+          <div class="hero-chip" data-depth="55" data-open-badge="short"><span class="dot" aria-hidden="true"></span><span data-open-text>Open 9 am to 8 pm</span></div>
+          <!-- A drawn WhatsApp update, like the ones customers get while their car is in -->
+          <div class="hero-card" data-depth="75" aria-label="Example of a live update: Hyundai Creta, general service, ready by 6 pm">
+            <p class="hero-card-label"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg>Live update</p>
+            <strong class="hero-card-name">Hyundai Creta, general service</strong>
+            <ol class="track" aria-hidden="true">
+              <li class="is-done"><span></span>Picked up</li>
+              <li class="is-done"><span></span>Checked</li>
+              <li class="is-now"><span></span>Working</li>
+              <li><span></span>Ready</li>
+            </ol>
+            <span class="hero-card-text">Ready by 6 pm, drop at home</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Four quick facts ============ -->
+    <section class="stats" aria-label="At a glance">
+      <div class="wrap">
+        <div class="stat-strip reveal" data-tilt data-tilt-max="3" data-tilt-lift="0">
+          <div class="stat"><span class="stat-num" id="statYears" data-count="14">14</span><span class="stat-label">years in <span data-area>Chembur</span></span></div>
+          <div class="stat"><span class="stat-num" id="statJobs" data-count="18000">18,000</span><span class="stat-label">cars and bikes serviced</span></div>
+          <div class="stat"><span class="stat-num" id="statMechanics" data-count="9">9</span><span class="stat-label">trained mechanics</span></div>
+          <div class="stat"><span class="stat-num" id="statBrands" data-count="20">20</span><span class="stat-label">car and bike brands</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Services and prices ============ -->
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Services and prices</p>
+            <h2>Know the price before you come in</h2>
+          </div>
+          <p class="muted head-note">Pick your vehicle. The prices change to match it.</p>
+        </div>
+
+        <div class="picker">
+          <div class="seg" role="group" aria-label="Car or bike" id="kindSeg"></div>
+          <div class="chips-wrap">
+            <div class="chips" role="group" aria-label="Vehicle size" id="sizeChips"></div>
+          </div>
+          <p class="picker-note" id="sizeNote" aria-live="polite">Like Swift, i20 and Tiago</p>
+        </div>
+
+        <div class="services" id="serviceGrid"></div>
+        <noscript><p class="muted">Please turn on JavaScript to see the prices, or message us on WhatsApp.</p></noscript>
+        <p class="fine-note">Prices include labour and GST. Any part outside the list is fitted only after you say yes on WhatsApp.</p>
+      </div>
+    </section>
+
+    <!-- ============ Estimate calculator ============ -->
+    <section class="section section-tint" id="estimate">
+      <div class="wrap est-grid">
+        <div class="est-controls">
+          <p class="kicker">Estimate calculator</p>
+          <h2>Work out your bill in a minute</h2>
+          <p class="lead-sm">Tick the jobs you need. The job card on the right adds them up. The final bill comes after we check your vehicle, with photos.</p>
+
+          <div class="est-block">
+            <label class="est-label" for="estVehicle">Your vehicle</label>
+            <div class="select-box">
+              <select id="estVehicle"></select>
+              <svg class="ico" aria-hidden="true"><use href="#i-down"/></svg>
+            </div>
+          </div>
+
+          <fieldset class="est-block">
+            <legend class="est-label">Jobs</legend>
+            <ul class="jobs" id="jobList"></ul>
+          </fieldset>
+
+          <label class="switch">
+            <input type="checkbox" id="estPickup" checked>
+            <span class="switch-ui" aria-hidden="true"></span>
+            <span class="switch-text"><strong>Pick-up and drop</strong><span id="pickupNote">Free within 5 km of the garage</span></span>
+          </label>
+        </div>
+
+        <!-- The job card: a drawn garage bill that fills in as jobs are ticked -->
+        <div class="jobcard-wrap">
+          <article class="jobcard reveal" data-tilt data-tilt-max="3" data-tilt-lift="0" aria-labelledby="jcTitle">
+            <header class="jc-head">
+              <svg class="jc-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+              <div class="jc-firm">
+                <strong data-firm>Torqline Auto Care</strong>
+                <span><span data-area>Chembur</span>, <span data-city>Mumbai</span></span>
+              </div>
+              <div class="jc-meta">
+                <span id="jcTitle">Job card</span>
+                <small id="jcNo">No. TQ-2611</small>
+                <small id="jcDate">21 Nov 2026</small>
+              </div>
+            </header>
+            <p class="jc-vehicle"><svg class="ico" aria-hidden="true" id="jcVehicleIcon"><use href="#i-car"/></svg><span id="jcVehicle">Sedan</span></p>
+            <ul class="jc-lines" id="jcLines"></ul>
+            <p class="jc-empty" id="jcEmpty" hidden>Tick at least one job to see an estimate.</p>
+            <div class="jc-total">
+              <span>Estimate</span>
+              <strong id="jcTotal" aria-live="polite">₹0</strong>
+            </div>
+            <p class="jc-time" id="jcTime">Ready the same day</p>
+            <a class="btn btn-brand btn-block btn-3d" data-ripple id="jcWa" target="_blank" rel="noopener" href="#contact">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send this estimate on WhatsApp</span>
+            </a>
+            <p class="jc-fine">An estimate only. The final price is fixed after we check your vehicle.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Pick-up and drop ============ -->
+    <section class="band-wrap" id="pickup">
+      <div class="wrap">
+        <div class="band reveal" data-spotlight>
+          <div class="band-copy">
+            <p class="kicker kicker-light">Pick-up and drop</p>
+            <h2>Your car comes to us. You stay at work.</h2>
+            <p>Free within <span data-pickup-km>5</span> km of <span data-area>Chembur</span>. A driver with our ID card collects the keys and brings the car back washed.</p>
+          </div>
+          <ol class="road" id="roadSteps">
+            <li><span class="road-ico"><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg></span><div><h3>We collect the keys</h3><p>At your home or office, at the time you pick.</p></div></li>
+            <li><span class="road-ico"><svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg></span><div><h3>You get photos and a price</h3><p>On WhatsApp, before any work starts.</p></div></li>
+            <li><span class="road-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></span><div><h3>We drop it back</h3><p>Washed, with the bill and your old parts.</p></div></li>
+          </ol>
+          <a class="btn btn-brand btn-3d band-btn" data-ripple data-wa="pickup" target="_blank" rel="noopener" href="#contact">
+            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Ask for a pick-up</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Why people trust us ============ -->
+    <section class="section" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Why people come back</p>
+            <h2>No surprises on the bill</h2>
+          </div>
+        </div>
+        <ul class="why reveal" id="whyGrid"></ul>
+      </div>
+    </section>
+
+    <!-- ============ Brands ============ -->
+    <section class="section section-flush" id="brands">
+      <div class="wrap">
+        <div class="brands reveal">
+          <div>
+            <p class="kicker">Brands we service</p>
+            <h2>Most Indian cars and bikes</h2>
+            <p class="lead-sm">Petrol, diesel and CNG. Do not see yours? Ask on WhatsApp.</p>
+          </div>
+          <div class="brand-lists">
+            <div>
+              <h3 class="brand-head"><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg>Cars</h3>
+              <ul class="tags" id="carBrands"></ul>
+            </div>
+            <div>
+              <h3 class="brand-head"><svg class="ico" aria-hidden="true"><use href="#i-bike"/></svg>Bikes and scooters</h3>
+              <ul class="tags" id="bikeBrands"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Timings ============ -->
+    <section class="section section-tint" id="timings">
+      <div class="wrap hours-grid">
+        <div>
+          <p class="kicker">Timings</p>
+          <h2>Drop it in the morning, pick it up in the evening</h2>
+          <p class="lead-sm">Most general services are ready the same day if the car reaches us by 11 am.</p>
+          <p class="open-badge" data-open-badge="full" role="status"><span class="dot" aria-hidden="true"></span><span data-open-text>See the hours in the table</span></p>
+        </div>
+        <div class="hours-card reveal">
+          <ul class="hours-list" id="hoursList"></ul>
+          <noscript><p class="muted">Monday to Saturday 9 am to 8 pm. Sunday 10 am to 2 pm.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Gallery ============ -->
+    <section class="section" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Workshop</p>
+            <h2>Inside the garage</h2>
+          </div>
+          <p class="muted">Tap a photo to see it larger</p>
+        </div>
+        <ul class="shots" id="shots"></ul>
+      </div>
+    </section>
+
+    <!-- ============ Questions ============ -->
+    <section class="section section-flush" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="kicker">Questions</p>
+          <h2>Things people ask us</h2>
+          <p class="lead-sm">Not here? Ask on WhatsApp and we will answer the same day.</p>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Will the final bill be more than the estimate?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Only if we find something else that needs fixing. We send you a photo and the price on WhatsApp first, and we do that work only after you say yes.</p>
+          </details>
+          <details>
+            <summary>Do you use genuine parts?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. We use company parts or trusted brands, always with a bill. Your old parts go back in the boot so you can see what was changed.</p>
+          </details>
+          <details>
+            <summary>How far do you pick up and drop?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Free within <span data-pickup-km>5</span> km of the garage. Further than that, we charge a small fee that we tell you before we come.</p>
+          </details>
+          <details>
+            <summary>Will a service here affect my company warranty?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>No. We follow the service schedule in your owner's manual, use the right oil grade and stamp your service book.</p>
+          </details>
+          <details>
+            <summary>Is there a warranty on your work?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. Every service has a warranty of <span data-warranty>1,000</span> km or 30 days, whichever comes first. If the same problem comes back, we fix it free.</p>
+          </details>
+          <details>
+            <summary>How can I pay?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>UPI, card or cash, after the work is done and you have checked the vehicle. You get a proper GST bill.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact and booking ============ -->
+    <section class="section section-dark" id="contact" data-spotlight>
+      <div class="wrap contact-grid">
+        <div>
+          <p class="kicker kicker-light">Book a service</p>
+          <h2>Tell us about your vehicle</h2>
+          <p class="lead-sm">Fill this in and it opens WhatsApp with your message ready. Nothing is stored on this website.</p>
+          <form class="form" id="enquiry" novalidate>
+            <label><span>Your name</span>
+              <input type="text" name="name" autocomplete="name" maxlength="60" required>
+            </label>
+            <label><span>Car or bike model</span>
+              <input type="text" name="model" maxlength="60" placeholder="For example: Maruti Swift 2019" required>
+            </label>
+            <label><span>What does it need?</span>
+              <select name="need" id="needSelect"></select>
+            </label>
+            <label><span>Which day suits you?</span>
+              <select name="day" id="daySelect"></select>
+            </label>
+            <label class="check">
+              <input type="checkbox" name="pickup" id="formPickup">
+              <span>I need pick-up and drop</span>
+            </label>
+            <label id="pickupWhere" hidden><span>Pick-up from <span class="opt">(area or building)</span></span>
+              <input type="text" name="where" maxlength="80" autocomplete="address-level3">
+            </label>
+            <p class="form-error" id="formError" role="alert" hidden>Please type your name and your car or bike model.</p>
+            <button class="btn btn-brand btn-block btn-3d" data-ripple type="submit">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send on WhatsApp</span>
+            </button>
+          </form>
+        </div>
+        <div class="contact-card">
+          <h3 data-firm>Torqline Auto Care</h3>
+          <ul class="contact-list">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+              <a class="contact-phone" data-call href="#contact"><span data-phone-text>98XXX XXXXX</span></a>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+              <span data-address-line><span data-address>Shop 4, Ganesh Industrial Estate</span>, <span data-area>Chembur</span>, <span data-city>Mumbai</span><span class="contact-note" data-landmark>5 minutes from the station</span></span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>
+              <span class="contact-hours">
+                <span id="contactHours">Mon to Sat: 9 am to 8 pm. Sun: 10 am to 2 pm.</span>
+                <span class="open-badge open-badge-sm" data-open-badge="short" hidden><span class="dot" aria-hidden="true"></span><span data-open-text></span></span>
+              </span>
+            </li>
+          </ul>
+          <div class="map">
+            <iframe id="map" title="Map of the area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <p class="foot-brand"><svg class="foot-mark" aria-hidden="true"><use href="#i-logo"/></svg><span><span data-firm>Torqline Auto Care</span>, <span data-area>Chembur</span>, <span data-city>Mumbai</span></span></p>
+      <p class="muted-on-dark">All details on this page are examples. Website by <span id="builtBy">Oxzi</span>.</p>
+    </div>
+  </footer>
+
+  <!-- Phone only: call and WhatsApp always within thumb reach -->
+  <nav class="dock" aria-label="Quick contact">
+    <a class="dock-btn" data-call href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span></a>
+    <a class="dock-btn dock-wa btn-3d" data-ripple data-wa="general" target="_blank" rel="noopener" href="#contact"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+  </nav>
+
+  <!-- Larger photo: opens when you tap a gallery photo -->
+  <dialog class="lightbox" id="lightbox" aria-label="Gallery photo">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close photo">
+      <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+    <div class="lb-stage" id="lbStage">
+      <img id="lbImg" alt="" width="1200" height="800">
+      <button class="gal-btn gal-prev" id="lbPrev" type="button" aria-label="Previous photo"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <button class="gal-btn gal-next" id="lbNext" type="button" aria-label="Next photo"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+    <div class="lb-bar" aria-live="polite">
+      <p id="lbCaption"></p>
+      <span id="lbCount"></span>
+    </div>
+  </dialog>
+
+  <script src="../lead.js"></script>
+  <script src="../owner.js"></script>
+  <script src="app.js"></script>
+  <!-- Shared motion and 3D kit. It must come last. -->
+  <script src="../fx/fx.js"></script>
+</body>
+</html>
