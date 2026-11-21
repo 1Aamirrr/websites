@@ -153,7 +153,7 @@
     { icon: "camera", name: "Photos before extra work", text: "Found something else? You get a photo and the price first. No yes, no work." },
     { icon: "box", name: "Old parts handed back", text: "Every part we change goes back in your boot, so you can see it." },
     { icon: "tag", name: "Price fixed before work", text: "The price we agree on WhatsApp is the price on the bill." },
-    { icon: "shield", name: "Warranty on every job", text: "" },
+    { icon: "shield", name: "Warranty on every job", text: "", warranty: true },   // the page writes the km in
     { icon: "chat", name: "Updates on WhatsApp", text: "Picked up, checked, working, ready. You always know where your car is." },
     { icon: "rupee", name: "Pay after you check", text: "UPI, card or cash, once you are happy with the work. GST bill every time." }
   ];
@@ -463,6 +463,7 @@
   const buildService = (service) => {
     const pair = service.prices[vehicle.key];
     const card = el("article", service.popular ? "svc is-popular" : "svc");
+    card.dataset.svc = service.id;
     card.dataset.tilt = "";
     card.dataset.tiltMax = "5";
     if (service.popular) { card.appendChild(el("span", "svc-flag", "Most booked")); }
@@ -525,8 +526,13 @@
       if (set.has(service.id)) { set.delete(service.id); } else { set.add(service.id); }
       renderAll();
       if (set.has(service.id)) {
-        const target = $("#estimate");
-        if (target) { target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }); }
+        // Added: go to the estimate, and the keyboard lands on the same job there.
+        $("#estimate").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        const box = $('[data-job="' + service.id + '"] input', jobList);
+        if (box) { box.focus({ preventScroll: true }); }
+      } else {
+        const again = $('[data-svc="' + service.id + '"] .svc-add', serviceGrid);
+        if (again) { again.focus(); }
       }
     });
     actions.appendChild(add);
@@ -676,7 +682,13 @@
     $("#jcTime").textContent = chosen.length ? READY[slowest] + (pickup ? ", dropped at your door" : "") : "Pick a job to see the time";
 
     const wa = $("#jcWa");
-    if (chosen.length === 0) { wa.setAttribute("aria-disabled", "true"); } else { wa.removeAttribute("aria-disabled"); }
+    if (chosen.length === 0) {
+      // Nothing to send: the button greys out and stops being a link, for mouse and keyboard alike.
+      wa.setAttribute("aria-disabled", "true");
+      wa.removeAttribute("href");
+      return;
+    }
+    wa.removeAttribute("aria-disabled");
     const lines = ["Hello " + firm + ", I made an estimate on your website.",
       "Vehicle: " + vehicle.label + " (like " + vehicle.like + ")"]
       .concat(chosen.map((s) => "- " + s.name + (s.unit ? ", " + counts[s.id] + " " + s.unit + (counts[s.id] === 1 ? "" : "s") : "") + ": " + range(jobRange(s))))
@@ -722,8 +734,10 @@
   // ---------------------------------------------------------------------
   // Why people trust us, and the brand lists
   // ---------------------------------------------------------------------
-  WHY[3].name = grouped(CONFIG.warrantyKm) + " km warranty";
-  WHY[3].text = "Every job is covered for " + grouped(CONFIG.warrantyKm) + " km or 30 days. Same problem again? We fix it free.";
+  WHY.filter((item) => item.warranty).forEach((item) => {
+    item.name = grouped(CONFIG.warrantyKm) + " km warranty";
+    item.text = "Every job is covered for " + grouped(CONFIG.warrantyKm) + " km or 30 days. Same problem again? We fix it free.";
+  });
   $("#whyGrid").replaceChildren(...WHY.map((item) => {
     const li = el("li", "why-item");
     const badge = el("span", "why-ico");
@@ -926,6 +940,7 @@
       const word = ahead === 0 ? "Today" : ahead === 1 ? "Tomorrow" : DAYS[todayIndex(date)].name;
       options.push(word + ", " + shortDate(date));
     }
+    if (!options.length) { options.push("Any day you are open"); }
     select.replaceChildren(...options.map((text) => el("option", "", text)));
     if (options.indexOf(keep) !== -1) { select.value = keep; }
   };

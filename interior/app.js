@@ -695,7 +695,8 @@
       const g = shape("g", { class: on ? "room is-on" : "room" });
       g.appendChild(shape("rect", { x: box.x, y: box.y, width: box.w, height: box.h, class: "room-fill" }));
       const label = shape("text", { x: (box.x + box.w / 2).toFixed(1), y: (box.y + box.h / 2 + 4).toFixed(1), "text-anchor": "middle", class: "room-label" });
-      label.textContent = box.w < 80 && roomInfo.bath ? "Bath" : roomInfo.short;
+      // In a 4 BHK the bedroom boxes are narrow, so "Main bed" becomes "Bed 1".
+      label.textContent = box.w < 72 && roomInfo.key === "bed1" ? "Bed 1" : roomInfo.short;
       g.appendChild(label);
       svg.appendChild(g);
     });
@@ -758,8 +759,8 @@
     })()] : []));
 
     const wa = $("#estWa");
-    if (any) { wa.removeAttribute("aria-disabled"); } else { wa.setAttribute("aria-disabled", "true"); }
-    wa.href = waLink([
+    if (any) { wa.removeAttribute("aria-disabled"); } else { wa.setAttribute("aria-disabled", "true"); wa.removeAttribute("href"); }
+    if (any) wa.href = waLink([
       "Hello " + firm + ", I used the budget estimator on your website.",
       "Home: " + est.bhk + " BHK, " + est.finish.name + " finish.",
       "Rooms: " + sums.items.map((item) => item.name).join(", ") + ".",
@@ -779,8 +780,9 @@
     button.dataset.bhk = String(count);
     button.addEventListener("click", () => {
       est.bhk = count;
-      // Rooms that do not exist in the smaller home are forgotten.
-      Array.from(est.off).forEach((key) => { if (/^(bed|bath)\d/.test(key)) { est.off.delete(key); } });
+      // Rooms that do not exist in the new home size are forgotten; the others keep their choice.
+      const exists = new Set(roomsFor(count).map((r) => r.key));
+      Array.from(est.off).forEach((key) => { if (/^(bed|bath)\d/.test(key) && !exists.has(key)) { est.off.delete(key); } });
       renderEstimate();
     });
     estBhk.appendChild(button);
@@ -926,6 +928,7 @@
     const select = $("#daySelect");
     const keep = select.value;
     const options = visitDays(6).map((d) => d.word + ", " + shortDate(d.date));
+    if (!options.length) { options.push("Any day that suits you"); }
     select.replaceChildren(...options.map((text) => el("option", "", text)));
     if (options.indexOf(keep) !== -1) { select.value = keep; }
   };

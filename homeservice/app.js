@@ -466,7 +466,8 @@
   // ---------------------------------------------------------------------
   // Same-day slots: two-hour blocks inside the opening hours
   // ---------------------------------------------------------------------
-  const booking = { ahead: null, start: null };
+  // ahead: days from today. stamp: that day's date, so the booking stays on the same date after midnight.
+  const booking = { ahead: null, start: null, stamp: null };
   const dayChips = $("#dayChips");
   const slotGrid = $("#slotGrid");
 
@@ -520,11 +521,25 @@
 
   const renderSlots = () => {
     const days = bookDays();
+    if (!days.length) {
+      // No open day in the next ten (all hours set to closed): nothing to pick, ask on WhatsApp instead.
+      booking.ahead = null;
+      booking.start = null;
+      booking.stamp = null;
+      dayChips.replaceChildren();
+      slotGrid.replaceChildren();
+      $("#slotNote").textContent = "No slots are open right now. Message us on WhatsApp and we will fit you in.";
+      return;
+    }
+    if (booking.stamp !== null) {
+      booking.ahead = Math.round((booking.stamp - dateAhead(0).getTime()) / 86400000);
+    }
     if (booking.ahead === null || days.indexOf(booking.ahead) === -1) {
       const first = nextFree();
       booking.ahead = first ? first.ahead : days[0];
       booking.start = first ? first.start : null;
     }
+    booking.stamp = dateAhead(booking.ahead).getTime();
     dayChips.replaceChildren(...days.map((ahead) => {
       const date = dateAhead(ahead);
       const button = el("button", "chip chip-day");
@@ -536,6 +551,7 @@
       if (!openSlots(ahead).length) { button.classList.add("is-full"); }
       button.addEventListener("click", () => {
         booking.ahead = ahead;
+        booking.stamp = date.getTime();
         const free = openSlots(ahead);
         if (free.indexOf(booking.start) === -1) { booking.start = free.length ? free[0] : null; }
         renderSlots();
@@ -960,11 +976,21 @@
   paintHeroSlot();
 
   // Every half minute (and when the visitor comes back to the tab) check the clock again.
+  // What the slot picker shows, as one string. The refresh redraws only when this changes,
+  // so keyboard focus and a message on screen are not lost every half minute.
+  const slotPicture = () => dateAhead(0).getTime() + "|" + bookDays().map((ahead) => ahead + ":" + slotsFor(ahead).map((t) => slotState(ahead, t)).join(",")).join(";");
+  let shownSlots = slotPicture();
   const refresh = () => {
     paintOpen();
     paintHeroSlot();
+    const now = slotPicture();
+    if (now === shownSlots) { return; }
+    shownSlots = now;
     // A slot that has just closed is let go, so the booking never points at it.
-    if (booking.start !== null && slotState(booking.ahead, booking.start) === "gone") { booking.start = null; booking.ahead = null; }
+    if (booking.start !== null && booking.stamp !== null) {
+      const ahead = Math.round((booking.stamp - dateAhead(0).getTime()) / 86400000);
+      if (ahead < 0 || slotState(ahead, booking.start) === "gone") { booking.start = null; booking.ahead = null; booking.stamp = null; }
+    }
     renderSlots();
     renderTicket();
   };
