@@ -16,9 +16,11 @@
   const BUILDER = String((window.OWNER && window.OWNER.name) || "Oxzi");
   const BUILDER_WA = String((window.OWNER && window.OWNER.whatsapp) || "").replace(/\D/g, "");
 
+  const DEFAULT_NAME = window.ERP_SEED.shopName;
   const STORE_KEY = "oxzi-shop-demo-v1";
   const DRAFT_KEY = "oxzi-shop-demo-v1-bill";
   const DAY_MS = 86400000;
+  // The sample items use the September 2025 slabs (0, 5, 18). 12% stays selectable for older stock and bills.
   const GST_RATES = [0, 5, 12, 18];
   const UNITS = ["pc", "pack", "kg", "L", "tray", "bottle", "box", "dozen"];
   // Payment colours: the first four of a colour-blind-safe chart palette, always in this order.
@@ -48,6 +50,8 @@
   const rs = (n) => { const r = Math.round(n); return (r < 0 ? "−" : "") + "₹" + nf0.format(Math.abs(r)); };
   const rs2 = (n) => (n < -0.004 ? "−" : "") + "₹" + nf2.format(Math.abs(n));
   const money2 = (n) => (Math.round(n * 100) / 100).toFixed(2);
+  // GST splits into CGST and SGST. CGST is rounded to the paisa and SGST is the rest, so the two always add up.
+  const halves = (gst) => { const total = Math.round(gst * 100) / 100; const c = Math.round(total * 50) / 100; return [c, Math.round((total - c) * 100) / 100]; };
   // Short amounts for chart labels: 950, 4.1K, 1.25L
   const compact = (n) => {
     const a = Math.abs(n);
@@ -118,8 +122,12 @@
   };
 
   const readJson = (key) => {
-    try { const raw = window.localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
-    catch (error) { canSave = false; return null; }
+    let raw = null;
+    try { raw = window.localStorage.getItem(key); }
+    catch (error) { canSave = false; return null; } // storage blocked (private mode, settings)
+    if (!raw) { return null; }
+    try { return JSON.parse(raw); }
+    catch (error) { try { window.localStorage.removeItem(key); } catch (e) { /* ignore */ } return null; } // a damaged value is dropped
   };
   const writeJson = (key, value) => {
     if (!canSave) { return; }
@@ -413,18 +421,22 @@
     $$("[data-builder]").forEach((n) => { n.textContent = BUILDER; });
     $("#topDate").textContent = fmtLong(Date.now());
     $("#topDatePhone").textContent = place();
+    // The sample notice names the shop when the link or Shop details gave it a name of its own.
+    // A lead page (?id=) keeps the notice from ../lead.js while the name is still the one from Google.
+    const named = Boolean(linkFirm) || db.shop.name !== DEFAULT_NAME;
+    if (!(LEAD.firm && db.shop.name === LEAD.firm)) {
+      $("#demoText").textContent = named
+        ? "Sample made for " + db.shop.name + " by " + BUILDER + ". All numbers are examples and stay on this device."
+        : "Sample shop software by " + BUILDER + ". All numbers are examples and stay on this device.";
+    }
+    if (BUILDER_WA) {
+      const link = $("#demoLink");
+      link.href = waLink("Hi " + firstName(BUILDER) + ", I saw the shop software sample" + (named ? " for " + db.shop.name : "") +
+        ". I want billing and stock software like this for my shop.", BUILDER_WA);
+      link.dataset.offerFirm = named ? db.shop.name : "";
+      link.hidden = false;
+    }
   };
-
-  $("#demoText").textContent = linkFirm
-    ? "Sample made for " + db.shop.name + " by " + BUILDER + ". All numbers are examples and stay on this device."
-    : "Sample shop software by " + BUILDER + ". All numbers are examples and stay on this device.";
-  if (BUILDER_WA) {
-    const link = $("#demoLink");
-    link.href = waLink("Hi " + firstName(BUILDER) + ", I saw the shop software sample" + (linkFirm ? " for " + db.shop.name : "") +
-      ". I want billing and stock software like this for my shop.", BUILDER_WA);
-    link.dataset.offerFirm = linkFirm;
-    link.hidden = false;
-  }
 
   // ---------------------------------------------------------------------
   // 7. Home (dashboard)
@@ -756,6 +768,7 @@
     const it = itemById(id);
     const line = draft.lines.find((l) => l.id === id);
     if (!it || !line) { return; }
+    if (it.stock <= 0) { toast(it.name + " is out of stock."); removeLine(id); return; }
     let qty = Math.max(1, Math.floor(q) || 1);
     if (qty > it.stock) {
       qty = it.stock;
@@ -777,21 +790,33 @@
     syncPick(id);
   };
 
+  // One place that checks and makes a customer, for the bill and the Add customer form.
+  const makeCustomer = (rawName, rawPhone) => {
+    const name = clean(rawName, 50);
+    if (!name) { return { error: "Write the customer's name.", field: "name" }; }
+    let phone = String(rawPhone || "").replace(/\D/g, "");
+    if (phone.length === 12 && phone.startsWith("91")) { phone = phone.slice(2); }
+    if (phone && phone.length !== 10) { return { error: "Phone number should have 10 digits.", field: "phone" }; }
+    const customer = { id: uid("c"), name: name, phone: phone ? phone.slice(0, 5) + " " + phone.slice(5) : "" };
+    db.customers.push(customer);
+    return { customer: customer };
+  };
+
   const saveBill = () => {
     const bill = draftBill();
     if (!bill.lines.length) { toast("Add at least one item."); return; }
     for (const l of bill.lines) {
       const it = itemById(l.id);
-      if (l.q > it.stock) { toast("Only " + qtyText(it.stock, it.unit) + " of " + it.name + " in stock."); return; }
+      if (l.q < 1 || l.q > it.stock) {
+        toast(it.stock <= 0 ? it.name + " is out of stock. Remove it from the bill." : "Only " + qtyText(it.stock, it.unit) + " of " + it.name + " in stock.");
+        return;
+      }
     }
     let customer = null;
     if (draft.cust === "new") {
-      const name = clean(draft.newName, 50);
-      if (!name) { toast("Write the new customer's name."); $("#newName").focus(); return; }
-      const phone = String(draft.newPhone || "").replace(/\D/g, "");
-      if (phone && phone.length !== 10) { toast("Phone number should have 10 digits."); $("#newPhone").focus(); return; }
-      customer = { id: uid("c"), name: name, phone: phone ? phone.slice(0, 5) + " " + phone.slice(5) : "" };
-      db.customers.push(customer);
+      const made = makeCustomer(draft.newName, draft.newPhone);
+      if (made.error) { toast(made.error); $(made.field === "name" ? "#newName" : "#newPhone").focus(); return; }
+      customer = made.customer;
     } else if (draft.cust) {
       customer = customerById(draft.cust) || null;
     }
@@ -845,13 +870,13 @@
         "<div><dt>Subtotal</dt><dd>" + rs2(t.sub) + "</dd></div>" +
         (t.disc ? "<div><dt>Discount</dt><dd>−" + rs2(t.disc) + "</dd></div>" : "") +
         "<div><dt>Taxable value</dt><dd>" + rs2(t.taxable) + "</dd></div>" +
-        "<div><dt>CGST</dt><dd>" + rs2(t.gst / 2) + "</dd></div>" +
-        "<div><dt>SGST</dt><dd>" + rs2(t.gst / 2) + "</dd></div>" +
+        "<div><dt>CGST</dt><dd>" + rs2(halves(t.gst)[0]) + "</dd></div>" +
+        "<div><dt>SGST</dt><dd>" + rs2(halves(t.gst)[1]) + "</dd></div>" +
         '<div class="inv-total"><dt>Total</dt><dd>' + rs2(t.total) + "</dd></div>" +
       "</dl>" +
       '<p class="inv-words">' + words(t.total) + "</p>" +
       '<div class="table-wrap"><table class="inv-gst"><caption>GST summary</caption><thead><tr><th scope="col">Rate</th><th scope="col" class="num">Taxable value</th><th scope="col" class="num">CGST</th><th scope="col" class="num">SGST</th></tr></thead><tbody>' +
-        rates.map((r) => "<tr><td>" + r + '%</td><td class="num">' + rs2(t.rates[r].taxable) + '</td><td class="num">' + rs2(t.rates[r].gst / 2) + '</td><td class="num">' + rs2(t.rates[r].gst / 2) + "</td></tr>").join("") +
+        rates.map((r) => "<tr><td>" + r + '%</td><td class="num">' + rs2(t.rates[r].taxable) + '</td><td class="num">' + rs2(halves(t.rates[r].gst)[0]) + '</td><td class="num">' + rs2(halves(t.rates[r].gst)[1]) + "</td></tr>").join("") +
       "</tbody></table></div>" +
       '<p class="inv-foot">Paid by ' + modeOf(bill.m).label + (bill.m === "udhaar" ? " (added to the customer's khata)" : "") + ". Prices include GST.</p>" +
       '<p class="inv-thanks">Thank you. Please visit again.</p>' +
@@ -1013,7 +1038,7 @@
     const ym = dayKey(Date.now()).slice(0, 7);
     const month = db.ledger.filter((e) => dayKey(e.t).startsWith(ym));
     const got = month.filter((e) => e.type === "payment");
-    const given = month.filter((e) => e.type === "credit");
+    const given = month.filter((e) => e.type === "credit" && !e.opening);
     const chip = (key, label) => '<button type="button" class="chip" data-act="cust-filter" data-id="' + key + '" aria-pressed="' + (custFilter === key) + '">' + label + "</button>";
     return '<div class="view-head"><div><p class="eyebrow">Udhaar khata</p><h1>Customers</h1></div>' +
       '<button type="button" class="btn btn-primary" data-act="cust-new">' + icon("plus") + "<span>Add customer</span></button></div>" +
@@ -1212,14 +1237,18 @@
 
     let points;
     let chartTitle;
+    const daySums = new Map(); // each day's sums, worked out once for the chart and the table
     if (isDay) {
       chartTitle = "Sales by hour";
+      // Shop hours 7 am to 11 pm, widened when a bill was made earlier or later, so every bill sits in its real hour.
+      const billHours = bills.map((b) => new Date(b.t).getHours());
+      const firstHour = Math.min(7, ...billHours);
+      const lastHour = Math.max(22, ...billHours);
       const hours = [];
-      for (let h = 7; h <= 22; h += 1) { hours.push({ h: h, v: 0, n: 0 }); }
-      bills.forEach((b) => {
-        const h = Math.min(22, Math.max(7, new Date(b.t).getHours()));
-        hours[h - 7].v += billTotals(b).total;
-        hours[h - 7].n += 1;
+      for (let h = firstHour; h <= lastHour; h += 1) { hours.push({ h: h, v: 0, n: 0 }); }
+      bills.forEach((b, i) => {
+        hours[billHours[i] - firstHour].v += billTotals(b).total;
+        hours[billHours[i] - firstHour].n += 1;
       });
       const peak = hours.reduce((m, x) => (x.v > m.v ? x : m), hours[0]);
       const hourName = (h) => (h % 12 || 12) + (h < 12 ? "am" : "pm");
@@ -1233,6 +1262,7 @@
       for (let d = 1; d <= lastDay; d += 1) {
         const key = rep.month + "-" + pad(d);
         const ds = summarize(billsOn(key));
+        daySums.set(key, ds);
         days.push({ d: d, key: key, v: ds.sales, n: ds.count });
       }
       const best = days.reduce((m, x) => (x.v > m.v ? x : m), days[0] || { v: 0 });
@@ -1252,7 +1282,7 @@
           "</tbody></table></div>" : '<p class="empty">No bills on this day.</p>') + "</section>";
     } else {
       const days = [];
-      index().byDay.forEach((dayBills, key) => { if (key.startsWith(rep.month)) { days.push({ key: key, s: summarize(dayBills) }); } });
+      index().byDay.forEach((dayBills, key) => { if (key.startsWith(rep.month)) { days.push({ key: key, s: daySums.get(key) || summarize(dayBills) }); } });
       days.sort((a, b) => (a.key < b.key ? 1 : -1));
       list = '<section class="card" aria-labelledby="listTitle"><div class="card-head"><h2 id="listTitle">Day by day</h2></div>' +
         (days.length ? '<div class="table-wrap"><table class="table"><thead><tr><th scope="col">Day</th><th scope="col" class="num">Bills</th><th scope="col" class="num">Sales</th><th scope="col" class="num">Profit (est.)</th></tr></thead><tbody>' +
@@ -1277,7 +1307,7 @@
         kpi("Bills", nf0.format(s.count), plural(s.qty, "item", "items") + " sold") +
         kpi("Average bill", rs(s.avg), "per bill") +
         kpi("Profit", rs(s.profit), "Estimate: sale price minus buy price") +
-        kpi("GST collected", rs2(s.gst), "CGST " + rs2(s.gst / 2) + " + SGST " + rs2(s.gst / 2)) +
+        kpi("GST collected", rs2(s.gst), "CGST " + rs2(halves(s.gst)[0]) + " + SGST " + rs2(halves(s.gst)[1])) +
       "</div>" +
       '<div class="grid grid-wide">' +
         '<section class="card" aria-labelledby="repChartTitle"><div class="card-head"><h2 id="repChartTitle">' + chartTitle + "</h2>" +
@@ -1295,13 +1325,18 @@
             "</tbody></table></div>" : '<p class="empty">Nothing sold.</p>') + "</section>" +
         '<section class="card" aria-labelledby="gstTitle"><div class="card-head"><h2 id="gstTitle">GST summary</h2><p class="card-sub">For your GST return</p></div>' +
           (rates.length ? '<div class="table-wrap"><table class="table"><thead><tr><th scope="col">Rate</th><th scope="col" class="num">Taxable value</th><th scope="col" class="num">CGST</th><th scope="col" class="num">SGST</th></tr></thead><tbody>' +
-            rates.map((r) => "<tr><td>" + r + '%</td><td class="num">' + rs2(s.rates[r].taxable) + '</td><td class="num">' + rs2(s.rates[r].gst / 2) + '</td><td class="num">' + rs2(s.rates[r].gst / 2) + "</td></tr>").join("") +
-            '</tbody><tfoot><tr><th scope="row">Total</th><td class="num">' + rs2(s.taxable) + '</td><td class="num">' + rs2(s.gst / 2) + '</td><td class="num">' + rs2(s.gst / 2) + "</td></tr></tfoot></table></div>"
+            rates.map((r) => "<tr><td>" + r + '%</td><td class="num">' + rs2(s.rates[r].taxable) + '</td><td class="num">' + rs2(halves(s.rates[r].gst)[0]) + '</td><td class="num">' + rs2(halves(s.rates[r].gst)[1]) + "</td></tr>").join("") +
+            '</tbody><tfoot><tr><th scope="row">Total</th><td class="num">' + rs2(s.taxable) + '</td><td class="num">' + rs2(halves(s.gst)[0]) + '</td><td class="num">' + rs2(halves(s.gst)[1]) + "</td></tr></tfoot></table></div>"
             : '<p class="empty">No GST in this period.</p>') + "</section>" +
       "</div>" + list;
   };
 
-  const csvCell = (v) => { const text = String(v == null ? "" : v); return /[",\r\n]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text; };
+  const csvCell = (v) => {
+    let text = String(v == null ? "" : v);
+    // A typed name starting with = + - @ would run as a formula in Excel: a leading ' keeps it plain text.
+    if (typeof v === "string" && /^[=+\-@\t\r]/.test(text)) { text = "'" + text; }
+    return /[",\r\n]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text;
+  };
   const slug = (text) => String(text).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "shop";
   const downloadCsv = (name, rows) => {
     const text = "﻿" + rows.map((r) => r.map(csvCell).join(",")).join("\r\n");
@@ -1321,7 +1356,7 @@
     reportBills().forEach((b) => {
       const t = billTotals(b);
       rows.push([dayKey(b.t), fmtTime(b.t), b.no, b.cn || "Walk-in", modeOf(b.m).label, t.qty, money2(t.sub), money2(t.disc),
-        money2(t.taxable), money2(t.gst / 2), money2(t.gst / 2), money2(t.total)]);
+        money2(t.taxable), money2(halves(t.gst)[0]), money2(halves(t.gst)[1]), money2(t.total)]);
     });
     return rows;
   };
@@ -1475,19 +1510,17 @@
     },
     customer: (form) => {
       const data = new FormData(form);
-      const name = clean(data.get("name"), 50);
-      const phone = String(data.get("phone") || "").replace(/\D/g, "");
       const open = Math.floor(Number(data.get("open")) || 0);
-      if (!name) { formMsg(form, "Write the customer's name."); $("#ncName").focus(); return; }
-      if (phone && phone.length !== 10) { formMsg(form, "Phone number should have 10 digits."); $("#ncPhone").focus(); return; }
-      const c = { id: uid("c"), name: name, phone: phone ? phone.slice(0, 5) + " " + phone.slice(5) : "" };
-      db.customers.push(c);
-      if (open > 0) { db.ledger.push({ id: uid("l"), c: c.id, t: Date.now(), type: "credit", amt: open, note: "Old udhaar" }); }
+      const made = makeCustomer(data.get("name"), data.get("phone"));
+      if (made.error) { formMsg(form, made.error); $(made.field === "name" ? "#ncName" : "#ncPhone").focus(); return; }
+      const c = made.customer;
+      // Old udhaar is marked "opening" so it does not count as udhaar given this month.
+      if (open > 0) { db.ledger.push({ id: uid("l"), c: c.id, t: Date.now(), type: "credit", amt: open, note: "Old udhaar", opening: true }); }
       save();
       custFilter = open > 0 ? custFilter : "all";
       render();
       openCustomer(c.id);
-      toast(name + " added.");
+      toast(c.name + " added.");
     },
     shop: (form) => {
       const data = new FormData(form);

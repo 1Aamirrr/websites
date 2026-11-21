@@ -156,7 +156,7 @@
       balance[c.id] = CUSTOMERS[i][4];
       if (CUSTOMERS[i][4]) {
         ledger.push({ id: nextId("l"), c: c.id, t: start.getTime() + 9 * 3600000, type: "credit",
-          amt: CUSTOMERS[i][4], note: "Old udhaar, from the paper khata" });
+          amt: CUSTOMERS[i][4], note: "Old udhaar, from the paper khata", opening: true });
       }
     });
 
@@ -173,10 +173,10 @@
       var lo = 450;
       var hi = 1350;
       if (isToday) {
+        // The shop opens at 7:30 am: before that there are no bills yet today; from 8:30 am at least a few.
         hi = Math.min(hi, nowMinute - 1);
-        if (hi - lo < 90) { lo = Math.max(0, hi - 90); }
         var share = Math.max(0, Math.min(1, (nowMinute - 450) / 900));
-        target = hi <= lo ? 0 : Math.max(6, Math.round(target * share));
+        target = hi <= lo ? 0 : Math.max(hi - lo >= 60 ? 6 : 1, Math.round(target * share));
       }
 
       var minutes = [];
@@ -266,7 +266,7 @@
     });
 
     return {
-      shop: { name: "Annapurna General Store", area: "Dadar West", city: "Mumbai",
+      shop: { name: window.ERP_SEED.shopName, area: "Dadar West", city: "Mumbai",
         address: "Shop 4, Laxmi Niwas, Ranade Road", phone: "98XXX XXXXX", gstin: "27ABCDE1234F1Z5" },
       items: items,
       customers: customers,
@@ -279,4 +279,6 @@
       draft: null
     };
   };
+  // The sample shop's name. A link with ?firm=Name replaces it.
+  window.ERP_SEED.shopName = "Annapurna General Store";
 })();
