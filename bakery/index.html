@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Crumb &amp; Cocoa | Bakery and cake shop in Bandra West, Mumbai</title>
+  <meta name="description" content="Crumb &amp; Cocoa, bakery and cake shop in Bandra West. See cakes with prices by weight, eggless on request, design your own cake and order on WhatsApp.">
+  <!-- This is a sample site, so search engines are asked not to list it. Remove this line for a real client. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#2a1a14">
+
+  <!-- What WhatsApp shows when this link is shared -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="A website made for your bakery">
+  <meta property="og:description" content="Cake menu with prices by weight, eggless tags, a custom cake order form and delivery areas, all on WhatsApp. Tap to see the sample.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&h=630&q=70">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- The logo mark. The same drawing is in the icon list below (i-logo): change both together. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23c2335f'/%3E%3Crect x='15.1' y='5.4' width='1.8' height='5' rx='.9' fill='%23fff'/%3E%3Cpath d='M16 1.8c1.3 1.5 1.6 2.6.9 3.4a1.2 1.2 0 0 1-1.8 0c-.7-.8-.4-1.9.9-3.4z' fill='%23f7d779'/%3E%3Crect x='9.5' y='10.6' width='13' height='7' rx='2' fill='%23fff'/%3E%3Crect x='6.5' y='17' width='19' height='8.4' rx='2.2' fill='%23fff'/%3E%3Cpath d='M9.5 12.6a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1.6c-.9 0-1.2 1-2 1s-1.1-1-2-1-1.2 1.6-2.1 1.6-1.1-1.6-2-1.6-1.2 1-2 1-1.1-1-1.9-1z' fill='%232a1a14'/%3E%3Crect x='4.5' y='25.6' width='23' height='2' rx='1' fill='%23fff' opacity='.75'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..800;1,9..144,600..800&family=Nunito+Sans:wght@400;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Shared motion and 3D kit (one copy for all samples) -->
+  <link rel="stylesheet" href="../fx/fx.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- Icons, drawn once and reused across the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <!-- Logo mark: a two-tier cake with a chocolate drip and one candle. Colours match --brand in styles.css. -->
+    <symbol id="i-logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#c2335f"/><rect x="15.1" y="5.4" width="1.8" height="5" rx=".9" fill="#fff"/><path d="M16 1.8c1.3 1.5 1.6 2.6.9 3.4a1.2 1.2 0 0 1-1.8 0c-.7-.8-.4-1.9.9-3.4z" fill="#f7d779"/><rect x="9.5" y="10.6" width="13" height="7" rx="2" fill="#fff"/><rect x="6.5" y="17" width="19" height="8.4" rx="2.2" fill="#fff"/><path d="M9.5 12.6a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1.6c-.9 0-1.2 1-2 1s-1.1-1-2-1-1.2 1.6-2.1 1.6-1.1-1.6-2-1.6-1.2 1-2 1-1.1-1-1.9-1z" fill="#2a1a14"/><rect x="4.5" y="25.6" width="23" height="2" rx="1" fill="#fff" opacity=".75"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+    <!-- Ordering icons -->
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4.5 19.5l1-4.2L15.8 5a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.7 18.5z"/><path d="M13.8 7l3.2 3.2"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><rect x="1.5" y="6" width="13" height="10" rx="1.5"/><path d="M14.5 9.5h4l3 3.5v3h-7z"/><circle cx="6" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 20.5z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.8l1.6-2.2h6.2L16.7 7h2.8A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></symbol>
+    <symbol id="i-upi" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.2"/><path d="M2.5 10h19M6.5 14.5h4"/></symbol>
+  </svg>
+
+  <a class="skip" href="#menu">Skip to the cake menu</a>
+
+  <div class="demo-bar">
+    <span id="demoText">Sample website. All details, prices and timings are examples.</span>
+    <a id="demoLink" class="demo-link" data-offer="bakery" hidden target="_blank" rel="noopener">Get a site like this</a>
+  </div>
+
+  <header class="top" id="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#home" aria-label="Home">
+        <svg class="brand-mark" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-name" data-firm>Crumb &amp; Cocoa</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#menu">Cakes</a>
+        <a href="#custom">Order a cake</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="top-actions">
+        <a class="btn btn-wa btn-sm only-wide" data-wa="general" target="_blank" rel="noopener" href="#contact">
+          <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span>
+        </a>
+        <a class="btn btn-dark btn-sm" data-call href="#contact">
+          <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- ============ Top of page ============ -->
+    <section class="hero" data-stage-area>
+      <div class="fx-blobs" aria-hidden="true">
+        <span class="fx-blob" data-parallax="0.18" style="left:-80px;top:20px;width:280px;height:280px;background:#ffd3df"></span>
+        <span class="fx-blob" data-parallax="0.3" style="right:-60px;top:200px;width:240px;height:240px;background:#fbe7b0"></span>
+      </div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Bakery and cake shop in <span data-area>Bandra West</span> &middot; since <span data-since>2016</span></p>
+          <h1 data-words>Cakes baked fresh in <span class="hl" data-area>Bandra West</span></h1>
+          <p class="lead">Birthday cakes, cheesecakes, brownies and bread, baked every morning <span data-landmark>5 minutes from the station</span>. Any cake can be made eggless.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-brand btn-3d" data-ripple href="#custom">
+              <svg class="ico" aria-hidden="true"><use href="#i-edit"/></svg><span>Order a cake</span>
+            </a>
+            <a class="link-more" href="#menu"><span>Cakes from <span class="num" id="heroFrom">₹450</span> for half a kilo</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <ul class="trust" data-google-rating>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Eggless on request</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Baked fresh every morning</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span id="trustHours">Open 9 am to 10 pm</span></li>
+          </ul>
+        </div>
+
+        <!-- 3D stage: the photo and the small cards sit at different depths -->
+        <div class="hero-stage" data-stage data-stage-max="9">
+          <div class="hero-photo" data-depth="0">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&h=900&q=70" alt="A chocolate cake with a dark chocolate drip and piped chocolate cream on top" width="1200" height="900" fetchpriority="high" onerror="this.remove()">
+          </div>
+          <div class="hero-chip" data-depth="55" data-open-badge="short"><span class="dot" aria-hidden="true"></span><span data-open-text>Open 9 am to 10 pm</span></div>
+          <a class="hero-card" data-depth="75" href="#menu" id="heroBest">
+            <span class="hero-card-label">Our bestseller</span>
+            <strong class="hero-card-name" id="heroBestName">Belgian Chocolate Truffle</strong>
+            <span class="hero-card-text" id="heroBestText">₹1,000 for 1 kg</span>
+          </a>
+          <p class="hero-sticker" data-depth="40"><span><small>Order by</small><strong id="stickerTime">6 pm</strong><small>for tomorrow</small></span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Four quick facts ============ -->
+    <section class="stats" aria-label="At a glance">
+      <div class="wrap">
+        <div class="stat-strip reveal" data-tilt data-tilt-max="3" data-tilt-lift="0">
+          <div class="stat"><span class="stat-num" id="statYears" data-count="10">10</span><span class="stat-label">years in <span data-area>Bandra West</span></span></div>
+          <div class="stat"><span class="stat-num" id="statCakes" data-count="1200">1,200</span><span class="stat-label">cakes baked every month</span></div>
+          <div class="stat"><span class="stat-num" id="statFlavours" data-count="17">17</span><span class="stat-label">cakes and bakes on the menu</span></div>
+          <div class="stat"><span class="stat-num" id="statAreas" data-count="8">8</span><span class="stat-label" id="statAreasLabel">areas we deliver to</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Bestsellers: 3D carousel ============ -->
+    <section class="section section-ring" id="bestsellers">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Bestsellers</p>
+            <h2>What people order most</h2>
+          </div>
+        </div>
+      </div>
+      <div class="fx-ring" data-ring aria-roledescription="carousel" aria-label="Bestsellers">
+        <div class="fx-ring-stage"><div class="fx-ring-track" id="ringTrack"></div></div>
+        <button class="fx-ring-btn fx-ring-prev" type="button" aria-label="Previous cake"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+        <button class="fx-ring-btn fx-ring-next" type="button" aria-label="Next cake"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+        <div class="fx-ring-dots"></div>
+        <p class="fx-ring-hint">Drag to turn</p>
+      </div>
+    </section>
+
+    <!-- ============ Cake menu ============ -->
+    <section class="section section-tint" id="menu">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Menu</p>
+            <h2>Cakes and prices</h2>
+          </div>
+          <p class="muted">Pick a size to see every price change</p>
+        </div>
+
+        <div class="menu-controls">
+          <div class="weight-row">
+            <div class="seg" role="group" aria-label="Cake size" id="weightSeg"></div>
+            <p class="weight-note" id="weightNote" aria-live="polite">1 kg serves 12 to 15 people.</p>
+          </div>
+          <div class="chips-wrap">
+            <div class="chips" role="group" aria-label="Type of cake" id="catChips"></div>
+          </div>
+        </div>
+
+        <p class="menu-count" id="menuCount" aria-live="polite"></p>
+        <ul class="cakes" id="cakeList"></ul>
+        <noscript><p class="muted">Please turn on JavaScript to see the cakes and prices, or message us on WhatsApp.</p></noscript>
+        <p class="fine-note" id="menuNote">Eggless cakes cost a little more. Cupcakes and brownies come in boxes of 6. Pay by UPI, card or cash.</p>
+      </div>
+    </section>
+
+    <!-- ============ Custom cake order ============ -->
+    <section class="section" id="custom">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Order a cake</p>
+            <h2>Design your cake, see the price</h2>
+            <p class="lead-sm">Choose the flavour, size and message. The price adds up as you go, and your order opens in WhatsApp, ready to send.</p>
+          </div>
+        </div>
+
+        <ol class="steps reveal">
+          <li><span class="step-n" aria-hidden="true">1</span><span>Pick a flavour and size</span></li>
+          <li><span class="step-n" aria-hidden="true">2</span><span>Send the order on WhatsApp</span></li>
+          <li><span class="step-n" aria-hidden="true">3</span><span id="stepPay">Pay 50% by UPI to confirm</span></li>
+        </ol>
+
+        <form class="order" id="orderForm" novalidate>
+          <div class="order-fields">
+            <label class="field"><span class="field-label">Flavour</span>
+              <select class="input" name="flavour" id="ofFlavour"></select>
+            </label>
+
+            <div class="field">
+              <span class="field-label" id="ofSizeLabel">Size</span>
+              <div class="seg seg-wide" role="group" aria-labelledby="ofSizeLabel" id="ofSize"></div>
+              <span class="field-hint" id="ofSizeHint">Serves 12 to 15 people.</span>
+            </div>
+
+            <div class="field">
+              <label class="switch">
+                <input type="checkbox" name="eggless" id="ofEggless">
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-words"><span class="veg-mark" aria-hidden="true"></span>Make it eggless</span>
+              </label>
+              <span class="field-hint" id="ofEgglessHint">Adds ₹100 a kilo.</span>
+            </div>
+
+            <label class="field"><span class="field-label">Message on the cake <span class="opt">(optional)</span></span>
+              <input class="input" type="text" name="message" id="ofMessage" maxlength="30" autocomplete="off" placeholder="Happy Birthday Riya">
+              <span class="field-hint"><span id="ofMessageLeft">30</span> letters left</span>
+            </label>
+
+            <div class="field">
+              <span class="field-label" id="ofHowLabel">Pickup or delivery</span>
+              <div class="seg seg-wide" role="group" aria-labelledby="ofHowLabel" id="ofHow"></div>
+            </div>
+
+            <label class="field" id="ofAreaField"><span class="field-label">Deliver to</span>
+              <select class="input" name="area" id="ofArea"></select>
+            </label>
+
+            <label class="field field-half"><span class="field-label">Date you need it</span>
+              <input class="input" type="date" name="date" id="ofDate" required>
+              <span class="field-hint" id="ofDateHint">Order by 6 pm for a cake the next day.</span>
+            </label>
+
+            <label class="field field-half"><span class="field-label">Your name</span>
+              <input class="input" type="text" name="name" id="ofName" autocomplete="name" maxlength="60" required>
+            </label>
+          </div>
+
+          <!-- The live bill: a drawing of the cake with the message on it, and the price -->
+          <div class="order-card" data-spotlight>
+            <p class="order-kicker">Your cake</p>
+            <div class="cake-view" id="cakeView"></div>
+            <ul class="bill" id="bill"></ul>
+            <p class="bill-total"><span>Total</span><strong id="billTotal" class="num">₹1,000</strong></p>
+            <p class="bill-note" id="billNote">Pay ₹500 now by UPI to confirm. The rest when you get the cake.</p>
+            <p class="form-error" id="orderError" role="alert" hidden>Please type your name so we know who is ordering.</p>
+            <button class="btn btn-brand btn-block btn-3d" data-ripple type="submit">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send order on WhatsApp</span>
+            </button>
+            <p class="fine">Nothing is stored on this website. We confirm the price on WhatsApp.</p>
+            <p class="sr-only" id="billLive" aria-live="polite"></p>
+          </div>
+        </form>
+        <noscript><p class="muted">Please turn on JavaScript to use the order form, or send your order on WhatsApp.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ============ Delivery ============ -->
+    <section class="section section-tint" id="delivery">
+      <div class="wrap deliv-grid">
+        <div>
+          <p class="kicker">Delivery</p>
+          <h2>Delivered to your door, still fresh</h2>
+          <p class="lead-sm">We deliver in our own boxes that keep the cake cold and straight. Or pick it up from the shop for free.</p>
+          <ul class="deliv-points">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg><span id="freeOver">Free delivery on orders above ₹1,500</span></li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span>Pick a two-hour slot when you order</span></li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-bag"/></svg><span>Pickup from the shop is always free</span></li>
+          </ul>
+        </div>
+        <div class="areas-card reveal">
+          <ul class="areas" id="areaList"></ul>
+          <noscript><p class="muted">We deliver across Bandra, Khar, Santacruz, Juhu and nearby. Ask on WhatsApp for the charge.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Timings ============ -->
+    <section class="section" id="timings">
+      <div class="wrap hours-grid">
+        <div>
+          <p class="kicker">Timings</p>
+          <h2>Fresh from the oven, every day</h2>
+          <p class="lead-sm">Bread and croissants come out at 9 am. Cakes for the next day can be ordered until <span id="cutoffText">6 pm</span>.</p>
+          <p class="open-badge" data-open-badge="full" role="status"><span class="dot" aria-hidden="true"></span><span data-open-text>See the hours in the table</span></p>
+        </div>
+        <div class="hours-card reveal">
+          <ul class="hours-list" id="hoursList"></ul>
+          <noscript><p class="muted">Every day, 9 am to 10 pm.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Photo cake band ============ -->
+    <section class="band-wrap" id="photo-cake">
+      <div class="wrap">
+        <div class="band reveal" data-tilt data-tilt-max="3" data-tilt-lift="0" data-spotlight>
+          <div>
+            <p class="kicker kicker-light">Theme and photo cakes</p>
+            <h2>Saw a cake you love? Send us the photo</h2>
+            <p>Cartoon cakes, wedding tiers and photo prints. Send a picture on WhatsApp and we reply with the price the same day.</p>
+          </div>
+          <a class="btn btn-light btn-3d" data-ripple data-wa="photo" target="_blank" rel="noopener" href="#contact">
+            <svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg><span>Send a photo</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Gallery ============ -->
+    <section class="section" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Gallery</p>
+            <h2>From our counter</h2>
+          </div>
+          <p class="muted">Tap a photo to see it larger</p>
+        </div>
+        <ul class="shots" id="shots"></ul>
+      </div>
+    </section>
+
+    <!-- ============ Questions ============ -->
+    <section class="section section-flush" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="kicker">Questions</p>
+          <h2>Things people ask us</h2>
+          <p class="lead-sm">Not here? Ask on WhatsApp and we will answer the same day.</p>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Can every cake be made eggless?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p id="faqEggless">Most of them, yes. Cakes marked Eggless on the menu can be made without egg for ₹100 more a kilo. Our cupcakes and brownies are eggless at the same price.</p>
+          </details>
+          <details>
+            <summary>How early should I order?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p id="faqAdvance">Order by 6 pm for a cake the next day. Theme cakes, tiers and photo cakes need two to three days.</p>
+          </details>
+          <details>
+            <summary>How do I pay?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p id="faqPay">Pay 50% by UPI when you order, and the rest by UPI, card or cash when you get the cake.</p>
+          </details>
+          <details>
+            <summary>Do you make photo cakes?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes. Send the photo on WhatsApp. We print it on an edible sheet and place it on the cake of your choice.</p>
+          </details>
+          <details>
+            <summary>When will my cake be delivered?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>You pick a two-hour slot when you order, between 10 am and 9 pm. We message you on WhatsApp when the cake leaves the shop.</p>
+          </details>
+          <details>
+            <summary>Do you have sugar-free cakes?<svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></summary>
+            <p>Yes, with one day's notice. We make the chocolate and the fresh fruit cakes with a sugar-free sweetener. Ask for the price on WhatsApp.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section class="section section-dark" id="contact" data-spotlight>
+      <div class="wrap contact-grid">
+        <div>
+          <p class="kicker kicker-light">Contact</p>
+          <h2>Tell us what you are planning</h2>
+          <p class="lead-sm">Fill this in and it opens WhatsApp with your message ready. Nothing is stored on this website.</p>
+          <form class="form" id="enquiry" novalidate>
+            <label><span>Your name</span>
+              <input type="text" name="name" autocomplete="name" maxlength="60" required>
+            </label>
+            <label><span>I am looking for</span>
+              <select name="need" id="needSelect">
+                <option>A birthday cake</option>
+              </select>
+            </label>
+            <label><span>Best time to reach me <span class="opt">(optional)</span></span>
+              <select name="time">
+                <option value="">Any time</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+                <option>Evening</option>
+              </select>
+            </label>
+            <p class="form-error" id="formError" role="alert" hidden>Please type your name so we know who is asking.</p>
+            <button class="btn btn-light btn-block btn-3d" data-ripple type="submit">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Send on WhatsApp</span>
+            </button>
+          </form>
+        </div>
+        <div class="contact-card">
+          <h3 data-firm>Crumb &amp; Cocoa</h3>
+          <ul class="contact-list">
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+              <a class="contact-phone" data-call href="#contact"><span data-phone-text>98XXX XXXXX</span></a>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+              <span data-address-line><span data-address>Shop 4, Sea Breeze Apartments</span>, <span data-area>Bandra West</span>, <span data-city>Mumbai</span><span class="contact-note" data-landmark>5 minutes from the station</span></span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>
+              <span class="contact-hours">
+                <span id="contactHours">Every day: 9 am to 10 pm.</span>
+                <span class="open-badge open-badge-sm" data-open-badge="short" hidden><span class="dot" aria-hidden="true"></span><span data-open-text></span></span>
+              </span>
+            </li>
+            <li>
+              <svg class="ico" aria-hidden="true"><use href="#i-upi"/></svg>
+              <span>UPI, card and cash</span>
+            </li>
+          </ul>
+          <div class="map">
+            <iframe id="map" title="Map of the area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <p class="foot-brand"><svg class="foot-mark" aria-hidden="true"><use href="#i-logo"/></svg><span><span data-firm>Crumb &amp; Cocoa</span>, <span data-area>Bandra West</span>, <span data-city>Mumbai</span></span></p>
+      <p class="muted-on-dark">All details on this page are examples. Website by <span id="builtBy">Oxzi</span>.</p>
+    </div>
+  </footer>
+
+  <!-- Phone only: call and WhatsApp always within thumb reach -->
+  <nav class="dock" aria-label="Quick contact">
+    <a class="dock-btn" data-call href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span></a>
+    <a class="dock-btn dock-wa btn-3d" data-ripple data-wa="order" target="_blank" rel="noopener" href="#contact"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg><span>Order on WhatsApp</span></a>
+  </nav>
+
+  <!-- Larger photo: opens when you tap a gallery photo -->
+  <dialog class="lightbox" id="lightbox" aria-label="Gallery photo">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close photo">
+      <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+    <div class="lb-stage" id="lbStage">
+      <img id="lbImg" alt="" width="1200" height="800">
+      <button class="gal-btn gal-prev" id="lbPrev" type="button" aria-label="Previous photo"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <button class="gal-btn gal-next" id="lbNext" type="button" aria-label="Next photo"><svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+    <div class="lb-bar" aria-live="polite">
+      <p id="lbCaption"></p>
+      <span id="lbCount"></span>
+    </div>
+  </dialog>
+
+  <script src="../lead.js"></script>
+  <script src="../owner.js"></script>
+  <script src="app.js"></script>
+  <!-- Shared motion and 3D kit. It must come last. -->
+  <script src="../fx/fx.js"></script>
+</body>
+</html>
