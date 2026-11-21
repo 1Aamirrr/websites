@@ -1,0 +1,2 @@
+// Real details of Lucknow Zaika from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Lucknow Zaika", "area": "Kurla West", "city": "Mumbai", "phone": "919768077799", "rating": "4.1", "reviews": "557", "address": "Lal Bahadur Shastri Marg, near Peninsula Park, Ambedkar Nagar, Kurla West, Kurla, W, Mumbai 400070", "hours": {"Mon": [["12:00", "01:30"]], "Tue": [["12:00", "01:30"]], "Wed": [["12:00", "01:30"]], "Thu": [["12:00", "01:30"]], "Fri": [["12:00", "01:30"]], "Sat": [["12:00", "01:30"]], "Sun": [["12:00", "01:30"]]}};

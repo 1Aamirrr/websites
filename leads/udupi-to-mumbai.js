@@ -1,0 +1,2 @@
+// Real details of Udupi to Mumbai from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Udupi to Mumbai", "area": "Vile Parle East", "city": "Mumbai", "phone": "918291044999", "rating": "4.1", "reviews": "1579", "address": "Subhash Rd, Vishnu Prasad Society, Navpada, Vile Parle East, Vile Parle, Mumbai 400057", "hours": {"Mon": [["08:00", "23:00"]], "Tue": [["08:00", "23:00"]], "Wed": [["08:00", "23:00"]], "Thu": [["08:00", "23:00"]], "Fri": [["08:00", "23:00"]], "Sat": [["08:00", "23:00"]], "Sun": [["08:00", "23:00"]]}};

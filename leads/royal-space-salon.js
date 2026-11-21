@@ -1,0 +1,2 @@
+// Real details of Royal Space Salon from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Royal Space Salon", "area": "Dadar West", "city": "Mumbai", "phone": "919820163663", "rating": "5.0", "reviews": "20", "address": "15, Shree Sai Vismay CHS, Khedgalli, Kakasaheb Gadgil Marg, below Central Bank, W, Dadar, Mumbai 400025", "hours": {"Mon": [["10:00", "21:00"]], "Tue": [["10:00", "21:00"]], "Wed": [["10:00", "21:00"]], "Thu": [["10:00", "21:00"]], "Fri": [["10:00", "21:00"]], "Sat": [["10:00", "21:00"]], "Sun": [["10:00", "21:00"]]}};

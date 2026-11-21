@@ -1,0 +1,2 @@
+// Real details of Savi Dental Clinic from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Savi Dental Clinic", "area": "Vashi", "city": "Navi Mumbai", "phone": "919820718029", "rating": "4.9", "reviews": "214", "address": "Shop No.21, Big Splash, Main Road, near Girnar Tea, Sector 17, Vashi, Navi Mumbai 400703", "hours": {"Mon": [["11:30", "20:00"]], "Tue": [["11:30", "20:00"]], "Wed": [["11:30", "20:00"]], "Thu": [["11:30", "20:00"]], "Fri": [["11:30", "20:00"]], "Sat": [["11:30", "20:00"]], "Sun": [["11:30", "20:00"]]}};

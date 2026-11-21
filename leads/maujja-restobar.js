@@ -1,0 +1,2 @@
+// Real details of Maujja Restobar from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Maujja Restobar", "area": "Vile Parle East", "city": "Mumbai", "phone": "919920119911", "rating": "4.2", "reviews": "815", "address": "E Square, Subhash Rd, Vishnu Prasad Society, Navpada, Netaji Subhash Nagar, Vile Parle, Mumbai 400057", "hours": {"Mon": [["11:00", "00:30"]], "Tue": [["11:00", "00:30"]], "Wed": [["11:00", "00:30"]], "Thu": [["11:00", "00:30"]], "Fri": [["11:00", "00:30"]], "Sat": [["11:00", "00:30"]], "Sun": [["11:00", "00:30"]]}};

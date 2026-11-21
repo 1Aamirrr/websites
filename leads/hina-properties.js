@@ -1,0 +1,2 @@
+// Real details of Hina Properties from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Hina Properties", "area": "Santacruz West", "city": "Mumbai", "phone": "919322274791", "rating": "4.9", "reviews": "8", "address": "Maheshwar Darshan, Swami Vivekanand Rd, Bajaj Wadi, Railway Colony, Santacruz (West), Mumbai 400054", "hours": {"Mon": [["11:00", "17:00"]], "Tue": [["11:00", "17:00"]], "Wed": [["11:00", "17:00"]], "Thu": [["11:00", "17:00"]], "Fri": [["11:00", "17:00"]], "Sat": [["11:00", "17:00"]], "Sun": [["11:00", "17:00"]]}};

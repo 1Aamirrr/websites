@@ -1,0 +1,2 @@
+// Real details of Cafe Sahil from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Cafe Sahil", "area": "Kurla West", "city": "Mumbai", "phone": "918452051330", "rating": "4.2", "reviews": "554", "address": "63, Lal Bahadur Shastri Marg, Christian Gaon, Kurla West, Mumbai 400070", "hours": {"Mon": [["07:00", "23:59"]], "Tue": [["07:00", "23:59"]], "Wed": [["07:00", "23:59"]], "Thu": [["07:00", "23:59"]], "Fri": [["07:00", "23:59"]], "Sat": [["07:00", "23:59"]], "Sun": [["07:00", "23:59"]]}};

@@ -26,6 +26,11 @@
     builtByWhatsApp: (window.OWNER && window.OWNER.whatsapp) || ""
   };
 
+  // One business's real details: ?id=... loads ../leads/<id>.js (see ../lead.js).
+  const LEAD = window.LEAD || {};
+  if (LEAD.phone) { CONFIG.phone = LEAD.phone; }
+
+
   // ---------------------------------------------------------------------
   // 2. OPENING HOURS. One line per day: [opens, closes] on the 24-hour clock.
   //    "06:00" is 6 am and "23:00" is 11 pm.
@@ -42,6 +47,9 @@
     Sat: ["06:00", "23:00"],
     Sun: ["07:00", "14:00"]
   };
+  if (LEAD.hours) {
+    Object.keys(HOURS).forEach((d) => { const s = LEAD.hours[d]; HOURS[d] = s && s.length ? [s[0][0], s[s.length - 1][1]] : null; });
+  }
 
   // ---------------------------------------------------------------------
   // 3. MEMBERSHIP PLANS.
@@ -200,12 +208,12 @@
   // ---------------------------------------------------------------------
   const params = new URLSearchParams(window.location.search);
   const clean = (value, max) => String(value || "").replace(/[<>"]/g, "").replace(/\s+/g, " ").trim().slice(0, max);
-  const customFirm = clean(params.get("firm"), 60);
-  const customArea = clean(params.get("area"), 40);
+  const customFirm = clean(params.get("firm") || LEAD.firm, 60);
+  const customArea = clean(params.get("area") || LEAD.area, 40);
   const firm = customFirm || CONFIG.firm;
   const area = customArea || CONFIG.area;
   // ?city=Dubai: for a business outside Mumbai
-  const city = clean(params.get("city"), 30) || CONFIG.city;
+  const city = clean(params.get("city") || LEAD.city, 30) || CONFIG.city;
   const phone = CONFIG.phone.replace(/\D/g, "");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -395,6 +403,7 @@
 
   const hoursText = (dayIndex) => {
     const hours = hoursOf(dayIndex);
+    if (hours && hours.end - hours.start >= DAY) { return "Open 24 hours"; }
     return hours ? clock(hours.start) + " to " + clock(hours.end) : "Closed";
   };
 
@@ -432,7 +441,7 @@
     tally[key] = (tally[key] || 0) + 1;
     if (!usual || tally[key] > tally[usual.key]) { usual = { key: key, start: hours.start, end: hours.end }; }
   });
-  if (usual) { $("#trustHours").textContent = "Open " + clock(usual.start) + " to " + clock(usual.end); }
+  if (usual) { $("#trustHours").textContent = usual.end - usual.start >= DAY ? "Open 24 hours, 7 days" : "Open " + clock(usual.start) + " to " + clock(usual.end); }
 
   const paintOpen = () => {
     const now = new Date();

@@ -1,0 +1,2 @@
+// Real details of Lavish Look from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Lavish Look", "area": "Chembur", "city": "Mumbai", "phone": "919819067966", "rating": "4.9", "reviews": "169", "address": "Shop No.8, Ground Floor, Acharya Shopping & Commercial Centre, CG Rd, near Cubic Mall, Borla, Union Park, Chembur, Mumbai 400074", "hours": {"Mon": [["10:30", "21:00"]], "Tue": [["10:30", "21:00"]], "Wed": [["10:30", "21:00"]], "Thu": [["10:30", "21:00"]], "Fri": [["10:30", "21:00"]], "Sat": [["10:30", "21:00"]], "Sun": [["10:30", "21:00"]]}};

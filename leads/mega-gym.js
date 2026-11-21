@@ -1,0 +1,2 @@
+// Real details of Mega Gym from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Mega Gym", "area": "Mira Road", "city": "Mumbai", "phone": "918108202846", "rating": "4.5", "reviews": "223", "address": "1ST FLOOR, RASSAZ MALL, opp. UMRAO HOSPITAL, Mira Road East, Mumbai 401107", "hours": {"Mon": [["08:00", "00:00"]], "Tue": [["08:00", "00:00"]], "Wed": [["08:00", "00:00"]], "Thu": [["08:00", "00:00"]], "Fri": [["08:00", "00:00"]], "Sat": [["08:00", "00:00"]], "Sun": [["08:00", "00:00"]]}};

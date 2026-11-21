@@ -1,0 +1,2 @@
+// Real details of Property Lounge from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Property Lounge", "area": "Santacruz West", "city": "Mumbai", "phone": "919833299494", "rating": "4.7", "reviews": "7", "address": "Hi Life Mall, G-44, Phirozshah Mehta Rd, Railway Colony, Santacruz (West), Mumbai 400054", "hours": {"Mon": [["10:00", "18:30"]], "Tue": [["10:00", "18:30"]], "Wed": [["10:00", "18:30"]], "Thu": [["10:00", "18:30"]], "Fri": [["10:00", "18:30"]], "Sat": [["10:00", "18:30"]], "Sun": [["10:00", "18:30"]]}};

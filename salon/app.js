@@ -18,6 +18,11 @@
     builtByWhatsApp: (window.OWNER && window.OWNER.whatsapp) || ""
   };
 
+  // One business's real details: ?id=... loads ../leads/<id>.js (see ../lead.js).
+  const LEAD = window.LEAD || {};
+  if (LEAD.phone) { CONFIG.phone = LEAD.phone; }
+
+
   // ---------------------------------------------------------------------
   // 2. TIMINGS. One line per day, in 24-hour time ("21:00" is 9 pm).
   //    For a weekly off write:  { day: "Tuesday", closed: true }
@@ -32,6 +37,12 @@
     { day: "Saturday", open: "09:00", close: "21:30" },
     { day: "Sunday", open: "09:00", close: "20:00" }
   ];
+  if (LEAD.hours) {
+    HOURS.forEach((row, i) => {
+      const s = LEAD.hours[row.day.slice(0, 3)];
+      HOURS[i] = s && s.length ? { day: row.day, open: s[0][0], close: s[s.length - 1][1] } : { day: row.day, closed: true };
+    });
+  }
 
   // Appointment times a visitor can pick, in 24-hour time.
   // A time is offered only on days when the salon is open at that time.
@@ -171,12 +182,12 @@
   // ---------------------------------------------------------------------
   const params = new URLSearchParams(window.location.search);
   const clean = (value, max) => String(value || "").replace(/[<>"]/g, "").replace(/\s+/g, " ").trim().slice(0, max);
-  const customFirm = clean(params.get("firm"), 60);
-  const customArea = clean(params.get("area"), 40);
+  const customFirm = clean(params.get("firm") || LEAD.firm, 60);
+  const customArea = clean(params.get("area") || LEAD.area, 40);
   const firm = customFirm || CONFIG.firm;
   const area = customArea || CONFIG.area;
   // ?city=Dubai: for a business outside Mumbai
-  const city = clean(params.get("city"), 30) || CONFIG.city;
+  const city = clean(params.get("city") || LEAD.city, 30) || CONFIG.city;
   const phone = CONFIG.phone.replace(/\D/g, "");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

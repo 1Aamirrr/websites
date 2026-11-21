@@ -1,0 +1,2 @@
+// Real details of Sainath Real Estate Agency from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Sainath Real Estate Agency", "area": "Panvel", "city": "Navi Mumbai", "phone": "917738118988", "rating": "4.9", "reviews": "113", "address": "Shop No-7, Ashapura Residency, Plot No-25, Sector 6, Kamothe, Panvel 410209", "hours": {"Mon": [["09:00", "21:00"]], "Tue": [["09:00", "21:00"]], "Wed": [["09:00", "21:00"]], "Thu": [["09:00", "21:00"]], "Fri": [["09:00", "21:00"]], "Sat": [["09:00", "21:00"]], "Sun": [["09:00", "21:00"]]}};

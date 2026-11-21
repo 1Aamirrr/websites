@@ -1,0 +1,2 @@
+// Real details of For Life Fitness from its public Google listing, for its sample page.
+window.LEAD = {"firm": "For Life Fitness", "area": "Kharghar", "city": "Navi Mumbai", "phone": "918693839862", "rating": "4.8", "reviews": "495", "address": "1ST Floor, Garden Court, Sector 35E, Kharghar, Panvel 410210", "hours": {"Mon": [["00:00", "00:00"]], "Tue": [["00:00", "00:00"]], "Wed": [["00:00", "00:00"]], "Thu": [["00:00", "00:00"]], "Fri": [["00:00", "00:00"]], "Sat": [["00:00", "00:00"]], "Sun": [["00:00", "00:00"]]}};

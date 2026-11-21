@@ -19,6 +19,11 @@
     builtByWhatsApp: (window.OWNER && window.OWNER.whatsapp) || ""
   };
 
+  // One business's real details: ?id=... loads ../leads/<id>.js (see ../lead.js).
+  const LEAD = window.LEAD || {};
+  if (LEAD.phone) { CONFIG.phone = LEAD.phone; }
+
+
   // ---------------------------------------------------------------------
   // 2. LISTINGS. One block per property.
   //    deal: "sale" or "rent".   kind: "1", "2", "3" (BHK) or "commercial".
@@ -115,12 +120,12 @@
   // ---------------------------------------------------------------------
   const params = new URLSearchParams(window.location.search);
   const clean = (value, max) => String(value || "").replace(/[<>"]/g, "").replace(/\s+/g, " ").trim().slice(0, max);
-  const customFirm = clean(params.get("firm"), 60);
-  const customArea = clean(params.get("area"), 40);
+  const customFirm = clean(params.get("firm") || LEAD.firm, 60);
+  const customArea = clean(params.get("area") || LEAD.area, 40);
   const firm = customFirm || CONFIG.firm;
   const area = customArea || CONFIG.area;
   // ?city=Dubai: for a business outside Mumbai
-  const city = clean(params.get("city"), 30) || CONFIG.city;
+  const city = clean(params.get("city") || LEAD.city, 30) || CONFIG.city;
   const phone = CONFIG.phone.replace(/\D/g, "");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

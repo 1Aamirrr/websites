@@ -1,0 +1,2 @@
+// Real details of Golden Family Restaurant from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Golden Family Restaurant", "area": "Borivali East", "city": "Mumbai", "phone": "918334833473", "rating": "4.3", "reviews": "166", "address": "Neelakash, Carter Rd Number 5, Chinchpada, Borivali East, Mumbai 400066", "hours": {"Mon": [["11:08", "00:30"]], "Tue": [["11:08", "00:30"]], "Wed": [["11:08", "00:30"]], "Thu": [["11:08", "00:30"]], "Fri": [["11:08", "00:30"]], "Sat": [["11:08", "00:30"]], "Sun": [["11:08", "00:30"]]}};
