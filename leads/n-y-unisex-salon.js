@@ -1,0 +1,2 @@
+// Real details of N&Y Unisex Salon from its public Google listing, for its sample page.
+window.LEAD = {"firm": "N&Y Unisex Salon", "area": "Chembur", "city": "Mumbai", "phone": "919920646044", "rating": "4.7", "reviews": "229", "address": "CG Rd, next to POST OFFICE EXTENSION, behind Vicky typist, Camp(E), Chembur Colony, EAST, Chembur, Mumbai 400074", "hours": {"Mon": [["10:00", "21:00"]], "Tue": [["10:00", "21:00"]], "Wed": [["10:00", "21:00"]], "Thu": [["10:00", "21:00"]], "Fri": [["10:00", "21:00"]], "Sat": [["10:00", "21:00"]], "Sun": [["10:00", "21:00"]]}};

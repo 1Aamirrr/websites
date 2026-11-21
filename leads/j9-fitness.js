@@ -1,0 +1,2 @@
+// Real details of J9 Fitness from its public Google listing, for its sample page.
+window.LEAD = {"firm": "J9 Fitness", "area": "Kandivali West", "city": "Mumbai", "phone": "919920914999", "rating": "4.6", "reviews": "276", "address": "2nd Floor, V-souk Mall, 90 Feet Rd, above Croma Mahavir Nagar - Kandivali, Mahavir Nagar, Kandivali West, Mumbai 400067", "hours": {"Mon": [["06:00", "23:00"]], "Tue": [["06:00", "23:00"]], "Wed": [["06:00", "23:00"]], "Thu": [["06:00", "23:00"]], "Fri": [["06:00", "23:00"]], "Sat": [["06:00", "23:00"]], "Sun": [["06:00", "23:00"]]}};

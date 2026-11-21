@@ -1,0 +1,2 @@
+// Real details of White Orchid from its public Google listing, for its sample page.
+window.LEAD = {"firm": "White Orchid", "area": "Chembur", "city": "Mumbai", "phone": "918433548432", "rating": "4.9", "reviews": "22", "address": "3 & 4, Central colony, Central park chembur mumbai Shop no, Shell Colony Rd, Chembur, Mumbai 400071", "hours": {"Mon": [["10:00", "21:00"]], "Tue": [["10:00", "21:00"]], "Wed": [["10:00", "21:00"]], "Thu": [["10:00", "21:00"]], "Fri": [["10:00", "21:00"]], "Sat": [["10:00", "21:00"]], "Sun": [["10:00", "21:00"]]}};

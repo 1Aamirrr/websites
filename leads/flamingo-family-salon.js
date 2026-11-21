@@ -1,0 +1,2 @@
+// Real details of Flamingo Family Salon from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Flamingo Family Salon", "area": "Thane", "city": "Maharashtra", "phone": "919967882312", "rating": "4.7", "reviews": "124", "address": "shop no. 3, VIHANG HILLS, Ghodbunder Rd, Bhayandarpada, w, Thane 400615", "hours": {"Mon": [["09:00", "21:00"]], "Tue": [["09:00", "21:00"]], "Wed": [["09:00", "21:00"]], "Thu": [["09:00", "21:00"]], "Fri": [["09:00", "21:00"]], "Sat": [["09:00", "21:00"]], "Sun": [["09:00", "21:00"]]}};

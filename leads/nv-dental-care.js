@@ -1,0 +1,2 @@
+// Real details of NV Dental Care from its public Google listing, for its sample page.
+window.LEAD = {"firm": "NV Dental Care", "area": "Ghatkopar East", "city": "Mumbai", "phone": "919326705068", "rating": "5.0", "reviews": "131", "address": "Raigad Chowk, Shop Number 3,Jai Ambe Dham CHS Janta Society Marg, Ghatkopar East, Mumbai 400077", "hours": {"Mon": [["10:00", "21:30"]], "Tue": [["10:00", "21:30"]], "Wed": [["10:00", "21:30"]], "Thu": [["10:00", "21:30"]], "Fri": [["10:00", "21:30"]], "Sat": [["10:00", "21:30"]], "Sun": [["10:00", "21:30"]]}};

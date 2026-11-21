@@ -1,0 +1,2 @@
+// Real details of Kaizen Fitness Studio from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Kaizen Fitness Studio", "area": "Kharghar", "city": "Navi Mumbai", "phone": "919167905653", "rating": "4.9", "reviews": "84", "address": "2nd Floor, Siddhivinayak Residency, Shop no. 22, Sector 20, Kharghar, Panvel 410210", "hours": {"Mon": [["05:00", "23:00"]], "Tue": [["05:00", "23:00"]], "Wed": [["05:00", "23:00"]], "Thu": [["05:00", "23:00"]], "Fri": [["05:00", "23:00"]], "Sat": [["05:00", "23:00"]], "Sun": [["05:00", "23:00"]]}};

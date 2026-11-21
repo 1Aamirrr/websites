@@ -1,0 +1,2 @@
+// Real details of Maa Dental Clinic from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Maa Dental Clinic", "area": "Vashi", "city": "Navi Mumbai", "phone": "919819327552", "rating": "4.7", "reviews": "72", "address": "Juhu Nagar, Sector 9, Vashi, Navi Mumbai 400703", "hours": {"Mon": [["10:00", "21:00"]], "Tue": [["10:00", "21:00"]], "Wed": [["10:00", "21:00"]], "Thu": [["10:00", "21:00"]], "Fri": [["10:00", "21:00"]], "Sat": [["10:00", "21:00"]], "Sun": [["10:00", "21:00"]]}};

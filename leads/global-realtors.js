@@ -1,0 +1,2 @@
+// Real details of Global Realtors from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Global Realtors", "area": "Mulund West", "city": "Mumbai", "phone": "919820613238", "rating": "4.7", "reviews": "26", "address": "Mandakini CHS, A/33, Cypress Rd, near Model Town, Model Town, Govardhan Nagar, Mulund West, Mumbai 400080", "hours": {"Mon": [["10:00", "19:00"]], "Tue": [["10:00", "19:00"]], "Wed": [["10:00", "19:00"]], "Thu": [["10:00", "19:00"]], "Fri": [["10:00", "19:00"]], "Sat": [["10:00", "19:00"]], "Sun": [["10:00", "19:00"]]}};

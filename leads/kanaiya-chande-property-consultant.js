@@ -1,0 +1,2 @@
+// Real details of Kanaiya Chande Property Consultant from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Kanaiya Chande Property Consultant", "area": "Mulund West", "city": "Mumbai", "phone": "919892563293", "rating": "4.8", "reviews": "18", "address": "Purushottam Kheraj Rd, Mulund West, Mumbai 400080", "hours": {"Mon": [["09:00", "21:00"]], "Tue": [["09:00", "21:00"]], "Wed": [["09:00", "21:00"]], "Thu": [["09:00", "21:00"]], "Fri": [["09:00", "21:00"]], "Sat": [["09:00", "21:00"]], "Sun": [["09:00", "21:00"]]}};

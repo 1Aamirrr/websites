@@ -1,0 +1,2 @@
+// Real details of HK Realtors from its public Google listing, for its sample page.
+window.LEAD = {"firm": "HK Realtors", "area": "Mulund West", "city": "Mumbai", "phone": "918898864446", "rating": "5.0", "reviews": "25", "address": "Shop no.2, Om Sainath Vijaynagar Bldg, RHB Rd, Mulund West, Mumbai 400080", "hours": {"Mon": [["10:00", "19:30"]], "Tue": [["10:00", "19:30"]], "Wed": [["10:00", "19:30"]], "Thu": [["10:00", "19:30"]], "Fri": [["10:00", "19:30"]], "Sat": [["10:00", "19:30"]], "Sun": [["10:00", "19:30"]]}};

@@ -866,8 +866,8 @@
   const ratingLists = $$("[data-google-rating]");
   if (ratingLists.length) {
     const query = new URLSearchParams(window.location.search);
-    const rawRating = String(query.get("rating") || "").trim();
-    const rawReviews = String(query.get("reviews") || "").replace(/[\s,]/g, "");
+    const rawRating = String(query.get("rating") || (window.LEAD && window.LEAD.rating) || "").trim();
+    const rawReviews = String(query.get("reviews") || (window.LEAD && window.LEAD.reviews) || "").replace(/[\s,]/g, "");
     const stars = /^[1-5](\.\d{1,2})?$/.test(rawRating) ? Math.floor(parseFloat(rawRating) * 10 + 1e-9) / 10 : 0;  // 4.95 shows 4.9, never rounded up
     const count = /^\d{1,7}$/.test(rawReviews) ? parseInt(rawReviews, 10) : 0;
     if (stars >= 1 && stars <= 5) {

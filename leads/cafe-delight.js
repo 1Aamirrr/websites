@@ -1,0 +1,2 @@
+// Real details of Cafe Delight from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Cafe Delight", "area": "Borivali East", "city": "Mumbai", "phone": "919321992556", "rating": "4.1", "reviews": "355", "address": "6VJ5+HX5, Mahatma Gandhi Rd, opposite S.T. Depot, Chinchpada, Borivali East, Mumbai 400066", "hours": {"Mon": [["11:00", "01:00"]], "Tue": [["11:00", "01:00"]], "Wed": [["11:00", "01:00"]], "Thu": [["11:00", "01:00"]], "Fri": [["11:00", "01:00"]], "Sat": [["11:00", "01:00"]], "Sun": [["11:00", "01:00"]]}};

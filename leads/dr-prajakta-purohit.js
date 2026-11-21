@@ -1,0 +1,2 @@
+// Real details of Dr. Prajakta Purohit from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Dr. Prajakta Purohit", "area": "Thane West", "city": "Thane", "phone": "918082502288", "rating": "4.9", "reviews": "299", "address": "Police Station Lane, Prashant Nagar, Vishnu Nagar, Naupada, Thane West, Thane 400602", "hours": {"Mon": [["10:00", "21:00"]], "Tue": [["10:00", "21:00"]], "Wed": [["10:00", "21:00"]], "Thu": [["10:00", "21:00"]], "Fri": [["10:00", "21:00"]], "Sat": [["10:00", "21:00"]], "Sun": [["10:00", "21:00"]]}};

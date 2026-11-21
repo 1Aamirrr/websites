@@ -1,0 +1,2 @@
+// Real details of Gymholics Gym from its public Google listing, for its sample page.
+window.LEAD = {"firm": "Gymholics Gym", "area": "Kandivali West", "city": "Mumbai", "phone": "917506817151", "rating": "4.5", "reviews": "408", "address": "Praful Chs, Mathuradas Road, above lijjat papad, Kandivali, Bhagat Colony, Kandivali West, Mumbai 400067", "hours": {"Mon": [["06:00", "23:00"]], "Tue": [["06:00", "23:00"]], "Wed": [["06:00", "23:00"]], "Thu": [["06:00", "23:00"]], "Fri": [["06:00", "23:00"]], "Sat": [["06:00", "23:00"]], "Sun": [["06:00", "23:00"]]}};
